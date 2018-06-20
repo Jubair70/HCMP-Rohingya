@@ -1,9 +1,11 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from onadata.apps.planmodule import views, views_api
+from onadata.apps.hcmp_report import views
 
 urlpatterns = patterns('',
-                       url(r'^$', views.index, name='index'),
+    url(r'^tb_hiv/$', views.tb_hiv, name='tb_hiv'),
+    url(r'^get_geodata/(?P<tag>[^/]+)/$', views.get_geodata, name='get_geodata'),
+    url(r'^get_tb_hiv_data_table/$', views.get_tb_hiv_data_table, name='get_tb_hiv_data_table'),
 
 
                        )

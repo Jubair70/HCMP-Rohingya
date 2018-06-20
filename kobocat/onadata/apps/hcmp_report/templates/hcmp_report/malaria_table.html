@@ -1,0 +1,32 @@
+<table cellspacing="0" border="1">
+	<colgroup span="5" width="107"></colgroup>
+	<colgroup width="84"></colgroup>
+	<colgroup width="89"></colgroup>
+	<colgroup width="142"></colgroup>
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" colspan=8 height="21" align="center" valign=bottom bgcolor="#D6DCE4"><font face="Calibri" color="#000000">Malaria</font></td>
+		</tr>
+	<tr>
+		<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="21" align="left" valign=bottom bgcolor="#BDD7EE"><font face="Calibri" color="#000000">Particulars</font></td>
+		<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#BDD7EE"><font face="Calibri" color="#000000">M</font></td>
+		<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#BDD7EE"><font face="Calibri" color="#000000">F</font></td>
+		<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#BDD7EE"><font face="Calibri" color="#000000">&lt;5M</font></td>
+		<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#BDD7EE"><font face="Calibri" color="#000000">&lt;5F</font></td>
+		<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#BDD7EE"><font face="Calibri" color="#000000">&gt;5M</font></td>
+		<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#BDD7EE"><font face="Calibri" color="#000000">&gt;5F</font></td>
+		<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#BDD7EE"><font face="Calibri" color="#000000">T</font></td>
+	</tr>
+    {% for data in dataset  %}
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="21" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">{{ data.particulars }}</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">{{ data.male }}</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">{{ data.female }}</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">{{ data.less_5_male }}</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">{{ data.less_5_female }}</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">{{ data.greater_5_male }}</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">{{ data.greater_5_female }}</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Cambria">{{ data.total }}</font></td>
+	</tr>
+    {% endfor %}
+
+</table>

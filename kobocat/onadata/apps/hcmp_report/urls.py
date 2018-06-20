@@ -6,6 +6,8 @@ urlpatterns = patterns('',
     url(r'^tb_hiv/$', views.tb_hiv, name='tb_hiv'),
     url(r'^get_geodata/(?P<tag>[^/]+)/$', views.get_geodata, name='get_geodata'),
     url(r'^get_tb_hiv_data_table/$', views.get_tb_hiv_data_table, name='get_tb_hiv_data_table'),
+    url(r'^malaria/$', views.malaria, name='tb_hiv'),
+    url(r'^get_malaria_data_table/$', views.get_malaria_data_table, name='get_malaria_data_table'),
 
 
                        )

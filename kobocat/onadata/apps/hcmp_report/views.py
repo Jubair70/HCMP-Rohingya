@@ -146,10 +146,47 @@ def get_tb_hiv_data_table(request):
 
 def get_geodata(request,tag):
     id = request.POST.get('id')
-    q = "select id,name from "+tag+" where id =" + id
+    if tag=='branch':
+        query_part = " where upazila_id = "+id
+    elif tag == 'camp':
+        query_part = " where branch_id = " + id
+    q = "select id,name from "+tag+""+query_part
     list = makeTableList(q)
     jsonlist = json.dumps({'data_list': list}, default=decimal_date_default)
 
     return HttpResponse(jsonlist)
+
+
+@login_required
+def malaria(request):
+    q = "select id,name from upazila"
+    upz_list = makeTableList(q)
+    return render(request, 'hcmp_report/malaria.html',{'upz_list':upz_list})
+
+
+def get_malaria_data_table(request):
+    date_range = request.POST.get('date_range')
+    upazila = request.POST.get('upazila')
+    branch = request.POST.get('branch')
+    camp = request.POST.get('camp')
+    q = "select * from get_rpt_health_maleria('06/01/2018','06/28/2018','','','')"
+    dataset = __db_fetch_values_dict(q)
+    datalist=[]
+    data_dict = {}
+    for temp in dataset:
+        data_dict['particulars'] = temp['_particulars']
+        data_dict['male'] = temp['_male']
+        data_dict['female'] = temp['_female']
+        data_dict['less_5_male'] = temp['_less_5_male']
+        data_dict['less_5_female'] = temp['_less_5_female']
+        data_dict['greater_5_male'] = temp['_greater_5_male']
+        data_dict['greater_5_female'] = temp['_greate_5_female']
+        data_dict['total'] = temp['_total']
+        datalist.append(data_dict.copy())
+        data_dict.clear()
+
+    return render(request, 'hcmp_report/malaria_table.html',{'dataset':datalist})
+
+
 
 

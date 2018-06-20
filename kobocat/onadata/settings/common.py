@@ -251,6 +251,7 @@ INSTALLED_APPS = (
     'onadata.apps.audit_log',
     'crispy_forms',
     'onadata.apps.bgmodule',
+    'onadata.apps.hcmp_report'
 )
 
 OAUTH2_PROVIDER = {

@@ -8,6 +8,8 @@ urlpatterns = patterns('',
     url(r'^get_tb_hiv_data_table/$', views.get_tb_hiv_data_table, name='get_tb_hiv_data_table'),
     url(r'^malaria/$', views.malaria, name='tb_hiv'),
     url(r'^get_malaria_data_table/$', views.get_malaria_data_table, name='get_malaria_data_table'),
+    url(r'^immunization/$', views.immunization, name='immunization'),
+    url(r'^get_immunization_data_table/$', views.get_immunization_data_table, name='get_immunization_data_table'),
 
 
                        )

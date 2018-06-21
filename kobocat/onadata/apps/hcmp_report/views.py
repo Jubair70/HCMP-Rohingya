@@ -113,6 +113,21 @@ def decimal_date_default(obj):
     raise TypeError
 
 
+
+def get_geodata(request,tag):
+    id = request.POST.get('id')
+    if tag=='branch':
+        query_part = " where upazila_id = "+id
+    elif tag == 'camp':
+        query_part = " where branch_id = " + id
+    q = "select id,name from "+tag+""+query_part
+    list = makeTableList(q)
+    jsonlist = json.dumps({'data_list': list}, default=decimal_date_default)
+
+    return HttpResponse(jsonlist)
+
+
+
 @login_required
 def tb_hiv(request):
     q = "select id,name from upazila"
@@ -144,17 +159,6 @@ def get_tb_hiv_data_table(request):
     return render(request, 'hcmp_report/tb_hiv_table.html',{'dataset':datalist})
 
 
-def get_geodata(request,tag):
-    id = request.POST.get('id')
-    if tag=='branch':
-        query_part = " where upazila_id = "+id
-    elif tag == 'camp':
-        query_part = " where branch_id = " + id
-    q = "select id,name from "+tag+""+query_part
-    list = makeTableList(q)
-    jsonlist = json.dumps({'data_list': list}, default=decimal_date_default)
-
-    return HttpResponse(jsonlist)
 
 
 @login_required
@@ -188,5 +192,28 @@ def get_malaria_data_table(request):
     return render(request, 'hcmp_report/malaria_table.html',{'dataset':datalist})
 
 
+@login_required
+def immunization(request):
+    q = "select id,name from upazila"
+    upz_list = makeTableList(q)
+    return render(request, 'hcmp_report/immunization.html', {'upz_list': upz_list})
+
+
+def get_immunization_data_table(request):
+    date_range = request.POST.get('date_range')
+    upazila = request.POST.get('upazila')
+    branch = request.POST.get('branch')
+    camp = request.POST.get('camp')
+    q = "select * from get_rpt_health_immunization('06/01/2018','06/28/2018','','','')"
+    dataset = __db_fetch_values_dict(q)
+    datalist=[]
+    data_dict = {}
+    for temp in dataset:
+        data_dict['particulars'] = temp['_particulars']
+        data_dict['total'] = temp['_total']
+        datalist.append(data_dict.copy())
+        data_dict.clear()
+
+    return render(request, 'hcmp_report/immunization_table.html',{'dataset':datalist})
 
 

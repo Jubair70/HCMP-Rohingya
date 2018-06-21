@@ -10,6 +10,9 @@ urlpatterns = patterns('',
     url(r'^get_malaria_data_table/$', views.get_malaria_data_table, name='get_malaria_data_table'),
     url(r'^immunization/$', views.immunization, name='immunization'),
     url(r'^get_immunization_data_table/$', views.get_immunization_data_table, name='get_immunization_data_table'),
-
+    url(r'^outbreak_disease/$', views.outbreak_disease, name='outbreak_disease'),
+    url(r'^get_outbreak_disease_data_table/$', views.get_outbreak_disease_data_table, name='get_outbreak_disease_data_table'),
+    url(r'^health/$', views.health, name='health'),
+    url(r'^get_health_data_table/$', views.get_health_data_table, name='get_health_data_table'),
 
                        )

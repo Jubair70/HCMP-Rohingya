@@ -6,29 +6,6 @@
     <link rel="stylesheet" type="text/css" media="all" href="https://www.jqueryscript.net/demo/Date-Range-Picker-For-Twitter-Bootstrap/daterangepicker.css" />
     <style type="text/css">
 
-    table { /*border-collapse:separate;
-        border-top: 3px solid grey; */}
-        td, th {
-            margin:0;
-            border-top-width:0px;
-        }
-        .access_table {
-            overflow-x:scroll;
-            /*margin-left:13em;*/
-            overflow-y:scroll;
-            padding-bottom:1px;
-            height: 400px;
-        }
-        .header-column-custom {
-            /*width: 13em;*/
-            position:absolute;
-            /*left:22px;
-            top:auto;
-            border-right: 0px none black;
-            border-top-width:3px; /*only relevant for first row*/
-
-        }
-
 
     </style>
 {% endblock %}
@@ -41,7 +18,7 @@
         <div class ="col-md-12" style = "">
 
                 <div class="page-header align">
-                   <h4>Health</h4>
+                   <h4>Outbreak Disease</h4>
                 </div>
 
                   <div class="row">
@@ -89,7 +66,7 @@
                 <div class="caption"><i class="fa fa-adn"></i></div>
             </div>
             <div class="portlet-body">
-                <div id="health_table_block">
+                <div id="outbreak_disease_table_block">
 
                 </div>
             </div>
@@ -118,9 +95,9 @@
     <!--datatable ended-->
         <script>
         $(document).ready(function () {
-            $('#date_range').daterangepicker({ showDropdowns: true});
+            $('#date_range').daterangepicker();
             //var s_type = ''
-            get_health_data_table()
+            get_outbreak_disease_data_table()
             //getfilterCriteria();
             /*$('.datepicker').datepicker({
                     format: 'yyyy-mm-dd',
@@ -138,15 +115,15 @@
             camp = $('#camp').val();
         }
 
-        function get_health_data_table(){
+        function get_outbreak_disease_data_table(){
             getfilterCriteria();
             console.log("date::"+date_range+",upazila::"+upazila+",branch"+branch);
             $.ajax({
-                url: '/hcmp_report/get_health_data_table/',
+                url: '/hcmp_report/get_outbreak_disease_data_table/',
                 type: 'POST',
                 data:{ 'date_range' : date_range,'upazila':upazila,'branch': branch,'camp':camp},
                 success: function (data) {
-                    $("#health_table_block").html(data);
+                    $("#outbreak_disease_table_block").html(data);
 
 
                 }
@@ -155,7 +132,7 @@
     }
 
     $(document).on("click", "#filter_data_list", function () {
-                  get_health_data_table();
+                  get_outbreak_disease_data_table();
     });
 
          /*geo hierarchy loading*/

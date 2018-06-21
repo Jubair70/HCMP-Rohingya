@@ -217,3 +217,53 @@ def get_immunization_data_table(request):
     return render(request, 'hcmp_report/immunization_table.html',{'dataset':datalist})
 
 
+@login_required
+def outbreak_disease(request):
+    q = "select id,name from upazila"
+    upz_list = makeTableList(q)
+    return render(request, 'hcmp_report/outbreak_disease.html', {'upz_list': upz_list})
+
+
+def get_outbreak_disease_data_table(request):
+    date_range = request.POST.get('date_range')
+    upazila = request.POST.get('upazila')
+    branch = request.POST.get('branch')
+    camp = request.POST.get('camp')
+    q = "select * from get_rpt_health_immunization('06/01/2018','06/28/2018','','','')"
+    dataset = __db_fetch_values_dict(q)
+    datalist=[]
+    data_dict = {}
+    for temp in dataset:
+        data_dict['particulars'] = temp['_particulars']
+        data_dict['total'] = temp['_total']
+        datalist.append(data_dict.copy())
+        data_dict.clear()
+
+    return render(request, 'hcmp_report/outbreak_disease_table.html',{'dataset':datalist})
+
+
+@login_required
+def health(request):
+    q = "select id,name from upazila"
+    upz_list = makeTableList(q)
+    return render(request, 'hcmp_report/health.html', {'upz_list': upz_list})
+
+
+def get_health_data_table(request):
+    date_range = request.POST.get('date_range')
+    upazila = request.POST.get('upazila')
+    branch = request.POST.get('branch')
+    camp = request.POST.get('camp')
+    q = "select * from get_rpt_health_immunization('06/01/2018','06/28/2018','','','')"
+    dataset = __db_fetch_values_dict(q)
+    datalist=[]
+    data_dict = {}
+    for temp in dataset:
+        data_dict['particulars'] = temp['_particulars']
+        data_dict['total'] = temp['_total']
+        datalist.append(data_dict.copy())
+        data_dict.clear()
+
+    return render(request, 'hcmp_report/health_table.html',{'dataset':datalist})
+
+

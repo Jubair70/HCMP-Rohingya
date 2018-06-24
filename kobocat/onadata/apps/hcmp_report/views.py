@@ -256,7 +256,73 @@ def get_health_data_table(request):
     camp = request.POST.get('camp')
     q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
     dataset = __db_fetch_values_dict(q)
-
     return render(request, 'hcmp_report/health_table.html',{'dataset':dataset})
 
 
+@login_required
+def wfp_nutrition(request):
+    q = "select id,name from upazila"
+    upz_list = makeTableList(q)
+    return render(request, 'hcmp_report/wfp_nutrition.html', {'upz_list': upz_list})
+
+
+def get_wfp_nutrition_data_table(request):
+    date_range = request.POST.get('date_range')
+    upazila = request.POST.get('upazila')
+    branch = request.POST.get('branch')
+    camp = request.POST.get('camp')
+    q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
+    dataset = __db_fetch_values_dict(q)
+    return render(request, 'hcmp_report/wfp_nutrition_table.html',{'dataset':dataset})
+
+
+
+@login_required
+def unicef_nutrition(request):
+    q = "select id,name from upazila"
+    upz_list = makeTableList(q)
+    return render(request, 'hcmp_report/unicef_nutrition.html', {'upz_list': upz_list})
+
+
+def get_unicef_nutrition_data_table(request):
+    date_range = request.POST.get('date_range')
+    upazila = request.POST.get('upazila')
+    branch = request.POST.get('branch')
+    camp = request.POST.get('camp')
+    q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
+    dataset = __db_fetch_values_dict(q)
+    return render(request, 'hcmp_report/unicef_nutrition_table.html',{'dataset':dataset})
+
+
+@login_required
+def education_student(request):
+    q = "select id,name from upazila"
+    upz_list = makeTableList(q)
+    return render(request, 'hcmp_report/education_student.html', {'upz_list': upz_list})
+
+
+def get_education_student_data_table(request):
+    date_range = request.POST.get('date_range')
+    upazila = request.POST.get('upazila')
+    branch = request.POST.get('branch')
+    camp = request.POST.get('camp')
+    q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
+    dataset = __db_fetch_values_dict(q)
+    return render(request, 'hcmp_report/education_student_table.html',{'dataset':dataset})
+
+
+@login_required
+def education_teacher(request):
+    q = "select id,name from upazila"
+    upz_list = makeTableList(q)
+    return render(request, 'hcmp_report/education_teacher.html', {'upz_list': upz_list})
+
+
+def get_education_teacher_data_table(request):
+    date_range = request.POST.get('date_range')
+    upazila = request.POST.get('upazila')
+    branch = request.POST.get('branch')
+    camp = request.POST.get('camp')
+    q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
+    dataset = __db_fetch_values_dict(q)
+    return render(request, 'hcmp_report/education_teacher_table.html',{'dataset':dataset})

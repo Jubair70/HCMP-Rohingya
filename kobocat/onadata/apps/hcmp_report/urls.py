@@ -14,5 +14,16 @@ urlpatterns = patterns('',
     url(r'^get_outbreak_disease_data_table/$', views.get_outbreak_disease_data_table, name='get_outbreak_disease_data_table'),
     url(r'^health/$', views.health, name='health'),
     url(r'^get_health_data_table/$', views.get_health_data_table, name='get_health_data_table'),
+    url(r'^wfp_nutrition/$', views.wfp_nutrition, name='wfp_nutrition'),
+    url(r'^get_wfp_nutrition_data_table/$', views.get_wfp_nutrition_data_table, name='get_wfp_nutrition_data_table'),
+    url(r'^unicef_nutrition/$', views.unicef_nutrition, name='unicef_nutrition'),
+    url(r'^get_unicef_nutrition_data_table/$', views.get_unicef_nutrition_data_table, name='get_unicef_nutrition_data_table'),
+    url(r'^education_student/$', views.education_student, name='education_student'),
+    url(r'^get_education_student_data_table/$', views.get_education_student_data_table, name='get_education_student_data_table'),
+    url(r'^education_teacher/$', views.education_teacher, name='education_teacher'),
+    url(r'^get_education_teacher_data_table/$', views.get_education_teacher_data_table, name='get_education_teacher_data_table'),
+
+
+
 
                        )

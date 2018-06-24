@@ -254,16 +254,9 @@ def get_health_data_table(request):
     upazila = request.POST.get('upazila')
     branch = request.POST.get('branch')
     camp = request.POST.get('camp')
-    q = "select * from get_rpt_health_immunization('06/01/2018','06/28/2018','','','')"
+    q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
     dataset = __db_fetch_values_dict(q)
-    datalist=[]
-    data_dict = {}
-    for temp in dataset:
-        data_dict['particulars'] = temp['_particulars']
-        data_dict['total'] = temp['_total']
-        datalist.append(data_dict.copy())
-        data_dict.clear()
 
-    return render(request, 'hcmp_report/health_table.html',{'dataset':datalist})
+    return render(request, 'hcmp_report/health_table.html',{'dataset':dataset})
 
 

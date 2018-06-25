@@ -41,7 +41,7 @@
         <div class ="col-md-12" style = "">
 
                 <div class="page-header align">
-                   <h4>Wash</h4>
+                   <h4>Agriculture- Host Community</h4>
                 </div>
 
                   <div class="row">
@@ -90,16 +90,15 @@
             </div>
             <div class="portlet-body">
                 <div class = "col-md-12" >
-                <button onclick="tableToExcel('wash_table', 'List of activities', 'wash_report.xls')"  class = "btn btn-primary" style = "margin-bottom: 10px;"><span style="color: #F5F5F5;" class="glyphicon glyphicon-circle-arrow-down"></span> Export</button>
+                <button onclick="tableToExcel('agriculture_host_table', 'List of activities', 'agriculture_host_report.xls')"  class = "btn btn-primary" style = "margin-bottom: 10px;"><span style="color: #F5F5F5;" class="glyphicon glyphicon-circle-arrow-down"></span> Export</button>
             </div>
-                <div id="wash_table_block">
+                <div id="agriculture_host_table_block">
 
                 </div>
             </div>
         </div>
 
     </div> <!--end tab content-->
-
 
 
 {% endblock %}
@@ -123,7 +122,7 @@
         $(document).ready(function () {
             $('#date_range').daterangepicker({ showDropdowns: true});
             //var s_type = ''
-            get_wash_data_table()
+            get_agriculture_host_data_table()
             //getfilterCriteria();
             /*$('.datepicker').datepicker({
                     format: 'yyyy-mm-dd',
@@ -141,15 +140,15 @@
             camp = $('#camp').val();
         }
 
-        function get_wash_data_table(){
+        function get_agriculture_host_data_table(){
             getfilterCriteria();
             console.log("date::"+date_range+",upazila::"+upazila+",branch"+branch);
             $.ajax({
-                url: '/hcmp_report/get_wash_data_table/',
+                url: '/hcmp_report/get_agriculture_host_data_table/',
                 type: 'POST',
                 data:{ 'date_range' : date_range,'upazila':upazila,'branch': branch,'camp':camp},
                 success: function (data) {
-                    $("#wash_table_block").html(data);
+                    $("#agriculture_host_table_block").html(data);
 
 
                 }
@@ -158,7 +157,7 @@
     }
 
     $(document).on("click", "#filter_data_list", function () {
-                  get_wash_data_table();
+                  get_agriculture_host_data_table();
     });
 
          /*geo hierarchy loading*/

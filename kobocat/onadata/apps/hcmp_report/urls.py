@@ -24,8 +24,10 @@ urlpatterns = patterns('',
     url(r'^get_education_teacher_data_table/$', views.get_education_teacher_data_table, name='get_education_teacher_data_table'),
     url(r'^wash/$', views.wash, name='wash'),
     url(r'^get_wash_data_table/$', views.get_wash_data_table, name='get_wash_data_table'),
-
-
+    url(r'^agriculture_fdmn/$', views.agriculture_fdmn, name='agriculture_fdmn'),
+    url(r'^get_agriculture_fdmn_data_table/$', views.get_agriculture_fdmn_data_table, name='get_agriculture_fdmn_data_table'),
+    url(r'^agriculture_host/$', views.agriculture_host, name='agriculture_host'),
+    url(r'^get_agriculture_host_data_table/$', views.get_agriculture_host_data_table, name='get_agriculture_host_data_table'),
 
 
 

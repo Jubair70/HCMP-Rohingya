@@ -28,6 +28,12 @@ urlpatterns = patterns('',
     url(r'^get_agriculture_fdmn_data_table/$', views.get_agriculture_fdmn_data_table, name='get_agriculture_fdmn_data_table'),
     url(r'^agriculture_host/$', views.agriculture_host, name='agriculture_host'),
     url(r'^get_agriculture_host_data_table/$', views.get_agriculture_host_data_table, name='get_agriculture_host_data_table'),
+    url(r'^cfs_fdmn/$', views.cfs_fdmn, name='cfs_fdmn'),
+    url(r'^get_cfs_fdmn_data_table/$', views.get_cfs_fdmn_data_table, name='get_cfs_fdmn_data_table'),
+    url(r'^cfs_host/$', views.cfs_host, name='cfs_host'),
+    url(r'^get_cfs_host_data_table/$', views.get_cfs_host_data_table, name='get_cfs_host_data_table'),
+
+
 
 
 

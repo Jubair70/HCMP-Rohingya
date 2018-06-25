@@ -120,6 +120,8 @@ def get_geodata(request,tag):
         query_part = " where upazila_id = "+id
     elif tag == 'camp':
         query_part = " where branch_id = " + id
+    else:
+        query_part = ""
     q = "select id,name from "+tag+""+query_part
     list = makeTableList(q)
     jsonlist = json.dumps({'data_list': list}, default=decimal_date_default)
@@ -382,4 +384,39 @@ def get_agriculture_host_data_table(request):
     q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/agriculture_host_table.html',{'dataset':dataset})
+
+
+
+@login_required
+def cfs_fdmn(request):
+    q = "select id,name from upazila"
+    upz_list = makeTableList(q)
+    return render(request, 'hcmp_report/cfs_fdmn.html', {'upz_list': upz_list})
+
+
+def get_cfs_fdmn_data_table(request):
+    date_range = request.POST.get('date_range')
+    upazila = request.POST.get('upazila')
+    branch = request.POST.get('branch')
+    camp = request.POST.get('camp')
+    q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
+    dataset = __db_fetch_values_dict(q)
+    return render(request, 'hcmp_report/cfs_fdmn_table.html',{'dataset':dataset})
+
+
+@login_required
+def cfs_host(request):
+    q = "select id,name from upazila"
+    upz_list = makeTableList(q)
+    return render(request, 'hcmp_report/cfs_host.html', {'upz_list': upz_list})
+
+
+def get_cfs_host_data_table(request):
+    date_range = request.POST.get('date_range')
+    upazila = request.POST.get('upazila')
+    branch = request.POST.get('branch')
+    camp = request.POST.get('camp')
+    q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
+    dataset = __db_fetch_values_dict(q)
+    return render(request, 'hcmp_report/cfs_host_table.html',{'dataset':dataset})
 

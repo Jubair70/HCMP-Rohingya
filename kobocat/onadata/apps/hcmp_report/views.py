@@ -420,3 +420,38 @@ def get_cfs_host_data_table(request):
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/cfs_host_table.html',{'dataset':dataset})
 
+
+
+@login_required
+def cfs_summary(request):
+    q = "select id,name from upazila"
+    upz_list = makeTableList(q)
+    return render(request, 'hcmp_report/cfs_summary.html', {'upz_list': upz_list})
+
+
+def get_cfs_summary_data_table(request):
+    date_range = request.POST.get('date_range')
+    upazila = request.POST.get('upazila')
+    branch = request.POST.get('branch')
+    camp = request.POST.get('camp')
+    q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
+    dataset = __db_fetch_values_dict(q)
+    return render(request, 'hcmp_report/cfs_summary_table.html',{'dataset':dataset})
+
+
+
+@login_required
+def pss(request):
+    q = "select id,name from upazila"
+    upz_list = makeTableList(q)
+    return render(request, 'hcmp_report/pss.html', {'upz_list': upz_list})
+
+
+def get_pss_data_table(request):
+    date_range = request.POST.get('date_range')
+    upazila = request.POST.get('upazila')
+    branch = request.POST.get('branch')
+    camp = request.POST.get('camp')
+    q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
+    dataset = __db_fetch_values_dict(q)
+    return render(request, 'hcmp_report/pss_table.html',{'dataset':dataset})

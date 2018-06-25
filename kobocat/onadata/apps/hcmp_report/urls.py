@@ -32,6 +32,10 @@ urlpatterns = patterns('',
     url(r'^get_cfs_fdmn_data_table/$', views.get_cfs_fdmn_data_table, name='get_cfs_fdmn_data_table'),
     url(r'^cfs_host/$', views.cfs_host, name='cfs_host'),
     url(r'^get_cfs_host_data_table/$', views.get_cfs_host_data_table, name='get_cfs_host_data_table'),
+    url(r'^cfs_summary/$', views.cfs_summary, name='cfs_summary/'),
+    url(r'^get_cfs_summary_data_table/$', views.get_cfs_summary_data_table, name='get_cfs_summary_data_table'),
+    url(r'^pss/$', views.pss, name='pss'),
+    url(r'^get_pss_data_table/$', views.get_pss_data_table, name='get_pss_data_table'),
 
 
 

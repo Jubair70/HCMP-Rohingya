@@ -254,9 +254,13 @@ def get_health_data_table(request):
     upazila = request.POST.get('upazila')
     branch = request.POST.get('branch')
     camp = request.POST.get('camp')
-    q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
-    dataset = __db_fetch_values_dict(q)
-    return render(request, 'hcmp_report/health_table.html',{'dataset':dataset})
+    #1st report
+    q_1 = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
+    dataset_1 = __db_fetch_values_dict(q_1)
+    #2nd report
+    q_2 = "select * from get_rpt_health_2('06/01/2018','06/28/2018','','','')"
+    dataset_2 = __db_fetch_values_dict(q_2)
+    return render(request, 'hcmp_report/health_table.html',{'dataset':dataset_1,'dataset_2' : dataset_2})
 
 
 @login_required

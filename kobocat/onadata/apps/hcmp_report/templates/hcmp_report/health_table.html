@@ -1,7 +1,8 @@
 <div style="overflow-x: auto" class="access_table">
 
+<button onclick="tableToExcel('health_table1', 'List of activities', 'health_report1.xls')"  class = "btn btn-primary" style = "margin-bottom: 10px;"><span style="color: #F5F5F5;" class="glyphicon glyphicon-circle-arrow-down"></span> Export</button>
 
-<table cellspacing="0" border="1">
+<table id ="health_table1" cellspacing="0" border="1">
 	<colgroup width="123"></colgroup>
 	<colgroup span="15" width="85"></colgroup>
 	<tr>
@@ -32,40 +33,42 @@
     {% for data in dataset %}
 	<tr>
 		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000"  align="left" valign=bottom bgcolor="#EAD1DC"><font face="Calibri" color="#000000">{{ data.rparticulars }} </font></td>
-		<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor=""><font face="Calibri" color="#000000">{{ data.rboth_cho }}</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor=""><font face="Calibri" color="#000000">{{ data.rboth_phc }}</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor=""><font face="Calibri" color="#000000">{{ data.rboth_total }}</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor=""><font face="Calibri" color="#000000">{% if  data.rcho_less5m == None  %}{% else %} {{ data.rcho_less5m }}{% endif %}</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor=""><font face="Calibri" color="#000000">{% if  data.rcho_less5f == None  %}{% else %} {{ data.rcho_less5f}}{% endif %}</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor=""><font face="Calibri" color="#000000">{% if  data.rcho_greateh5m == None  %}{% else %}{{ data.rcho_greateh5m }}{% endif %}</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor=""><font face="Calibri" color="#000000">{% if  data.rcho_greater5f == None  %}{% else %}{{ data.rcho_greater5f}}{% endif %}</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor=""><font face="Calibri" color="#000000">{% if  data.rphc_less5m == None  %}{% else %}{{ data.rphc_less5m }}{% endif %}</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor=""><font face="Calibri" color="#000000">{% if  data.rphc_less5f == None  %}{% else %}{{ data.rphc_less5f }}{% endif %}</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor=""><font face="Calibri" color="#000000">{% if  data.rphc_greateh5m == None  %}{% else %}{{ data.rphc_greateh5m }}{% endif %}</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor=""><font face="Calibri" color="#000000">{% if  data.rphc_greater5f == None  %}{% else %}{{ data.rphc_greater5f }}{% endif %}</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor=""><font face="Calibri" color="#000000">{% if  data.rboth_less5m == None  %}{% else %}{{ data.rboth_less5m }}{% endif %}</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor=""><font face="Calibri" color="#000000">{% if  data.rboth_less5f == None  %}{% else %}{{ data.rboth_less5f }}{% endif %}</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor=""><font face="Calibri" color="#000000">{% if  data.rcho_greateh5m == None  %}{% else %}{{ data.rboth_greateh5m }}{% endif %}</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor=""><font face="Calibri" color="#000000">{% if  data.rboth_greater5f == None  %}{% else %}{{ data.rboth_greater5f }}{% endif %}</font></td>
+		<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{{ data.rboth_cho }}</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{{ data.rboth_phc }}</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{{ data.rboth_total }}</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{% if  data.rcho_less5m == None  %}{% else %} {{ data.rcho_less5m }}{% endif %}</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">{% if  data.rcho_less5f == None  %}{% else %} {{ data.rcho_less5f}}{% endif %}</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{% if  data.rcho_greateh5m == None  %}{% else %}{{ data.rcho_greateh5m }}{% endif %}</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{% if  data.rcho_greater5f == None  %}{% else %}{{ data.rcho_greater5f}}{% endif %}</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{% if  data.rphc_less5m == None  %}{% else %}{{ data.rphc_less5m }}{% endif %}</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{% if  data.rphc_less5f == None  %}{% else %}{{ data.rphc_less5f }}{% endif %}</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{% if  data.rphc_greateh5m == None  %}{% else %}{{ data.rphc_greateh5m }}{% endif %}</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{% if  data.rphc_greater5f == None  %}{% else %}{{ data.rphc_greater5f }}{% endif %}</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{% if  data.rboth_less5m == None  %}{% else %}{{ data.rboth_less5m }}{% endif %}</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{% if  data.rboth_less5f == None  %}{% else %}{{ data.rboth_less5f }}{% endif %}</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{% if  data.rcho_greateh5m == None  %}{% else %}{{ data.rboth_greateh5m }}{% endif %}</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{% if  data.rboth_greater5f == None  %}{% else %}{{ data.rboth_greater5f }}{% endif %}</font></td>
 	</tr>
     {% endfor %}
 
 </table>
-
-
+<a id="dlink" style="display:none;"></a>
 
 <div style="margin-bottom:30px;"></div>
-    <table cellspacing="0" border="1">
-	<colgroup span="14" width="85"></colgroup>
+<button onclick="tableToExcel2('health_table2', 'List of activities', 'health_report2.xls')"  class = "btn btn-primary" style = "margin-bottom: 10px;"><span style="color: #F5F5F5;" class="glyphicon glyphicon-circle-arrow-down"></span> Export</button>
+<table id="health_table2" cellspacing="0" border="1">
+	<colgroup span="16" width="85"></colgroup>
 	<tr>
-		<td style="border-bottom: 1px solid #000000" height="21" align="left" valign=bottom><font face="Cambria"><br></font></td>
-		<td style="border-bottom: 1px solid #000000" align="left" valign=bottom><font face="Cambria"><br></font></td>
+		<td height="20" align="left" valign=bottom bgcolor="#FFF2CC"><font face="Calibri" color="#000000"><br></font></td>
+		<td style="border-bottom: 1px solid #000000" colspan=3 align="left" valign=bottom bgcolor="#FFF2CC"><font face="Calibri" color="#000000">Both</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=4 align="left" valign=bottom bgcolor="#FFF2CC"><font face="Calibri" color="#000000">CHO</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=4 align="left" valign=bottom bgcolor="#FFF2CC"><font face="Calibri" color="#000000">PHC</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=4 align="left" valign=bottom bgcolor="#FFF2CC"><font face="Calibri" color="#000000">Both (Age+Sex)</font></td>
 		</tr>
 	<tr>
-		<td height="21" align="left" valign=bottom bgcolor="#F8CBAD"><font face="Calibri" color="#000000">PHC</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="20" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000"><br></font></td>
+		<td align="left" valign=bottom bgcolor="#F8CBAD"><font face="Calibri" color="#000000">CHO</font></td>
+		<td align="left" valign=bottom bgcolor="#F8CBAD"><font face="Calibri" color="#000000">PHC</font></td>
 		<td align="left" valign=bottom bgcolor="#F8CBAD"><font face="Calibri" color="#000000">Total</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2 align="left" valign=bottom bgcolor="#F8CBAD"><font face="Calibri" color="#000000">Adolescent (10-19)</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2 align="left" valign=bottom bgcolor="#F8CBAD"><font face="Calibri" color="#000000">Adult (Age 20+)</font></td>
@@ -75,7 +78,9 @@
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2 align="left" valign=bottom bgcolor="#F8CBAD"><font face="Calibri" color="#000000">Adult (Age 20+)</font></td>
 		</tr>
 	<tr>
-		<td height="21" align="left" valign=bottom bgcolor="#BDD6EE"><font face="Calibri" color="#000000"><br></font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="20" align="left" valign=bottom bgcolor="#BDD6EE"><font face="Calibri" color="#000000"><br></font></td>
+		<td align="left" valign=bottom bgcolor="#BDD6EE"><font face="Calibri" color="#000000"><br></font></td>
+		<td align="left" valign=bottom bgcolor="#BDD6EE"><font face="Calibri" color="#000000"><br></font></td>
 		<td align="left" valign=bottom bgcolor="#BDD6EE"><font face="Calibri" color="#000000"><br></font></td>
 		<td style="border-bottom: 1px solid #000000" align="left" valign=bottom bgcolor="#BDD6EE"><font face="Calibri" color="#000000">M</font></td>
 		<td align="left" valign=bottom bgcolor="#BDD6EE"><font color="#000000">F</font></td>
@@ -90,360 +95,29 @@
 		<td style="border-bottom: 1px solid #000000" align="left" valign=bottom bgcolor="#BDD6EE"><font face="Calibri" color="#000000">M</font></td>
 		<td align="left" valign=bottom bgcolor="#BDD6EE"><font color="#000000">F</font></td>
 	</tr>
-	<tr>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="54" align="left" valign=bottom bgcolor="#F2F2F2"><font face="Calibri" color="#000000">sum of PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">sum of CHO+PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td align="left" valign=bottom bgcolor="#FFFFFF"><font color="#000000">q132 where q4=1</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td align="left" valign=bottom bgcolor="#FFFFFF"><font color="#000000">q133 where q4=1</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td align="left" valign=bottom bgcolor="#FFFFFF"><font color="#000000">q132 where q4=2</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td align="left" valign=bottom bgcolor="#FFFFFF"><font color="#000000">q133 where q4=2</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">q132</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">q133</font></td>
-	</tr>
-	<tr>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="54" align="left" valign=bottom bgcolor="#0D0D0D"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">sum of CHO+PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td align="left" valign=bottom bgcolor="#FFFFFF"><font color="#000000">q134 where q4=1</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td align="left" valign=bottom bgcolor="#FFFFFF"><font color="#000000">q136 where q4=1</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000"><br></font></td>
-	</tr>
-	<tr>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="54" align="left" valign=bottom bgcolor="#0D0D0D"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">sum of CHO+PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td align="left" valign=bottom bgcolor="#FFFFFF"><font color="#000000">q135 where q4=1</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td align="left" valign=bottom bgcolor="#FFFFFF"><font color="#000000">q137 where q4=1</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000"><br></font></td>
-	</tr>
-	<tr>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="54" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">sum of PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">sum of CHO+PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td align="left" valign=bottom bgcolor="#FFFFFF"><font color="#000000">q138 where q4=2</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td align="left" valign=bottom bgcolor="#FFFFFF"><font color="#000000">q140 where q4=2</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font color="#000000">q138 </font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font color="#000000">q140</font></td>
-	</tr>
-	<tr>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="54" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">sum of PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">sum of CHO+PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td align="left" valign=bottom bgcolor="#FFFFFF"><font color="#000000">q139 where q4=2</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td align="left" valign=bottom bgcolor="#FFFFFF"><font color="#000000">q141 where q4=2</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font color="#000000">q139 </font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font color="#000000">q141 </font></td>
-	</tr>
-	<tr>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="20" align="left" valign=bottom bgcolor="#F2F2F2"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">q142+q143</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td align="left" valign=bottom><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td align="left" valign=bottom><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td align="left" valign=bottom><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td align="left" valign=bottom><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000"><br></font></td>
-	</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="21" align="left" valign=bottom bgcolor="#F2F2F2"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">q144</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td align="left" valign=bottom><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td align="left" valign=bottom><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000"><br></font></td>
-	</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="21" align="left" valign=bottom bgcolor="#F2F2F2"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">q145</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td align="left" valign=bottom><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td align="left" valign=bottom><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000"><br></font></td>
-	</tr>
-	<tr>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="54" align="left" valign=bottom bgcolor="#F2F2F2"><font face="Calibri" color="#000000">sum of PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">sum of CHO+PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q146 where q4=1</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q147 where q4=1</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q146 where q4=2</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q147 where q4=2</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">q146  </font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">q147  </font></td>
-	</tr>
-	<tr>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="54" align="left" valign=bottom bgcolor="#F2F2F2"><font face="Calibri" color="#000000">sum of PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">sum of CHO+PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q148 where q4=1</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q149 where q4=1</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q148 where q4=2</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q149 where q4=2</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">q148  </font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">q149  </font></td>
-	</tr>
-	<tr>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="54" align="left" valign=bottom bgcolor="#F2F2F2"><font face="Calibri" color="#000000">sum of PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">sum of CHO+PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q150 where q4=1</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q151 where q4=1</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q150 where q4=2</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q151 where q4=2</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">q150  </font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">q151  </font></td>
-	</tr>
-	<tr>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="54" align="left" valign=bottom bgcolor="#F2F2F2"><font face="Calibri" color="#000000">sum of PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">sum of CHO+PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q152 where q4=1</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q153 where q4=1</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q152 where q4=2</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q153 where q4=2</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">q152  </font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">q153  </font></td>
-	</tr>
-	<tr>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="54" align="left" valign=bottom bgcolor="#F2F2F2"><font face="Calibri" color="#000000">sum of PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">sum of CHO+PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q154 where q4=1</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q155 where q4=1</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q154 where q4=2</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q155 where q4=2</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">q154  </font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">q155  </font></td>
-	</tr>
-	<tr>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="54" align="left" valign=bottom bgcolor="#F2F2F2"><font face="Calibri" color="#000000">sum of PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">sum of CHO+PHC</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Cambria">q156 where q4=1</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Cambria">q157 where q4=1</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Cambria">q156 where q4=2</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Cambria">q157 where q4=2</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Cambria">q156  </font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Cambria">q157  </font></td>
-	</tr>
-	<tr>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="54" align="left" valign=bottom bgcolor="#F2F2F2"><font face="Calibri" color="#000000">sum of PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">sum of CHO+PHC</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q158 where q4=1</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q159 where q4=1</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q158 where q4=2</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q159 where q4=2</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">q158  </font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">q159  </font></td>
-	</tr>
-	<tr>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="54" align="left" valign=bottom bgcolor="#F2F2F2"><font face="Calibri" color="#000000">sum of PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">sum of CHO+PHC</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q160 where q4=1</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q161 where q4=1</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q160 where q4=2</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q161 where q4=2</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">q160  </font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">q161  </font></td>
-	</tr>
-	<tr>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="54" align="left" valign=bottom bgcolor="#F2F2F2"><font face="Calibri" color="#000000">sum of PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">sum of CHO+PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">q162 where q4=1</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">q163 where q4=1</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">q162 where q4=2</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">q163 where q4=2</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">q162  </font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">q163  </font></td>
-	</tr>
-	<tr>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="54" align="left" valign=bottom bgcolor="#F2F2F2"><font face="Calibri" color="#000000">sum of PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">sum of CHO+PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">q164 where q4=1</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">q164 where q4=2</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">q164  </font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000"><br></font></td>
-	</tr>
-	<tr>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="54" align="left" valign=bottom bgcolor="#F2F2F2"><font face="Calibri" color="#000000">sum of PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">sum of CHO+PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">q165 where q4=1</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">q166 where q4=1</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">q167 where q4=1</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">q165 where q4=2</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">q166 where q4=2</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">q167 where q4=2</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">q165  </font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">q166  </font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">q167  </font></td>
-	</tr>
-	<tr>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="54" align="left" valign=bottom bgcolor="#F2F2F2"><font face="Calibri" color="#000000">sum of PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">sum of CHO+PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q168 where q4=1</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q169 where q4=1</font></td>
-		<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q168 where q4=2</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q169 where q4=2</font></td>
-		<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">q168  </font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">q169  </font></td>
-	</tr>
-	<tr>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="54" align="left" valign=bottom bgcolor="#F2F2F2"><font face="Calibri" color="#000000">sum of PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">sum of CHO+PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q170 where q4=1</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">q171 where q4=1</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q172 where q4=1</font></td>
-		<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q170 where q4=2</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">q171 where q4=2</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">q172 where q4=2</font></td>
-		<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">q170  </font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">q171  </font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">q172  </font></td>
-	</tr>
-	<tr>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="54" align="left" valign=bottom bgcolor="#F2F2F2"><font face="Calibri" color="#000000">sum of PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">sum of CHO+PHC</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">q173 where q4=1</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">q174 where q4=1</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">q173 where q4=2</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">q174 where q4=2</font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">q173  </font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#000000"><font face="Calibri" color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#DDEBF7"><font face="Calibri" color="#000000">q174  </font></td>
-	</tr>
-</table>
 
+    {% for data_2 in dataset_2 %}
+	<tr>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="92" align="left" valign=bottom bgcolor="#F2F2F2"><font face="Calibri" color="#000000">{{ data_2.rparticulars }}</font></td>
+		<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{{ data_2.rboth_cho }}</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">{{ data_2.rboth_phc }}</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{{ data_2.rboth_total }}</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{% if  data_2.rcho_adolescentm == None  %}{% else %} {{ data_2.rcho_adolescentm }}{% endif %}<br></font></td>
+		<td align="left" valign=bottom ><font color="#000000">{{ data_2.rcho_adolescentf }}</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{% if  data_2.rcho_adultm == None  %}{% else %}{{ data_2.rcho_adultm }}{% endif %}<br></font></td>
+		<td align="left" valign=bottom ><font color="#000000">{{ data_2.rcho_adultf }}</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{% if  data_2.rphc_adolescentm == None  %}{% else %}{{ data_2.rphc_adolescentm }}{% endif %}<br></font></td>
+		<td align="left" valign=bottom ><font color="#000000">{{ data_2.rphc_adolescentf }}</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{% if  data_2.rphc_adultm == None  %}{% else %}{{ data_2.rphc_adultm}}{% endif %}<br></font></td>
+		<td align="left" valign=bottom ><font color="#000000">{{ data_2.rphc_adultf }}</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{% if  data_2.rboth_adolescentm == None  %}{% else %}{{ data_2.rboth_adolescentm}}{% endif %}<br></font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{% if  data_2.rboth_adolescentf == None  %}{% else %}{{ data_2.rboth_adolescentf }}{% endif %}</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{% if  data_2.rboth_adultm == None  %}{% else %}{{ data_2.rboth_adultm }}{% endif %}<br></font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{% if  data_2.rboth_adultf == None  %}{% else %}{{ data_2.rboth_adultf }}{% endif %}</font></td>
+	</tr>
+	{% endfor %}
+</table>
+<a id="dlink2" style="display:none;"></a>
 
 
 </div>

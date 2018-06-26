@@ -120,6 +120,10 @@ def get_geodata(request,tag):
         query_part = " where upazila_id = "+id
     elif tag == 'camp':
         query_part = " where branch_id = " + id
+    elif tag == 'unions':
+        query_part = " where upazila_id = " + id
+    elif tag == 'village':
+        query_part = " where union_id = " + id
     else:
         query_part = ""
     q = "select id,name from "+tag+""+query_part

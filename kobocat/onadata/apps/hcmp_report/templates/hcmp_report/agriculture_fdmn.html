@@ -59,17 +59,31 @@
                 </div>
                   <!--</div>-->
                   <!--<div class="row">-->
-                <div class="col-md-2"><label class="control-label">Branch</label>
+                <div class="col-md-3"><label class="control-label">Branch</label>
                     <select class="form-control" id = "branch">
                         <option value = '%'>All</option>
                     </select>
                 </div>
-                   <div class="col-md-2"><label class="control-label">Camp </label>
+                   <div class="col-md-3"><label class="control-label">Camp </label>
                     <select class="form-control" id = "camp">
                         <option value = '%'>All</option>
                     </select>
                 </div>
+                  </div>
+        <div class="row">
+            <div class="col-md-3"><label class="control-label"></label>
 
+                </div>
+            <div class="col-md-3"><label class="control-label">Union</label>
+                    <select class="form-control" id = "union">
+                        <option value = '%'>All</option>
+                    </select>
+                </div>
+                   <div class="col-md-3"><label class="control-label">Village </label>
+                    <select class="form-control" id = "village">
+                        <option value = '%'>All</option>
+                    </select>
+                </div>
                  <!--</div>-->
             <!--<div class="row">-->
                   <div class="col-md-2" style="margin-top:27px;">
@@ -160,7 +174,7 @@
                   get_agriculture_fdmn_data_table();
     });
 
-         /*geo hierarchy loading*/
+        /*geo hierarchy loading*/
          $(document).on("change", "#upazila", function () {
             upazila = $(this).val()
 
@@ -177,6 +191,23 @@
                     $('#branch').append('<option value = "%">All</option>')
                     for (var i = 0 ; i < list.data_list.length ; i++){
                          $('#branch').append('<option value = '+list.data_list[i][0]+'>'+list.data_list[i][1]+'</option>')
+                    }
+                }
+
+            });
+            $.ajax({
+                type: 'POST',
+                url: '/hcmp_report/get_geodata/unions/',
+                data: {
+
+                    'id': upazila,
+                },
+                success: function (data) {
+                   list = JSON.parse(data)
+                    $('#union').find('option').remove()
+                    $('#union').append('<option value = "%">All</option>')
+                    for (var i = 0 ; i < list.data_list.length ; i++){
+                         $('#union').append('<option value = '+list.data_list[i][0]+'>'+list.data_list[i][1]+'</option>')
                     }
                 }
 
@@ -207,6 +238,30 @@
             });
             //reDataTable()
         });
+         $(document).on("change", "#union", function () {
+            unions = $(this).val()
+            $.ajax({
+                type: 'POST',
+                url: '/hcmp_report/get_geodata/village/',
+                data: {
+
+                    'id': unions,
+                },
+                success: function (data) {
+                   list = JSON.parse(data)
+
+                    $('#village').find('option').remove()
+                    $('#village').append('<option value = "%">All </option>')
+
+                    for (var i = 0 ; i < list.data_list.length ; i++){
+                         $('#village').append('<option value = '+list.data_list[i][0]+'>'+list.data_list[i][1]+'</option>')
+                    }
+                }
+
+            });
+            //reDataTable()
+        });
+
 
 
      // Function for Excel

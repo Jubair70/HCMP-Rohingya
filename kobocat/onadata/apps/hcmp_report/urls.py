@@ -38,6 +38,14 @@ urlpatterns = patterns('',
     url(r'^get_pss_data_table/$', views.get_pss_data_table, name='get_pss_data_table'),
     url(r'^c4d/$', views.c4d, name='c4d'),
     url(r'^get_c4d_data_table/$', views.get_c4d_data_table, name='get_c4d_data_table'),
+    url(r'^gbv/$', views.gbv, name='gbv'),
+    url(r'^get_gbv_data_table/$', views.get_gbv_data_table, name='get_gbv_data_table'),
+url(r'^nfi_fdmn/$', views.nfi_fdmn, name='nfi_fdmn'),
+    url(r'^get_nfi_fdmn_data_table/$', views.get_nfi_fdmn_data_table, name='get_nfi_fdmn_data_table'),
+url(r'^nfi_host/$', views.nfi_host, name='nfi_host'),
+    url(r'^get_nfi_host_data_table/$', views.get_nfi_host_data_table, name='get_nfi_host_data_table'),
+url(r'^drr_nfi/$', views.drr_nfi, name='drr_nfi'),
+    url(r'^get_drr_nfi_data_table/$', views.get_drr_nfi_data_table, name='get_drr_nfi_data_table'),
 
 
 

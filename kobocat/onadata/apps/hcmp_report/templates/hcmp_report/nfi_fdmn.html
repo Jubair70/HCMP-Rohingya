@@ -1,0 +1,200 @@
+{% extends "base_test.html" %}
+{% block additional-headers %}
+    <link href="/static/css/datepicker.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="all" href="/static/css/Date-Range-Picker-For-Twitter-Bootstrap/daterangepicker.css" />
+    <style type="text/css">
+
+
+    </style>
+{% endblock %}
+
+{% block content %}
+
+
+    <div class="">
+
+        <div class ="col-md-12" style = "">
+
+                <div class="page-header align">
+                   <h4>Shelter/ NFI -FDMN</h4>
+                </div>
+
+                  <div class="row">
+                <div class="col-md-3"><label class="control-label">Date range </label>
+                    <input class = "form-control" readonly type="text" name="reservation" id="date_range" />
+
+                </div>
+                      <div class="col-md-3"><label class="control-label">Upazila </label>
+                            <select class="form-control" id = "upazila">
+                                <option value = "%" > All </option>
+                                {% for list in upz_list %}
+                                    <option value={{ list.0 }}>{{ list.1 }}</option>
+                                {% endfor %}
+                            </select>
+                </div>
+                  <!--</div>-->
+                  <!--<div class="row">-->
+                <div class="col-md-2"><label class="control-label">Branch</label>
+                    <select class="form-control" id = "branch">
+                        <option value = '%'>All</option>
+                    </select>
+                </div>
+                   <div class="col-md-2"><label class="control-label">Camp </label>
+                    <select class="form-control" id = "camp">
+                        <option value = '%'>All</option>
+                    </select>
+                </div>
+
+                 <!--</div>-->
+            <!--<div class="row">-->
+                  <div class="col-md-2" style="margin-top:27px;">
+                        <button id="filter_data_list"  class="btn red btn-md red-custom"  data-original-title="" title="">Search</button>
+                   </div>
+            <!--</div>-->
+                  </div>
+                <div class = "col-md-12" style="margin-bottom:15px;"></div>
+
+            </div>
+
+
+
+
+        <div class="portlet box red" style="margin-top:15px;">
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-adn"></i></div>
+            </div>
+            <div class="portlet-body">
+                <div class = "col-md-12" >
+                <button onclick="tableToExcel('nfi_fdmn_table', 'List of activities', 'nfi_fdmn_report.xls')"  class = "btn btn-primary" style = "margin-bottom: 10px;"><span style="color: #F5F5F5;" class="glyphicon glyphicon-circle-arrow-down"></span> Export</button>
+            </div>
+                <div id="nfi_fdmn_table_block">
+
+                </div>
+            </div>
+        </div>
+
+    </div> <!--end tab content-->
+
+
+
+{% endblock %}
+
+{% block additional-javascript %}
+    <script type="text/javascript" src="/static/js/Date-Range-Picker-For-Twitter-Bootstrap/date.js"></script>
+	<script type="text/javascript" src="/static/js/Date-Range-Picker-For-Twitter-Bootstrap/daterangepicker.js"></script>
+        <script>
+        $(document).ready(function () {
+            $('#date_range').daterangepicker({ showDropdowns: true,maxDate: new Date()});
+            //var s_type = ''
+            get_nfi_fdmn_data_table()
+            //getfilterCriteria();
+            /*$('.datepicker').datepicker({
+                    format: 'yyyy-mm-dd',
+                    todayHighlight: true
+            });
+            $('.datepicker').on('changeDate', function(ev){
+               $(this).datepicker('hide');
+            });*/
+
+        });
+        function getfilterCriteria() {
+            date_range = $('#date_range').val();
+            upazila = $('#upazila').val();
+            branch = $('#branch').val();
+            camp = $('#camp').val();
+        }
+
+        function get_nfi_fdmn_data_table(){
+            getfilterCriteria();
+            console.log("date::"+date_range+",upazila::"+upazila+",branch"+branch);
+            $.ajax({
+                url: '/hcmp_report/get_nfi_fdmn_data_table/',
+                type: 'POST',
+                data:{ 'date_range' : date_range,'upazila':upazila,'branch': branch,'camp':camp},
+                success: function (data) {
+                    $("#nfi_fdmn_table_block").html(data);
+
+
+                }
+            });
+    //}
+    }
+
+    $(document).on("click", "#filter_data_list", function () {
+                  get_nfi_fdmn_data_table();
+    });
+
+         /*geo hierarchy loading*/
+         $(document).on("change", "#upazila", function () {
+            upazila = $(this).val()
+
+            $.ajax({
+                type: 'POST',
+                url: '/hcmp_report/get_geodata/branch/',
+                data: {
+
+                    'id': upazila,
+                },
+                success: function (data) {
+                   list = JSON.parse(data)
+                    $('#branch').find('option').remove()
+                    $('#branch').append('<option value = "%">All</option>')
+                    for (var i = 0 ; i < list.data_list.length ; i++){
+                         $('#branch').append('<option value = '+list.data_list[i][0]+'>'+list.data_list[i][1]+'</option>')
+                    }
+                }
+
+            });
+
+            //reDataTable()
+        });
+        $(document).on("change", "#branch", function () {
+            branch = $(this).val()
+            $.ajax({
+                type: 'POST',
+                url: '/hcmp_report/get_geodata/camp/',
+                data: {
+
+                    'id': branch,
+                },
+                success: function (data) {
+                   list = JSON.parse(data)
+
+                    $('#camp').find('option').remove()
+                    $('#camp').append('<option value = "%">All </option>')
+
+                    for (var i = 0 ; i < list.data_list.length ; i++){
+                         $('#camp').append('<option value = '+list.data_list[i][0]+'>'+list.data_list[i][1]+'</option>')
+                    }
+                }
+
+            });
+            //reDataTable()
+        });
+
+        var tableToExcel = (function () {
+            var uri = 'data:application/vnd.ms-excel;base64,'
+                , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+                , base64 = function (s) {
+                return window.btoa(unescape(encodeURIComponent(s)))
+            }
+                , format = function (s, c) {
+                return s.replace(/{(\w+)}/g, function (m, p) {
+                    return c[p];
+                })
+            }
+            return function (table, name, filename) {
+                var $ct = $("#" + table).clone();
+                $ct.find('[style*="display: none"]').remove();
+
+                if (!table.nodeType) table = document.getElementById(table)
+                var ctx = {worksheet: name || 'Worksheet', table: $ct.html()}
+                document.getElementById("dlink").href = uri + base64(format(template, ctx));
+                document.getElementById("dlink").download = filename;
+                document.getElementById("dlink").click();
+            }
+        })()
+
+
+    </script>
+{% endblock %}

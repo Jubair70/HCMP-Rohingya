@@ -36,6 +36,8 @@ urlpatterns = patterns('',
     url(r'^get_cfs_summary_data_table/$', views.get_cfs_summary_data_table, name='get_cfs_summary_data_table'),
     url(r'^pss/$', views.pss, name='pss'),
     url(r'^get_pss_data_table/$', views.get_pss_data_table, name='get_pss_data_table'),
+    url(r'^c4d/$', views.c4d, name='c4d'),
+    url(r'^get_c4d_data_table/$', views.get_c4d_data_table, name='get_c4d_data_table'),
 
 
 

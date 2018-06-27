@@ -48,6 +48,9 @@ urlpatterns = patterns('',
     url(r'^get_drr_nfi_data_table/$', views.get_drr_nfi_data_table, name='get_drr_nfi_data_table'),
     url(r'^drr_wash/$', views.drr_wash, name='drr_wash'),
     url(r'^get_drr_wash_data_table/$', views.get_drr_wash_data_table, name='get_drr_wash_data_table'),
+    url(r'^training/$', views.training, name='training'),
+    url(r'^get_training_data_table/$', views.get_training_data_table, name='get_training_data_table'),
+
 
 
 

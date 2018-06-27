@@ -55,6 +55,13 @@ import os
 
 
 
+SECTOR_LIST = [{'name': 'Health', 'value': 1}, {'name': 'Nutrition', 'value': 2}, {'name': 'Education', 'value': 3},
+               {'name': 'Wash', 'value': 4}, {'name': 'Agriculture & Environment', 'value': 5},
+               {'name': 'Child Protection', 'value': 6},{'name': 'C4D', 'value': 7},
+               {'name': 'GBV', 'value': 8},{'name': 'Shelter/NFI', 'value': 9},
+               {'name': 'DRR', 'value': 10},{'name': 'Training', 'value': 11},{'name': 'Site Management', 'value': 12},{'name': 'Communication', 'value': 13}]
+
+
 
 def __db_fetch_values(query):
     cursor = connection.cursor()
@@ -323,7 +330,7 @@ def get_education_student_data_table(request):
     upazila = request.POST.get('upazila')
     branch = request.POST.get('branch')
     camp = request.POST.get('camp')
-    q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
+    q = "select * from get_rpt_education_student('06/01/2018','06/28/2018','','','')"
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/education_student_table.html',{'dataset':dataset})
 
@@ -340,7 +347,7 @@ def get_education_teacher_data_table(request):
     upazila = request.POST.get('upazila')
     branch = request.POST.get('branch')
     camp = request.POST.get('camp')
-    q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
+    q = "select * from get_rpt_education_teacher('06/01/2018','06/28/2018','','','')"
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/education_teacher_table.html',{'dataset':dataset})
 
@@ -375,7 +382,7 @@ def get_agriculture_fdmn_data_table(request):
     upazila = request.POST.get('upazila')
     branch = request.POST.get('branch')
     camp = request.POST.get('camp')
-    q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
+    q = "select * from get_rpt_agriculture_fdmn('06/01/2018','06/28/2018','','','');"
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/agriculture_fdmn_table.html',{'dataset':dataset})
 
@@ -392,7 +399,7 @@ def get_agriculture_host_data_table(request):
     upazila = request.POST.get('upazila')
     branch = request.POST.get('branch')
     camp = request.POST.get('camp')
-    q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
+    q = "select * from get_rpt_agriculture_community('06/01/2018','06/28/2018','','','')"
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/agriculture_host_table.html',{'dataset':dataset})
 
@@ -572,3 +579,21 @@ def get_drr_wash_data_table(request):
     q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/drr_wash_table.html',{'dataset':dataset})
+
+
+
+@login_required
+def training(request):
+    q = "select id,name from upazila"
+    upz_list = makeTableList(q)
+    return render(request, 'hcmp_report/training.html', {'SECTOR_LIST': SECTOR_LIST})
+
+
+def get_training_data_table(request):
+    date_range = request.POST.get('date_range')
+    upazila = request.POST.get('upazila')
+    branch = request.POST.get('branch')
+    camp = request.POST.get('camp')
+    q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
+    dataset = __db_fetch_values_dict(q)
+    return render(request, 'hcmp_report/training_table.html',{'dataset':dataset})

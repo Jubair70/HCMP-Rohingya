@@ -43,6 +43,15 @@
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle bgcolor="#DAEEF3"><font face="Calibri" color="#000000">Boys</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle bgcolor="#DAEEF3"><font face="Calibri" color="#000000">Girls</font></td>
 	</tr>
+rrpt_date text, rcfs_static bigint, rcfs_mobile bigint, rtotal_daily bigint, rboy bigint, rgirl bigint, rtotal_cumulative numeric,
+    rboy_cumulative numeric, rgirl_cumulative numeric, rtotal_daily_attend bigint, rday_attendance_boy bigint,
+    rday_attendance_girl bigint, rtotal_daily_present bigint, rboy_present bigint, rgirl_present bigint,
+    rtotal_daily_unaccompained bigint, rboy_unaccompained bigint, rgirl_unaccompained bigint, rtotal_daily_seperated bigint,
+    rboy_separated bigint, rgirl_separated bigint, rtotal_daily_aged bigint, rboy_aged bigint, rgirl_aged bigint,
+    rtotal_daily_abundant bigint, rboy_abundant bigint, rgirl_abundant bigint, rbiscuits_distributed bigint,
+    rbiscuits_distributed_cumulative numeric, rcloth_distributed bigint)
+
+    {% for data in dataset %}
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="109" align="center" valign=middle><font face="Calibri" color="#000000">q7 where q1=2</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Calibri" color="#000000">q8 where q1=2</font></td>
@@ -71,6 +80,7 @@
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Calibri" color="#000000">q33 where q1=2</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Calibri" color="#000000">q34 where q1=2</font></td>
 	</tr>
+    {% endfor %}
 </table>
 
 

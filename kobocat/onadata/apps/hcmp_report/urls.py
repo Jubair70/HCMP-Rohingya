@@ -50,6 +50,8 @@ urlpatterns = patterns('',
     url(r'^get_drr_wash_data_table/$', views.get_drr_wash_data_table, name='get_drr_wash_data_table'),
     url(r'^training/$', views.training, name='training'),
     url(r'^get_training_data_table/$', views.get_training_data_table, name='get_training_data_table'),
+    url(r'^site_management/$', views.site_management, name='site_management'),
+    url(r'^get_site_management_data_table/$', views.get_site_management_data_table, name='get_site_management_data_table'),
 
 
 

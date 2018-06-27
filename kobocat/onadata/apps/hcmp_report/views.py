@@ -133,6 +133,12 @@ def get_geodata(request,tag):
     return HttpResponse(jsonlist)
 
 
+def get_dates(daterange):
+    date_list= daterange.split('-')
+    data = {
+        'start_date' : date_list[0],'end_date' : date_list[1]
+    }
+    return data
 
 @login_required
 def tb_hiv(request):
@@ -146,7 +152,15 @@ def get_tb_hiv_data_table(request):
     upazila = request.POST.get('upazila')
     branch = request.POST.get('branch')
     camp = request.POST.get('camp')
-    q = "select * from get_rpt_health_tb('06/01/2018','06/28/2018','','','')"
+    if date_range == '':
+        start_date = '06/01/2018'
+        end_date = '06/28/2018'
+    else:
+        dates = get_dates(str(date_range))
+        start_date = dates.get('start_date')
+        end_date = dates.get('end_date')
+
+    q = "select * from get_rpt_health_tb('"+start_date+"','"+end_date+"','','','')"
     dataset = __db_fetch_values_dict(q)
     datalist=[]
     data_dict = {}
@@ -541,3 +555,20 @@ def get_drr_nfi_data_table(request):
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/drr_nfi_table.html',{'dataset':dataset})
 
+
+
+@login_required
+def drr_wash(request):
+    q = "select id,name from upazila"
+    upz_list = makeTableList(q)
+    return render(request, 'hcmp_report/drr_wash.html', {'upz_list': upz_list})
+
+
+def get_drr_wash_data_table(request):
+    date_range = request.POST.get('date_range')
+    upazila = request.POST.get('upazila')
+    branch = request.POST.get('branch')
+    camp = request.POST.get('camp')
+    q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
+    dataset = __db_fetch_values_dict(q)
+    return render(request, 'hcmp_report/drr_wash_table.html',{'dataset':dataset})

@@ -639,16 +639,12 @@ def get_drr_wash_data_table(request):
 
 @login_required
 def training(request):
-    q = "select id,name from upazila"
-    upz_list = makeTableList(q)
     return render(request, 'hcmp_report/training.html', {'SECTOR_LIST': SECTOR_LIST})
 
 
 def get_training_data_table(request):
     date_range = request.POST.get('date_range')
-    upazila = request.POST.get('upazila')
-    branch = request.POST.get('branch')
-    camp = request.POST.get('camp')
+    sector = request.POST.get('sector')
     q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/training_table.html',{'dataset':dataset})
@@ -679,3 +675,44 @@ def get_site_management_data_table(request):
     dataset = __db_fetch_values_dict(q)
 
     return render(request, 'hcmp_report/site_management_table.html',{'dataset':dataset})
+
+
+@login_required
+def meeting(request):
+    return render(request, 'hcmp_report/meeting.html', {'SECTOR_LIST': SECTOR_LIST})
+
+
+def get_meeting_data_table(request):
+    date_range = request.POST.get('date_range')
+    sector = request.POST.get('sector')
+    if date_range == '':
+        start_date = '05/01/2018'
+        end_date = '06/30/2018'
+    else:
+        dates = get_dates(str(date_range))
+        start_date = dates.get('start_date')
+        end_date = dates.get('end_date')
+    q = "select json->>'date' as meeting_date,json->>'meeting_type' as meeting_type,json->>'sector' as sector,(select value_label from xform_extracted where xform_id=588 and field_name='sector' and value_text=json->>'sector') as sector_name,(select value_label from xform_extracted where xform_id=588 and field_name='donor' and value_text=json->>'donor' ) as donor_name,json->>'meeting_summary' as meeting_summary ,json->>'file' as uploaded_file from logger_instance where xform_id = (select id from logger_xform where id_string ='meeting') and deleted_at is null and Date(json->>'date') between '" + start_date + "' and '" + end_date + "' and (json->>'sector')::text like '" + str(
+        sector) + "'"
+    dataset = __db_fetch_values_dict(q)
+    print dataset
+    return render(request, 'hcmp_report/meeting_table.html',{'dataset':dataset})
+
+
+@login_required
+def visitor(request):
+    return render(request, 'hcmp_report/visitor.html')
+
+
+def get_visitor_data_table(request):
+    date_range = request.POST.get('date_range')
+    if date_range == '':
+        start_date = '05/01/2018'
+        end_date = '06/30/2018'
+    else:
+        dates = get_dates(str(date_range))
+        start_date = dates.get('start_date')
+        end_date = dates.get('end_date')
+    q = "select json->>'date' as visit_date,json->>'visitor_name' as visitor_name,json->>'visit_purpose' as visit_purpose,(select value_label from xform_extracted where xform_id=594 and field_name='donor' and value_text=json->>'donor') as donor_name from logger_instance where xform_id = (select id from logger_xform where id_string ='visitor') and deleted_at is null and Date(json->>'date') between '" + start_date + "' and '" + end_date + "' "
+    dataset = __db_fetch_values_dict(q)
+    return render(request, 'hcmp_report/visitor_table.html',{'dataset':dataset})

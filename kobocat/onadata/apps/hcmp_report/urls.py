@@ -52,6 +52,10 @@ urlpatterns = patterns('',
     url(r'^get_training_data_table/$', views.get_training_data_table, name='get_training_data_table'),
     url(r'^site_management/$', views.site_management, name='site_management'),
     url(r'^get_site_management_data_table/$', views.get_site_management_data_table, name='get_site_management_data_table'),
+    url(r'^meeting/$', views.meeting, name='meeting'),
+    url(r'^get_meeting_data_table/$', views.get_meeting_data_table, name='get_meeting_data_table'),
+    url(r'^visitor/$', views.visitor, name='visitor'),
+    url(r'^get_visitor_data_table/$', views.get_visitor_data_table, name='get_visitor_data_table'),
 
 
 

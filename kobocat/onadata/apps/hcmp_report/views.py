@@ -525,7 +525,7 @@ def get_pss_data_table(request):
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
         end_date = dates.get('end_date')
-    q = "select * from get_rpt_cfs_fdmn('" + start_date + "','" + end_date + "','','','','','')"
+    q = "select * from get_rpt_pss('" + start_date + "','" + end_date + "','','','','','')"
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/pss_table.html',{'dataset':dataset})
 

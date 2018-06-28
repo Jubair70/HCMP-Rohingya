@@ -125,20 +125,29 @@ def get_geodata(request,tag):
     id = request.POST.get('id')
     if tag=='branch':
         query_part = " where upazila_id = "+id
+        q = "select id,name from " + tag + "" + query_part
     elif tag == 'camp':
         query_part = " where branch_id = " + id
+        q = "select id,name from " + tag + "" + query_part
     elif tag == 'unions':
-        query_part = " where upazila_id = " + id
+        query_part = " where field_parent_id = " + id
+        q = "select id,field_name as name from geo_data "+ query_part
     elif tag == 'village':
-        query_part = " where union_id = " + id
+        query_part = " where field_parent_id = " + id
+        q = "select id,field_name as name from geo_data " + query_part
     else:
+        q = ""
         query_part = ""
-    q = "select id,name from "+tag+""+query_part
+
     list = makeTableList(q)
     jsonlist = json.dumps({'data_list': list}, default=decimal_date_default)
 
     return HttpResponse(jsonlist)
 
+def get_upz_list():
+    q = "select id,field_name from geo_data where field_type_id = 88"
+    upz_list = makeTableList(q)
+    return upz_list
 
 def get_dates(daterange):
     date_list= daterange.split('-')
@@ -149,8 +158,7 @@ def get_dates(daterange):
 
 @login_required
 def tb_hiv(request):
-    q = "select id,name from upazila"
-    upz_list = makeTableList(q)
+    upz_list = get_upz_list()
     return render(request, 'hcmp_report/tb_hiv.html',{'upz_list':upz_list})
 
 
@@ -190,8 +198,7 @@ def get_tb_hiv_data_table(request):
 
 @login_required
 def malaria(request):
-    q = "select id,name from upazila"
-    upz_list = makeTableList(q)
+    upz_list = get_upz_list()
     return render(request, 'hcmp_report/malaria.html',{'upz_list':upz_list})
 
 
@@ -221,8 +228,7 @@ def get_malaria_data_table(request):
 
 @login_required
 def immunization(request):
-    q = "select id,name from upazila"
-    upz_list = makeTableList(q)
+    upz_list = get_upz_list()
     return render(request, 'hcmp_report/immunization.html', {'upz_list': upz_list})
 
 
@@ -246,8 +252,7 @@ def get_immunization_data_table(request):
 
 @login_required
 def outbreak_disease(request):
-    q = "select id,name from upazila"
-    upz_list = makeTableList(q)
+    upz_list = get_upz_list()
     return render(request, 'hcmp_report/outbreak_disease.html', {'upz_list': upz_list})
 
 
@@ -264,8 +269,7 @@ def get_outbreak_disease_data_table(request):
 
 @login_required
 def health(request):
-    q = "select id,name from upazila"
-    upz_list = makeTableList(q)
+    upz_list = get_upz_list()
     return render(request, 'hcmp_report/health.html', {'upz_list': upz_list})
 
 
@@ -285,8 +289,7 @@ def get_health_data_table(request):
 
 @login_required
 def wfp_nutrition(request):
-    q = "select id,name from upazila"
-    upz_list = makeTableList(q)
+    upz_list = get_upz_list()
     return render(request, 'hcmp_report/wfp_nutrition.html', {'upz_list': upz_list})
 
 
@@ -303,8 +306,7 @@ def get_wfp_nutrition_data_table(request):
 
 @login_required
 def unicef_nutrition(request):
-    q = "select id,name from upazila"
-    upz_list = makeTableList(q)
+    upz_list = get_upz_list()
     return render(request, 'hcmp_report/unicef_nutrition.html', {'upz_list': upz_list})
 
 
@@ -320,8 +322,7 @@ def get_unicef_nutrition_data_table(request):
 
 @login_required
 def education_student(request):
-    q = "select id,name from upazila"
-    upz_list = makeTableList(q)
+    upz_list = get_upz_list()
     return render(request, 'hcmp_report/education_student.html', {'upz_list': upz_list})
 
 
@@ -337,8 +338,7 @@ def get_education_student_data_table(request):
 
 @login_required
 def education_teacher(request):
-    q = "select id,name from upazila"
-    upz_list = makeTableList(q)
+    upz_list = get_upz_list()
     return render(request, 'hcmp_report/education_teacher.html', {'upz_list': upz_list})
 
 
@@ -354,8 +354,7 @@ def get_education_teacher_data_table(request):
 
 @login_required
 def wash(request):
-    q = "select id,name from upazila"
-    upz_list = makeTableList(q)
+    upz_list = get_upz_list()
     return render(request, 'hcmp_report/wash.html', {'upz_list': upz_list})
 
 
@@ -372,8 +371,7 @@ def get_wash_data_table(request):
 
 @login_required
 def agriculture_fdmn(request):
-    q = "select id,name from upazila"
-    upz_list = makeTableList(q)
+    upz_list = get_upz_list()
     return render(request, 'hcmp_report/agriculture_fdmn.html', {'upz_list': upz_list})
 
 
@@ -398,8 +396,7 @@ def get_agriculture_fdmn_data_table(request):
 
 @login_required
 def agriculture_host(request):
-    q = "select id,name from upazila"
-    upz_list = makeTableList(q)
+    upz_list = get_upz_list()
     return render(request, 'hcmp_report/agriculture_host.html', {'upz_list': upz_list})
 
 
@@ -425,8 +422,7 @@ def get_agriculture_host_data_table(request):
 
 @login_required
 def cfs_fdmn(request):
-    q = "select id,name from upazila"
-    upz_list = makeTableList(q)
+    upz_list = get_upz_list()
     return render(request, 'hcmp_report/cfs_fdmn.html', {'upz_list': upz_list})
 
 
@@ -451,8 +447,7 @@ def get_cfs_fdmn_data_table(request):
 
 @login_required
 def cfs_host(request):
-    q = "select id,name from upazila"
-    upz_list = makeTableList(q)
+    upz_list = get_upz_list()
     return render(request, 'hcmp_report/cfs_host.html', {'upz_list': upz_list})
 
 
@@ -479,8 +474,7 @@ def get_cfs_host_data_table(request):
 
 @login_required
 def cfs_summary(request):
-    q = "select id,name from upazila"
-    upz_list = makeTableList(q)
+    upz_list = get_upz_list()
     return render(request, 'hcmp_report/cfs_summary.html', {'upz_list': upz_list})
 
 
@@ -506,8 +500,7 @@ def get_cfs_summary_data_table(request):
 
 @login_required
 def pss(request):
-    q = "select id,name from upazila"
-    upz_list = makeTableList(q)
+    upz_list = get_upz_list()
     return render(request, 'hcmp_report/pss.html', {'upz_list': upz_list})
 
 
@@ -532,8 +525,7 @@ def get_pss_data_table(request):
 
 @login_required
 def c4d(request):
-    q = "select id,name from upazila"
-    upz_list = makeTableList(q)
+    upz_list = get_upz_list()
     return render(request, 'hcmp_report/c4d.html', {'upz_list': upz_list})
 
 
@@ -542,15 +534,22 @@ def get_c4d_data_table(request):
     upazila = request.POST.get('upazila')
     branch = request.POST.get('branch')
     camp = request.POST.get('camp')
-    q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
+    if date_range == '':
+        start_date = '06/01/2018'
+        end_date = '06/28/2018'
+    else:
+        dates = get_dates(str(date_range))
+        start_date = dates.get('start_date')
+        end_date = dates.get('end_date')
+
+    q = "select * from get_rpt_c4d('"+start_date+"','"+end_date+"','','','')"
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/c4d_table.html',{'dataset':dataset})
 
 
 @login_required
 def gbv(request):
-    q = "select id,name from upazila"
-    upz_list = makeTableList(q)
+    upz_list = get_upz_list()
     return render(request, 'hcmp_report/gbv.html', {'upz_list': upz_list})
 
 
@@ -559,7 +558,14 @@ def get_gbv_data_table(request):
     upazila = request.POST.get('upazila')
     branch = request.POST.get('branch')
     camp = request.POST.get('camp')
-    q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
+    if date_range == '':
+        start_date = '06/01/2018'
+        end_date = '06/28/2018'
+    else:
+        dates = get_dates(str(date_range))
+        start_date = dates.get('start_date')
+        end_date = dates.get('end_date')
+    q = "select * from get_rpt_gbv('" + start_date + "','" + end_date + "','','','')"
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/gbv_table.html',{'dataset':dataset})
 
@@ -567,8 +573,7 @@ def get_gbv_data_table(request):
 
 @login_required
 def nfi_fdmn(request):
-    q = "select id,name from upazila"
-    upz_list = makeTableList(q)
+    upz_list = get_upz_list()
     return render(request, 'hcmp_report/nfi_fdmn.html', {'upz_list': upz_list})
 
 
@@ -585,8 +590,7 @@ def get_nfi_fdmn_data_table(request):
 
 @login_required
 def nfi_host(request):
-    q = "select id,name from upazila"
-    upz_list = makeTableList(q)
+    upz_list = get_upz_list()
     return render(request, 'hcmp_report/nfi_host.html', {'upz_list': upz_list})
 
 
@@ -603,8 +607,7 @@ def get_nfi_host_data_table(request):
 
 @login_required
 def drr_nfi(request):
-    q = "select id,name from upazila"
-    upz_list = makeTableList(q)
+    upz_list = get_upz_list()
     return render(request, 'hcmp_report/drr_nfi.html', {'upz_list': upz_list})
 
 
@@ -621,8 +624,7 @@ def get_drr_nfi_data_table(request):
 
 @login_required
 def drr_wash(request):
-    q = "select id,name from upazila"
-    upz_list = makeTableList(q)
+    upz_list = get_upz_list()
     return render(request, 'hcmp_report/drr_wash.html', {'upz_list': upz_list})
 
 
@@ -645,7 +647,14 @@ def training(request):
 def get_training_data_table(request):
     date_range = request.POST.get('date_range')
     sector = request.POST.get('sector')
-    q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
+    if date_range == '':
+        start_date = '05/01/2018'
+        end_date = '06/28/2018'
+    else:
+        dates = get_dates(str(date_range))
+        start_date = dates.get('start_date')
+        end_date = dates.get('end_date')
+    q = "select *,(select value_label from xform_extracted where xform_id=592 and field_name='sector' and value_text=sector) as sector_name from vw_training where sector::text like '"+str(sector)+"' and date(date) between '"+start_date+"' and '"+end_date+"' "
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/training_table.html',{'dataset':dataset})
 
@@ -653,8 +662,7 @@ def get_training_data_table(request):
 
 @login_required
 def site_management(request):
-    q = "select id,name from upazila"
-    upz_list = makeTableList(q)
+    upz_list = get_upz_list()
     return render(request, 'hcmp_report/site_management.html',{'upz_list':upz_list})
 
 

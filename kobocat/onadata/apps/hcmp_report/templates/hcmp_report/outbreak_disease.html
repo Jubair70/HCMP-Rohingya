@@ -64,6 +64,9 @@
                 <div class="caption"><i class="fa fa-adn"></i></div>
             </div>
             <div class="portlet-body">
+                <div class = "col-md-12" >
+                <button onclick="tableToExcel('outbreak_disease_table', 'List of activities', 'outbreak_disease_report.xls')"  class = "btn btn-primary" style = "margin-bottom: 10px;"><span style="color: #F5F5F5;" class="glyphicon glyphicon-circle-arrow-down"></span> Export</button>
+            </div>
                 <div id="outbreak_disease_table_block">
 
                 </div>
@@ -168,6 +171,28 @@
             });
             //reDataTable()
         });
+              var tableToExcel = (function () {
+            var uri = 'data:application/vnd.ms-excel;base64,'
+                , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+                , base64 = function (s) {
+                return window.btoa(unescape(encodeURIComponent(s)))
+            }
+                , format = function (s, c) {
+                return s.replace(/{(\w+)}/g, function (m, p) {
+                    return c[p];
+                })
+            }
+            return function (table, name, filename) {
+                var $ct = $("#" + table).clone();
+                $ct.find('[style*="display: none"]').remove();
+
+                if (!table.nodeType) table = document.getElementById(table)
+                var ctx = {worksheet: name || 'Worksheet', table: $ct.html()}
+                document.getElementById("dlink").href = uri + base64(format(template, ctx));
+                document.getElementById("dlink").download = filename;
+                document.getElementById("dlink").click();
+            }
+        })()
 
     </script>
 {% endblock %}

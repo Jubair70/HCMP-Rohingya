@@ -16,7 +16,7 @@
         <div class ="col-md-12" style = "">
 
                 <div class="page-header align">
-                   <h4>EPI Immunization</h4>
+                   <h4>Visitor</h4>
                 </div>
 
                   <div class="row">
@@ -24,26 +24,12 @@
                     <input class = "form-control" readonly type="text" name="reservation" id="date_range" />
 
                 </div>
-                      <div class="col-md-3"><label class="control-label">Upazila </label>
-                            <select class="form-control" id = "upazila">
-                                <option value = "%" > All </option>
-                                {% for list in upz_list %}
-                                    <option value={{ list.0 }}>{{ list.1 }}</option>
-                                {% endfor %}
-                            </select>
-                </div>
+
                   <!--</div>-->
                   <!--<div class="row">-->
-                <div class="col-md-2"><label class="control-label">Branch</label>
-                    <select class="form-control" id = "branch">
-                        <option value = '%'>All</option>
-                    </select>
-                </div>
-                   <div class="col-md-2"><label class="control-label">Camp </label>
-                    <select class="form-control" id = "camp">
-                        <option value = '%'>All</option>
-                    </select>
-                </div>
+
+
+
 
                  <!--</div>-->
             <!--<div class="row">-->
@@ -65,9 +51,9 @@
             </div>
             <div class="portlet-body">
                 <div class = "col-md-12" >
-                <button onclick="tableToExcel('immunization_table', 'List of activities', 'immunization_report.xls')"  class = "btn btn-primary" style = "margin-bottom: 10px;"><span style="color: #F5F5F5;" class="glyphicon glyphicon-circle-arrow-down"></span> Export</button>
+                <button onclick="tableToExcel('visitor_table', 'List of activities', 'visitor_report.xls')"  class = "btn btn-primary" style = "margin-bottom: 10px;"><span style="color: #F5F5F5;" class="glyphicon glyphicon-circle-arrow-down"></span> Export</button>
             </div>
-                <div id="immunization_table_block">
+                <div id="visitor_table_block">
 
                 </div>
             </div>
@@ -86,7 +72,7 @@
         $(document).ready(function () {
             $('#date_range').daterangepicker({ showDropdowns: true,maxDate: new Date()});
             //var s_type = ''
-            get_immunization_data_table()
+            get_visitor_data_table()
             //getfilterCriteria();
             /*$('.datepicker').datepicker({
                     format: 'yyyy-mm-dd',
@@ -99,20 +85,17 @@
         });
         function getfilterCriteria() {
             date_range = $('#date_range').val();
-            upazila = $('#upazila').val();
-            branch = $('#branch').val();
-            camp = $('#camp').val();
+            sector = $('#sector').val();
         }
 
-        function get_immunization_data_table(){
+        function get_visitor_data_table(){
             getfilterCriteria();
-            console.log("date::"+date_range+",upazila::"+upazila+",branch"+branch);
             $.ajax({
-                url: '/hcmp_report/get_immunization_data_table/',
+                url: '/hcmp_report/get_visitor_data_table/',
                 type: 'POST',
-                data:{ 'date_range' : date_range,'upazila':upazila,'branch': branch,'camp':camp},
+                data:{ 'date_range' : date_range,'sector':sector},
                 success: function (data) {
-                    $("#immunization_table_block").html(data);
+                    $("#visitor_table_block").html(data);
 
 
                 }
@@ -121,7 +104,7 @@
     }
 
     $(document).on("click", "#filter_data_list", function () {
-                  get_immunization_data_table();
+                  get_visitor_data_table();
     });
 
          /*geo hierarchy loading*/
@@ -172,7 +155,7 @@
             //reDataTable()
         });
 
-              var tableToExcel = (function () {
+        var tableToExcel = (function () {
             var uri = 'data:application/vnd.ms-excel;base64,'
                 , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
                 , base64 = function (s) {
@@ -194,6 +177,7 @@
                 document.getElementById("dlink").click();
             }
         })()
+
 
     </script>
 {% endblock %}

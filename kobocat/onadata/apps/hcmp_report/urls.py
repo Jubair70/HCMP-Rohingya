@@ -65,8 +65,13 @@ urlpatterns = patterns('',
                        url(r'^training/$', views.training, name='training'),
                        url(r'^get_training_data_table/$', views.get_training_data_table,
                            name='get_training_data_table'),
-
-                       # --------------- shahin -------- #
+                       url(r'^site_management/$', views.site_management, name='site_management'),
+                       url(r'^get_site_management_data_table/$', views.get_site_management_data_table,
+                           name='get_site_management_data_table'),
+                       url(r'^meeting/$', views.meeting, name='meeting'),
+                       url(r'^get_meeting_data_table/$', views.get_meeting_data_table, name='get_meeting_data_table'),
+                       url(r'^visitor/$', views.visitor, name='visitor'),
+                       url(r'^get_visitor_data_table/$', views.get_visitor_data_table, name='get_visitor_data_table'),
                        url(r'^branch_list/$', views.branch_list,
                            name='branch_list'),
                        url(r'^add_branch_form/$', views.add_branch_form,
@@ -83,5 +88,6 @@ urlpatterns = patterns('',
                            name='edit_camp_form'),
                        url(r'^delete_camp/(?P<camp_id>\d+)/$', views.delete_camp,
                            name='delete_camp'),
-                       url(r'^get_geolocation_csv/(?P<id_string>[^/]+)/$',views.get_geolocation_csv),
+                       url(r'^get_geolocation_csv/(?P<id_string>[^/]+)/$', views.get_geolocation_csv),
+
                        )

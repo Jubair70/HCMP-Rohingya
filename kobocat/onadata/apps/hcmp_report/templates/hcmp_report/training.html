@@ -27,9 +27,9 @@
 
                   <!--</div>-->
                   <!--<div class="row">-->
-                <div class="col-md-3"><label class="control-label">Training Name</label>
+                <!--<div class="col-md-3"><label class="control-label">Training Name</label>
                     <input class = "form-control"  type="text" name="" id="training_name" />
-                </div>
+                </div>-->
                <div class="col-md-3"><label class="control-label">Sector </label>
                     <select class="form-control" id = "sector">
                         <option value = "%" > All </option>
@@ -95,7 +95,7 @@
         function getfilterCriteria() {
             date_range = $('#date_range').val();
             sector = $('#sector').val();
-            name = $('#training_name').val();
+            //name = $('#training_name').val();
         }
 
         function get_training_data_table(){
@@ -103,7 +103,7 @@
             $.ajax({
                 url: '/hcmp_report/get_training_data_table/',
                 type: 'POST',
-                data:{ 'date_range' : date_range,'sector':sector,'training_name': name},
+                data:{ 'date_range' : date_range,'sector':sector},
                 success: function (data) {
                     $("#training_table_block").html(data);
 

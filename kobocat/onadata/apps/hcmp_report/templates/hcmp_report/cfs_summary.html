@@ -140,6 +140,8 @@
             upazila = $('#upazila').val();
             branch = $('#branch').val();
             camp = $('#camp').val();
+            union =$('#union').val();
+            village =$('#village').val();
         }
 
         function get_cfs_summary_data_table(){
@@ -148,7 +150,7 @@
             $.ajax({
                 url: '/hcmp_report/get_cfs_summary_data_table/',
                 type: 'POST',
-                data:{ 'date_range' : date_range,'upazila':upazila,'branch': branch,'camp':camp},
+                data:{ 'date_range' : date_range,'upazila':upazila,'branch': branch,'camp':camp,'union':union,'village':village},
                 success: function (data) {
                     $("#cfs_summary_table_block").html(data);
 

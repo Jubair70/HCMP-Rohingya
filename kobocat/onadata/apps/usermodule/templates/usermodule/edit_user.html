@@ -109,6 +109,19 @@
                                  <span class="help-block" hidden>{{ profile_form.contact_number.errors.as_text }}</span>
                             </div>
                         </div>
+                         <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Sector:</label>
+                                <select id="{{ profile_form.sector.id_for_label }}"
+                                        name="{{ profile_form.sector.name }}" class="form-control">
+                                    {% for x,y in profile_form.fields.sector.choices %}
+                                    <option value="{{ x }}" {% if profile_form.sector.value == x %} selected{% endif %}>{{ y }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                                <span class="help-block">{{ profile_form.sector.errors.as_text }}</span>
+                            </div>
+                        </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="{{ profile_form.position.id_for_label }}" hidden>Position:</label>

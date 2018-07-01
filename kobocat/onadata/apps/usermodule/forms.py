@@ -9,6 +9,9 @@ from onadata.apps.usermodule.models import UserRoleMap
 from django.utils.translation import ugettext as _, ugettext_lazy
 from onadata.apps.usermodule.helpers import COUNTRIES
 
+
+SECTOR_LIST = (('', 'Select'),(1, 'Health'),(2, 'Nutrition'),(3, 'Education'),(4, 'Wash'),(5, 'Agriculture & Environment'),(6, 'Child Protection'),(7, 'C4D'),(8, 'GBV'),(9, 'Shelter/NFI'),(10, 'DRR'),(11, 'Training'),(12, 'Site Management'),(13, 'Communication'))
+
 class UserForm(forms.ModelForm):
     password = forms.CharField(label='Create a password',widget=forms.PasswordInput(),min_length=4)
     password_repeat = forms.CharField(label='Confirm your password',widget=forms.PasswordInput())
@@ -50,12 +53,13 @@ class UserProfileForm(forms.ModelForm):
     country = forms.ChoiceField(choices=COUNTRIES, required=True, label='Country')
     position = forms.CharField(label="Position")
     contact_number = forms.CharField(label="Contact Number")
+    sector = forms.ChoiceField(choices=SECTOR_LIST, required=False, label='Sector')
     # expired = forms.DateTimeField(label="Expiry Date",required=False,initial=datetime.now()+ timedelta(days=90))
 
     class Meta:
         model = UserModuleProfile
         #fields = ('admin','employee_id','organisation_name','country','position','psu')
-        fields = ('admin','employee_id','organisation_name','country','position','contact_number')
+        fields = ('admin','employee_id','organisation_name','country','position','contact_number','sector')
 
     def __init__(self, *args, **kwargs):
         admin_check = kwargs.pop('admin_check', False)

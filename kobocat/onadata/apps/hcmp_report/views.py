@@ -875,7 +875,6 @@ def get_geolocation_csv(request, id_string):
         zip_filename = "%s.zip" % zip_subdir
         zf = zipfile.ZipFile(zip_filename, "w")
 
-        print filenames
         for fpath in filenames:
             if os.path.exists(fpath):
                 fdir, fname = os.path.split(fpath)
@@ -885,7 +884,7 @@ def get_geolocation_csv(request, id_string):
 
         resp = {
             'module_name': id_string,
-            'csv_url': request.META['HTTP_HOST'] + "/media/geodata/" + str(id_string) + "/geolocations.zip"
+            'csv_url': "http://"+request.META['HTTP_HOST'] + "/media/geodata/" + str(id_string) + "/geolocations.zip"
         }
 
     else:

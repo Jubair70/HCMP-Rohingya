@@ -54,7 +54,7 @@ import decimal
 import csv
 import os
 import zipfile
-from io import BytesIO
+from django.conf import settings
 
 SECTOR_LIST = [{'name': 'Health', 'value': 1}, {'name': 'Nutrition', 'value': 2}, {'name': 'Education', 'value': 3},
                {'name': 'Wash', 'value': 4}, {'name': 'Agriculture & Environment', 'value': 5},
@@ -119,17 +119,17 @@ def decimal_date_default(obj):
     raise TypeError
 
 
-def get_geodata(request,tag):
+def get_geodata(request, tag):
     id = request.POST.get('id')
-    if tag=='branch':
-        query_part = " where upazila_id = "+id
+    if tag == 'branch':
+        query_part = " where upazila_id = " + id
         q = "select id,name from " + tag + "" + query_part
     elif tag == 'camp':
         query_part = " where branch_id = " + id
         q = "select id,name from " + tag + "" + query_part
     elif tag == 'unions':
         query_part = " where field_parent_id = " + id
-        q = "select id,field_name as name from geo_data "+ query_part
+        q = "select id,field_name as name from geo_data " + query_part
     elif tag == 'village':
         query_part = " where field_parent_id = " + id
         q = "select id,field_name as name from geo_data " + query_part
@@ -142,10 +142,12 @@ def get_geodata(request,tag):
 
     return HttpResponse(jsonlist)
 
+
 def get_upz_list():
     q = "select id,field_name from geo_data where field_type_id = 88"
     upz_list = makeTableList(q)
     return upz_list
+
 
 def get_dates(daterange):
     date_list = daterange.split('-')
@@ -158,7 +160,7 @@ def get_dates(daterange):
 @login_required
 def tb_hiv(request):
     upz_list = get_upz_list()
-    return render(request, 'hcmp_report/tb_hiv.html',{'upz_list':upz_list})
+    return render(request, 'hcmp_report/tb_hiv.html', {'upz_list': upz_list})
 
 
 def get_tb_hiv_data_table(request):
@@ -196,7 +198,7 @@ def get_tb_hiv_data_table(request):
 @login_required
 def malaria(request):
     upz_list = get_upz_list()
-    return render(request, 'hcmp_report/malaria.html',{'upz_list':upz_list})
+    return render(request, 'hcmp_report/malaria.html', {'upz_list': upz_list})
 
 
 def get_malaria_data_table(request):
@@ -384,7 +386,7 @@ def get_agriculture_fdmn_data_table(request):
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
         end_date = dates.get('end_date')
-    q = "select * from get_rpt_agriculture_fdmn('"+start_date+"','"+end_date+"','','','','','')"
+    q = "select * from get_rpt_agriculture_fdmn('" + start_date + "','" + end_date + "','','','','','')"
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/agriculture_fdmn_table.html', {'dataset': dataset})
 
@@ -434,7 +436,7 @@ def get_cfs_fdmn_data_table(request):
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
         end_date = dates.get('end_date')
-    q = "select * from get_rpt_cfs_fdmn('"+start_date+"','"+end_date+"','','','','','')"
+    q = "select * from get_rpt_cfs_fdmn('" + start_date + "','" + end_date + "','','','','','')"
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/cfs_fdmn_table.html', {'dataset': dataset})
 
@@ -460,7 +462,7 @@ def get_cfs_host_data_table(request):
         start_date = dates.get('start_date')
         end_date = dates.get('end_date')
 
-    q = "select * from get_rpt_cfs_community('"+start_date+"','"+end_date+"','','','','','')"
+    q = "select * from get_rpt_cfs_community('" + start_date + "','" + end_date + "','','','','','')"
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/cfs_host_table.html', {'dataset': dataset})
 
@@ -534,7 +536,7 @@ def get_c4d_data_table(request):
         start_date = dates.get('start_date')
         end_date = dates.get('end_date')
 
-    q = "select * from get_rpt_c4d('"+start_date+"','"+end_date+"','','','')"
+    q = "select * from get_rpt_c4d('" + start_date + "','" + end_date + "','','','')"
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/c4d_table.html', {'dataset': dataset})
 
@@ -641,16 +643,16 @@ def get_training_data_table(request):
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
         end_date = dates.get('end_date')
-    q = "select *,(select value_label from xform_extracted where xform_id=592 and field_name='sector' and value_text=sector) as sector_name from vw_training where sector::text like '"+str(sector)+"' and date(date) between '"+start_date+"' and '"+end_date+"' "
+    q = "select *,(select value_label from xform_extracted where xform_id=592 and field_name='sector' and value_text=sector) as sector_name from vw_training where sector::text like '" + str(
+        sector) + "' and date(date) between '" + start_date + "' and '" + end_date + "' "
     dataset = __db_fetch_values_dict(q)
-    return render(request, 'hcmp_report/training_table.html',{'dataset':dataset})
-
+    return render(request, 'hcmp_report/training_table.html', {'dataset': dataset})
 
 
 @login_required
 def site_management(request):
     upz_list = get_upz_list()
-    return render(request, 'hcmp_report/site_management.html',{'upz_list':upz_list})
+    return render(request, 'hcmp_report/site_management.html', {'upz_list': upz_list})
 
 
 def get_site_management_data_table(request):
@@ -666,10 +668,10 @@ def get_site_management_data_table(request):
         start_date = dates.get('start_date')
         end_date = dates.get('end_date')
 
-    q = "select * from get_rpt_health_tb('"+start_date+"','"+end_date+"','','','')"
+    q = "select * from get_rpt_health_tb('" + start_date + "','" + end_date + "','','','')"
     dataset = __db_fetch_values_dict(q)
 
-    return render(request, 'hcmp_report/site_management_table.html',{'dataset':dataset})
+    return render(request, 'hcmp_report/site_management_table.html', {'dataset': dataset})
 
 
 @login_required
@@ -691,7 +693,7 @@ def get_meeting_data_table(request):
         sector) + "'"
     dataset = __db_fetch_values_dict(q)
     print dataset
-    return render(request, 'hcmp_report/meeting_table.html',{'dataset':dataset})
+    return render(request, 'hcmp_report/meeting_table.html', {'dataset': dataset})
 
 
 @login_required
@@ -710,9 +712,7 @@ def get_visitor_data_table(request):
         end_date = dates.get('end_date')
     q = "select json->>'date' as visit_date,json->>'visitor_name' as visitor_name,json->>'visit_purpose' as visit_purpose,(select value_label from xform_extracted where xform_id=594 and field_name='donor' and value_text=json->>'donor') as donor_name from logger_instance where xform_id = (select id from logger_xform where id_string ='visitor') and deleted_at is null and Date(json->>'date') between '" + start_date + "' and '" + end_date + "' "
     dataset = __db_fetch_values_dict(q)
-    return render(request, 'hcmp_report/visitor_table.html',{'dataset':dataset})
-
-
+    return render(request, 'hcmp_report/visitor_table.html', {'dataset': dataset})
 
 
 # ------------------- Shahin ------------------------------ #
@@ -769,11 +769,10 @@ def delete_branch(request, branch_id):
     return HttpResponseRedirect("/hcmp_report/branch_list/")
 
 
-
-
 @login_required
 def camp_list(request):
-    camp_list = __db_fetch_values_dict("select id,row_number() OVER () as serial_no,name,code,(select name from branch where id = branch_id) as branch from camp")
+    camp_list = __db_fetch_values_dict(
+        "select id,row_number() OVER () as serial_no,name,code,(select name from branch where id = branch_id) as branch from camp")
     return render(request, 'hcmp_report/camp_list.html', {'camp_list': json.dumps(camp_list)})
 
 
@@ -822,52 +821,63 @@ def delete_camp(request, camp_id):
     return HttpResponseRedirect("/hcmp_report/camp_list/")
 
 
-
 @csrf_exempt
-def get_geolocation_csv(request,id_string):
-
-    both = ['cfs','shelter_nfi','agri_evironement']
-    notapp = ['visitor','training','meeting']
+def get_geolocation_csv(request, id_string):
+    both = ['cfs', 'shelter_nfi', 'agri_evironement']
+    notapp = ['visitor', 'training', 'meeting']
     filenames = []
 
     if id_string not in notapp:
-        geolocation_data = __db_fetch_values("select (select field_name from geo_data where id = (select field_parent_id from geo_data where id = gd.field_parent_id)) as upazila,(select field_name from geo_data where id = gd.field_parent_id limit 1) as union_name,field_name as village from geo_data gd where field_type_id = 92")
-        branch_camp_data = __db_fetch_values("select (select field_name from geo_data where id = upazila_id) as upazila,branch.name as branch,camp.name as camp from camp left join branch on branch.id = camp.branch_id")
+        geolocation_data = __db_fetch_values(
+            "select (select field_name from geo_data where id = (select field_parent_id from geo_data where id = gd.field_parent_id)) as upazila,(select field_name from geo_data where id = gd.field_parent_id limit 1) as union_name,field_name as village from geo_data gd where field_type_id = 92")
+        branch_camp_data = __db_fetch_values(
+            "select (select field_name from geo_data where id = upazila_id) as upazila,branch.name as branch,camp.name as camp from camp left join branch on branch.id = camp.branch_id")
         try:
-            os.stat("onadata/media/geodata/"+str(id_string)+"/")
+            os.stat("onadata/media/geodata/" + str(id_string) + "/")
         except:
-            os.mkdir("onadata/media/geodata/"+str(id_string)+"/")
+            os.mkdir("onadata/media/geodata/" + str(id_string) + "/")
 
         if id_string in both:
-            writer = csv.writer(open("onadata/media/geodata/"+str(id_string)+"/village.csv", 'w'))
-            writer.writerow(['upazila', 'union_name', 'village'])
-            for data in geolocation_data:
-                writer.writerow([data[0], data[1], data[2]])
+            f_path = os.path.join(settings.MEDIA_ROOT, "geodata/" + str(id_string) + "/village.csv")
+            with open(f_path, 'w') as outfile:
+                writer = csv.writer(outfile)
+                writer.writerow(['upazila', 'union_name', 'village'])
+                for data in geolocation_data:
+                    writer.writerow([data[0], data[1], data[2]])
 
-            filenames.append(request.META['HTTP_HOST']+"/media/geodata/"+str(id_string)+"/village.csv")
+            filenames.append(f_path)
 
-        writer2 = csv.writer(open("onadata/media/geodata/"+str(id_string)+"/camp.csv", 'w'))
-        writer2.writerow(['upazila', 'branch', 'camp'])
+        f2_path = os.path.join(settings.MEDIA_ROOT, "geodata/" + str(id_string) + "/camp.csv")
 
-        for data in branch_camp_data:
-            writer2.writerow([data[0], data[1], data[2]])
+        with open(f2_path, 'w') as outfile2:
+            writer2 = csv.writer(outfile2)
+            writer2.writerow(['upazila', 'branch', 'camp'])
+            for data in branch_camp_data:
+                writer2.writerow([data[0], data[1], data[2]])
 
-        filenames.append(request.META['HTTP_HOST']+"/media/geodata/"+str(id_string)+"/camp.csv")
+        filenames.append(f2_path)
+
+        zip_subdir = os.path.join(settings.MEDIA_ROOT, "geodata/" + id_string + "/geolocations")
+        zip_filename = "%s.zip" % zip_subdir
+        zf = zipfile.ZipFile(zip_filename, "w")
+
+        print filenames
+        for fpath in filenames:
+            if os.path.exists(fpath):
+                fdir, fname = os.path.split(fpath)
+                zf.write(fpath, fname, zipfile.ZIP_DEFLATED)
+
+        zf.close()
 
         resp = {
-            'module_name': id_string
+            'module_name': id_string,
+            'csv_url': request.META['HTTP_HOST'] + "/media/geodata/" + str(id_string) + "/geolocations.zip"
         }
-
-
-        for fpath in filenames:
-            resp[fpath.split('/')[-1].split('.')[0]+'_csv'] = fpath
-
-        print request.META['HTTP_HOST']
 
     else:
         resp = {
-            'module_name': id_string
+            'module_name': id_string,
+            'csv_url': None
         }
-
 
     return HttpResponse(json.dumps(resp))

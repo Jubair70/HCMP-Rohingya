@@ -51,16 +51,17 @@ from django.views.decorators.csrf import csrf_exempt
 from django.db import connection
 from collections import OrderedDict
 import decimal
+import csv
 import os
-
-
+import zipfile
+from io import BytesIO
 
 SECTOR_LIST = [{'name': 'Health', 'value': 1}, {'name': 'Nutrition', 'value': 2}, {'name': 'Education', 'value': 3},
                {'name': 'Wash', 'value': 4}, {'name': 'Agriculture & Environment', 'value': 5},
-               {'name': 'Child Protection', 'value': 6},{'name': 'C4D', 'value': 7},
-               {'name': 'GBV', 'value': 8},{'name': 'Shelter/NFI', 'value': 9},
-               {'name': 'DRR', 'value': 10},{'name': 'Training', 'value': 11},{'name': 'Site Management', 'value': 12},{'name': 'Communication', 'value': 13}]
-
+               {'name': 'Child Protection', 'value': 6}, {'name': 'C4D', 'value': 7},
+               {'name': 'GBV', 'value': 8}, {'name': 'Shelter/NFI', 'value': 9},
+               {'name': 'DRR', 'value': 10}, {'name': 'Training', 'value': 11},
+               {'name': 'Site Management', 'value': 12}, {'name': 'Communication', 'value': 13}]
 
 
 def __db_fetch_values(query):
@@ -101,13 +102,11 @@ def dictfetchall(cursor):
         for row in cursor.fetchall()]
 
 
-
 def makeTableList(tableListQuery):
     cursor = connection.cursor()
     cursor.execute(tableListQuery)
     tableList = list(cursor.fetchall())
     return tableList
-
 
 
 def decimal_date_default(obj):
@@ -118,7 +117,6 @@ def decimal_date_default(obj):
     else:
         return obj
     raise TypeError
-
 
 
 def get_geodata(request,tag):
@@ -150,11 +148,12 @@ def get_upz_list():
     return upz_list
 
 def get_dates(daterange):
-    date_list= daterange.split('-')
+    date_list = daterange.split('-')
     data = {
-        'start_date' : date_list[0],'end_date' : date_list[1]
+        'start_date': date_list[0], 'end_date': date_list[1]
     }
     return data
+
 
 @login_required
 def tb_hiv(request):
@@ -175,9 +174,9 @@ def get_tb_hiv_data_table(request):
         start_date = dates.get('start_date')
         end_date = dates.get('end_date')
 
-    q = "select * from get_rpt_health_tb('"+start_date+"','"+end_date+"','','','')"
+    q = "select * from get_rpt_health_tb('" + start_date + "','" + end_date + "','','','')"
     dataset = __db_fetch_values_dict(q)
-    datalist=[]
+    datalist = []
     data_dict = {}
     for temp in dataset:
         data_dict['particulars'] = temp['_particulars']
@@ -191,9 +190,7 @@ def get_tb_hiv_data_table(request):
         datalist.append(data_dict.copy())
         data_dict.clear()
 
-    return render(request, 'hcmp_report/tb_hiv_table.html',{'dataset':datalist})
-
-
+    return render(request, 'hcmp_report/tb_hiv_table.html', {'dataset': datalist})
 
 
 @login_required
@@ -209,7 +206,7 @@ def get_malaria_data_table(request):
     camp = request.POST.get('camp')
     q = "select * from get_rpt_health_maleria('06/01/2018','06/28/2018','','','')"
     dataset = __db_fetch_values_dict(q)
-    datalist=[]
+    datalist = []
     data_dict = {}
     for temp in dataset:
         data_dict['particulars'] = temp['_particulars']
@@ -223,7 +220,7 @@ def get_malaria_data_table(request):
         datalist.append(data_dict.copy())
         data_dict.clear()
 
-    return render(request, 'hcmp_report/malaria_table.html',{'dataset':datalist})
+    return render(request, 'hcmp_report/malaria_table.html', {'dataset': datalist})
 
 
 @login_required
@@ -239,7 +236,7 @@ def get_immunization_data_table(request):
     camp = request.POST.get('camp')
     q = "select * from get_rpt_health_immunization('06/01/2018','06/28/2018','','','')"
     dataset = __db_fetch_values_dict(q)
-    datalist=[]
+    datalist = []
     data_dict = {}
     for temp in dataset:
         data_dict['particulars'] = temp['_particulars']
@@ -247,7 +244,7 @@ def get_immunization_data_table(request):
         datalist.append(data_dict.copy())
         data_dict.clear()
 
-    return render(request, 'hcmp_report/immunization_table.html',{'dataset':datalist})
+    return render(request, 'hcmp_report/immunization_table.html', {'dataset': datalist})
 
 
 @login_required
@@ -264,7 +261,7 @@ def get_outbreak_disease_data_table(request):
     q = "select * from get_rpt_health_outbreak_disease('06/01/2018','06/28/2018','','','')"
     dataset = __db_fetch_values_dict(q)
 
-    return render(request, 'hcmp_report/outbreak_disease_table.html',{'dataset':dataset})
+    return render(request, 'hcmp_report/outbreak_disease_table.html', {'dataset': dataset})
 
 
 @login_required
@@ -278,13 +275,13 @@ def get_health_data_table(request):
     upazila = request.POST.get('upazila')
     branch = request.POST.get('branch')
     camp = request.POST.get('camp')
-    #1st report
+    # 1st report
     q_1 = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
     dataset_1 = __db_fetch_values_dict(q_1)
-    #2nd report
+    # 2nd report
     q_2 = "select * from get_rpt_health_2('06/01/2018','06/28/2018','','','')"
     dataset_2 = __db_fetch_values_dict(q_2)
-    return render(request, 'hcmp_report/health_table.html',{'dataset':dataset_1,'dataset_2' : dataset_2})
+    return render(request, 'hcmp_report/health_table.html', {'dataset': dataset_1, 'dataset_2': dataset_2})
 
 
 @login_required
@@ -300,8 +297,7 @@ def get_wfp_nutrition_data_table(request):
     camp = request.POST.get('camp')
     q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
     dataset = __db_fetch_values_dict(q)
-    return render(request, 'hcmp_report/wfp_nutrition_table.html',{'dataset':dataset})
-
+    return render(request, 'hcmp_report/wfp_nutrition_table.html', {'dataset': dataset})
 
 
 @login_required
@@ -317,7 +313,7 @@ def get_unicef_nutrition_data_table(request):
     camp = request.POST.get('camp')
     q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
     dataset = __db_fetch_values_dict(q)
-    return render(request, 'hcmp_report/unicef_nutrition_table.html',{'dataset':dataset})
+    return render(request, 'hcmp_report/unicef_nutrition_table.html', {'dataset': dataset})
 
 
 @login_required
@@ -333,7 +329,7 @@ def get_education_student_data_table(request):
     camp = request.POST.get('camp')
     q = "select * from get_rpt_education_student('06/01/2018','06/28/2018','','','')"
     dataset = __db_fetch_values_dict(q)
-    return render(request, 'hcmp_report/education_student_table.html',{'dataset':dataset})
+    return render(request, 'hcmp_report/education_student_table.html', {'dataset': dataset})
 
 
 @login_required
@@ -349,7 +345,7 @@ def get_education_teacher_data_table(request):
     camp = request.POST.get('camp')
     q = "select * from get_rpt_education_teacher('06/01/2018','06/28/2018','','','')"
     dataset = __db_fetch_values_dict(q)
-    return render(request, 'hcmp_report/education_teacher_table.html',{'dataset':dataset})
+    return render(request, 'hcmp_report/education_teacher_table.html', {'dataset': dataset})
 
 
 @login_required
@@ -365,8 +361,7 @@ def get_wash_data_table(request):
     camp = request.POST.get('camp')
     q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
     dataset = __db_fetch_values_dict(q)
-    return render(request, 'hcmp_report/wash_table.html',{'dataset':dataset})
-
+    return render(request, 'hcmp_report/wash_table.html', {'dataset': dataset})
 
 
 @login_required
@@ -391,7 +386,7 @@ def get_agriculture_fdmn_data_table(request):
         end_date = dates.get('end_date')
     q = "select * from get_rpt_agriculture_fdmn('"+start_date+"','"+end_date+"','','','','','')"
     dataset = __db_fetch_values_dict(q)
-    return render(request, 'hcmp_report/agriculture_fdmn_table.html',{'dataset':dataset})
+    return render(request, 'hcmp_report/agriculture_fdmn_table.html', {'dataset': dataset})
 
 
 @login_required
@@ -416,8 +411,7 @@ def get_agriculture_host_data_table(request):
         end_date = dates.get('end_date')
     q = "select * from get_rpt_agriculture_community('" + start_date + "','" + end_date + "','','','','','')"
     dataset = __db_fetch_values_dict(q)
-    return render(request, 'hcmp_report/agriculture_host_table.html',{'dataset':dataset})
-
+    return render(request, 'hcmp_report/agriculture_host_table.html', {'dataset': dataset})
 
 
 @login_required
@@ -442,7 +436,7 @@ def get_cfs_fdmn_data_table(request):
         end_date = dates.get('end_date')
     q = "select * from get_rpt_cfs_fdmn('"+start_date+"','"+end_date+"','','','','','')"
     dataset = __db_fetch_values_dict(q)
-    return render(request, 'hcmp_report/cfs_fdmn_table.html',{'dataset':dataset})
+    return render(request, 'hcmp_report/cfs_fdmn_table.html', {'dataset': dataset})
 
 
 @login_required
@@ -468,8 +462,7 @@ def get_cfs_host_data_table(request):
 
     q = "select * from get_rpt_cfs_community('"+start_date+"','"+end_date+"','','','','','')"
     dataset = __db_fetch_values_dict(q)
-    return render(request, 'hcmp_report/cfs_host_table.html',{'dataset':dataset})
-
+    return render(request, 'hcmp_report/cfs_host_table.html', {'dataset': dataset})
 
 
 @login_required
@@ -494,8 +487,7 @@ def get_cfs_summary_data_table(request):
         end_date = dates.get('end_date')
     q = "select * from get_rpt_cfs_fdmn('" + start_date + "','" + end_date + "','','','','','')"
     dataset = __db_fetch_values_dict(q)
-    return render(request, 'hcmp_report/cfs_summary_table.html',{'dataset':dataset})
-
+    return render(request, 'hcmp_report/cfs_summary_table.html', {'dataset': dataset})
 
 
 @login_required
@@ -520,7 +512,7 @@ def get_pss_data_table(request):
         end_date = dates.get('end_date')
     q = "select * from get_rpt_pss('" + start_date + "','" + end_date + "','','','','','')"
     dataset = __db_fetch_values_dict(q)
-    return render(request, 'hcmp_report/pss_table.html',{'dataset':dataset})
+    return render(request, 'hcmp_report/pss_table.html', {'dataset': dataset})
 
 
 @login_required
@@ -544,7 +536,7 @@ def get_c4d_data_table(request):
 
     q = "select * from get_rpt_c4d('"+start_date+"','"+end_date+"','','','')"
     dataset = __db_fetch_values_dict(q)
-    return render(request, 'hcmp_report/c4d_table.html',{'dataset':dataset})
+    return render(request, 'hcmp_report/c4d_table.html', {'dataset': dataset})
 
 
 @login_required
@@ -567,8 +559,7 @@ def get_gbv_data_table(request):
         end_date = dates.get('end_date')
     q = "select * from get_rpt_gbv('" + start_date + "','" + end_date + "','','','')"
     dataset = __db_fetch_values_dict(q)
-    return render(request, 'hcmp_report/gbv_table.html',{'dataset':dataset})
-
+    return render(request, 'hcmp_report/gbv_table.html', {'dataset': dataset})
 
 
 @login_required
@@ -591,8 +582,7 @@ def get_nfi_fdmn_data_table(request):
         end_date = dates.get('end_date')
     q = "select * from get_rpt_shelter_nfi('" + start_date + "','" + end_date + "','','','')"
     dataset = __db_fetch_values_dict(q)
-    return render(request, 'hcmp_report/nfi_fdmn_table.html',{'dataset':dataset})
-
+    return render(request, 'hcmp_report/nfi_fdmn_table.html', {'dataset': dataset})
 
 
 @login_required
@@ -615,8 +605,7 @@ def get_nfi_host_data_table(request):
         end_date = dates.get('end_date')
     q = "select * from get_rpt_shelter_community('" + start_date + "','" + end_date + "','','','')"
     dataset = __db_fetch_values_dict(q)
-    return render(request, 'hcmp_report/nfi_host_table.html',{'dataset':dataset})
-
+    return render(request, 'hcmp_report/nfi_host_table.html', {'dataset': dataset})
 
 
 @login_required
@@ -632,8 +621,7 @@ def get_drr_nfi_data_table(request):
     camp = request.POST.get('camp')
     q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
     dataset = __db_fetch_values_dict(q)
-    return render(request, 'hcmp_report/drr_nfi_table.html',{'dataset':dataset})
-
+    return render(request, 'hcmp_report/drr_nfi_table.html', {'dataset': dataset})
 
 
 @login_required
@@ -649,8 +637,7 @@ def get_drr_wash_data_table(request):
     camp = request.POST.get('camp')
     q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
     dataset = __db_fetch_values_dict(q)
-    return render(request, 'hcmp_report/drr_wash_table.html',{'dataset':dataset})
-
+    return render(request, 'hcmp_report/drr_wash_table.html', {'dataset': dataset})
 
 
 @login_required
@@ -738,3 +725,158 @@ def get_visitor_data_table(request):
     q = "select json->>'date' as visit_date,json->>'visitor_name' as visitor_name,json->>'visit_purpose' as visit_purpose,(select value_label from xform_extracted where xform_id=594 and field_name='donor' and value_text=json->>'donor') as donor_name from logger_instance where xform_id = (select id from logger_xform where id_string ='visitor') and deleted_at is null and Date(json->>'date') between '" + start_date + "' and '" + end_date + "' "
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/visitor_table.html',{'dataset':dataset})
+
+
+
+
+# ------------------- Shahin ------------------------------ #
+
+
+@login_required
+def branch_list(request):
+    branch_list = __db_fetch_values_dict("select id,row_number() OVER () as serial_no,name,code from branch")
+    return render(request, 'hcmp_report/branch_list.html', {'branch_list': json.dumps(branch_list)})
+
+
+@login_required
+def add_branch_form(request):
+    upazila_list = __db_fetch_values_dict(
+        "select id as upazila_id,field_name as upazila_name from geo_data where field_type_id = 88")
+    if request.method == 'POST':
+        branch_name = request.POST.get('branch_name')
+        branch_code = request.POST.get('branch_code')
+        upazila_id = request.POST.get('upazila_id')
+
+        __db_commit_query(
+            "INSERT INTO public.branch (name, code, upazila_id) VALUES('" + str(branch_name) + "', '" + str(
+                branch_code) + "', " + str(upazila_id) + ");")
+        return HttpResponseRedirect('/hcmp_report/branch_list/')
+
+    return render(request, 'hcmp_report/add_edit_branch_form.html', {'upazila_list': upazila_list})
+
+
+@login_required
+def edit_branch_form(request, branch_id):
+    upazila_list = __db_fetch_values_dict(
+        "select id as upazila_id,field_name as upazila_name from geo_data where field_type_id = 88")
+    branch_info = __db_fetch_values_dict("select * from branch where id = " + str(branch_id))
+    if request.method == 'POST':
+        branch_name = request.POST.get('branch_name')
+        branch_code = request.POST.get('branch_code')
+        upazila_id = request.POST.get('upazila_id')
+
+        __db_commit_query(
+            "update branch set name = '" + str(branch_name) + "',code= '" + str(branch_code) + "',upazila_id = " + str(
+                upazila_id) + " where id = " + str(branch_id))
+        return HttpResponseRedirect('/hcmp_report/branch_list/')
+
+    return render(request, 'hcmp_report/edit_branch_form.html', {
+        'upazila_list': upazila_list,
+        'branch_info': branch_info
+    })
+
+
+@login_required
+def delete_branch(request, branch_id):
+    delete_query = "delete from branch where id = " + str(branch_id) + ""
+    __db_commit_query(delete_query)
+    return HttpResponseRedirect("/hcmp_report/branch_list/")
+
+
+
+
+@login_required
+def camp_list(request):
+    camp_list = __db_fetch_values_dict("select id,row_number() OVER () as serial_no,name,code,(select name from branch where id = branch_id) as branch from camp")
+    return render(request, 'hcmp_report/camp_list.html', {'camp_list': json.dumps(camp_list)})
+
+
+@login_required
+def add_camp_form(request):
+    branch_list = __db_fetch_values_dict(
+        "select id as branch_id,name as branch_name from branch")
+    if request.method == 'POST':
+        camp_name = request.POST.get('camp_name')
+        camp_code = request.POST.get('camp_code')
+        branch_id = request.POST.get('branch_id')
+
+        __db_commit_query(
+            "INSERT INTO public.camp (name, code, branch_id) VALUES('" + str(camp_name) + "', '" + str(
+                camp_code) + "', " + str(branch_id) + ");")
+        return HttpResponseRedirect('/hcmp_report/camp_list/')
+
+    return render(request, 'hcmp_report/add_camp_form.html', {'branch_list': branch_list})
+
+
+@login_required
+def edit_camp_form(request, camp_id):
+    branch_list = __db_fetch_values_dict(
+        "select id as branch_id,name as branch_name from branch")
+    camp_info = __db_fetch_values_dict("select * from camp where id = " + str(camp_id))
+    if request.method == 'POST':
+        camp_name = request.POST.get('camp_name')
+        camp_code = request.POST.get('camp_code')
+        branch_id = request.POST.get('branch_id')
+
+        __db_commit_query(
+            "update camp set name = '" + str(camp_name) + "',code= '" + str(camp_code) + "',branch_id = " + str(
+                branch_id) + " where id = " + str(camp_id))
+        return HttpResponseRedirect('/hcmp_report/camp_list/')
+
+    return render(request, 'hcmp_report/edit_camp_form.html', {
+        'branch_list': branch_list,
+        'camp_info': camp_info
+    })
+
+
+@login_required
+def delete_camp(request, camp_id):
+    delete_query = "delete from camp where id = " + str(camp_id) + ""
+    __db_commit_query(delete_query)
+    return HttpResponseRedirect("/hcmp_report/camp_list/")
+
+
+
+@csrf_exempt
+def get_geolocation_csv(request,id_string):
+
+    both = ['cfs','shelter_nfi','agri_evironement']
+    notapp = ['visitor','training','meeting']
+    filenames = []
+
+    if id_string not in notapp:
+        geolocation_data = __db_fetch_values("select (select field_name from geo_data where id = (select field_parent_id from geo_data where id = gd.field_parent_id)) as upazila,(select field_name from geo_data where id = gd.field_parent_id limit 1) as union_name,field_name as village from geo_data gd where field_type_id = 92")
+        branch_camp_data = __db_fetch_values("select (select field_name from geo_data where id = upazila_id) as upazila,branch.name as branch,camp.name as camp from camp left join branch on branch.id = camp.branch_id")
+        try:
+            os.stat("onadata/media/geodata/"+str(id_string)+"/")
+        except:
+            os.mkdir("onadata/media/geodata/"+str(id_string)+"/")
+
+        if id_string in both:
+            writer = csv.writer(open("onadata/media/geodata/"+str(id_string)+"/village.csv", 'w'))
+            writer.writerow(['upazila', 'union_name', 'village'])
+            for data in geolocation_data:
+                writer.writerow([data[0], data[1], data[2]])
+
+            filenames.append(request.META['HTTP_HOST']+"/media/geodata/"+str(id_string)+"/village.csv")
+
+        writer2 = csv.writer(open("onadata/media/geodata/"+str(id_string)+"/camp.csv", 'w'))
+        writer2.writerow(['upazila', 'branch', 'camp'])
+
+        for data in branch_camp_data:
+            writer2.writerow([data[0], data[1], data[2]])
+
+        filenames.append(request.META['HTTP_HOST']+"/media/geodata/"+str(id_string)+"/camp.csv")
+
+
+        resp = {
+            'module_name': id_string
+        }
+
+        for fpath in filenames:
+            resp[fpath.split('/')[-1].split('.')[0]+'_csv'] = fpath
+
+        print request.META['HTTP_HOST']
+
+
+    return HttpResponse(json.dumps(resp))

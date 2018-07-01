@@ -1765,7 +1765,7 @@ def edit_form(request,form_id):
                                                          'field_parent_id': field_parent_id,
                                                          'field_name': field_name,
                                                          'field_type': field_type,
-                                                         'geocode': geocode,
+                                                         'geocode': json.dumps(geocode),
                                                          'uploaded_file_path': uploaded_file_path,
                                                          'field_type_id': field_type_id,
                                                          'list_of_both': list_of_both,

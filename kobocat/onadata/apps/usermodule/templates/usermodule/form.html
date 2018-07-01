@@ -48,13 +48,15 @@
                         <div class="col-md-5">
                             <div class="form-group">
                                 <label for="Field Name">Geo Code:</label>
-                                <br>
+                                <input type="text" maxlength="2" class="form-control" name="geocode" id="geocode"
+                                       placeholder="Geo Code" required>
+                                <!--<br>
                                 <div class="ui labeled input">
                                     <div class="ui label" id="parent_geocode"></div>
                                     <input type="text" maxlength="2" class="form-control" name="geocode" id="geocode"
                                        placeholder="Geo Code" required>
 
-                                </div><br>
+                                </div><br>-->
                                 <span style="color:red;font-weight:bold" id ="alert_geocode">Duplicate Geocode Not Accepted</span>
                             </div>
 
@@ -214,19 +216,18 @@
         var geocode=[];
         var parent_geocode="";
         var division_geocode = {{ division_geocode|safe }};
-        geocode = division_geocode
+        geocode = division_geocode;
         console.log(geocode);
         $('#alert_geocode').hide();
         $('#geocode').on('keyup',function () {
-           var geo_value = parent_geocode.concat($('#geocode').val());
+           var geo_value = $('#geocode').val();
            if(geocode.includes(geo_value))
                 $('#alert_geocode').show();
            else $('#alert_geocode').hide();
-
         });
 
         $('#submit').on('click',function () {
-            var geo_value = parent_geocode.concat($('#geocode').val());
+            var geo_value = $('#geocode').val();
             if(geocode.includes(geo_value))
             {
                 $('#alert_geocode').show();
@@ -234,7 +235,7 @@
             }
 
             else {
-                $('#geocode').val(parent_geocode.concat($('#geocode').val()));
+                $('#geocode').val($('#geocode').val());
                 $('#alert_geocode').hide();
                 return true;
             }

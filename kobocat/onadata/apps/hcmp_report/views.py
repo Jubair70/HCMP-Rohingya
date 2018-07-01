@@ -868,15 +868,20 @@ def get_geolocation_csv(request,id_string):
 
         filenames.append(request.META['HTTP_HOST']+"/media/geodata/"+str(id_string)+"/camp.csv")
 
-
         resp = {
             'module_name': id_string
         }
+
 
         for fpath in filenames:
             resp[fpath.split('/')[-1].split('.')[0]+'_csv'] = fpath
 
         print request.META['HTTP_HOST']
+
+    else:
+        resp = {
+            'module_name': id_string
+        }
 
 
     return HttpResponse(json.dumps(resp))

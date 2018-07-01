@@ -575,7 +575,14 @@ def get_nfi_fdmn_data_table(request):
     upazila = request.POST.get('upazila')
     branch = request.POST.get('branch')
     camp = request.POST.get('camp')
-    q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
+    if date_range == '':
+        start_date = '06/01/2018'
+        end_date = '06/28/2018'
+    else:
+        dates = get_dates(str(date_range))
+        start_date = dates.get('start_date')
+        end_date = dates.get('end_date')
+    q = "select * from get_rpt_shelter_nfi('" + start_date + "','" + end_date + "','','','')"
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/nfi_fdmn_table.html', {'dataset': dataset})
 
@@ -591,7 +598,14 @@ def get_nfi_host_data_table(request):
     upazila = request.POST.get('upazila')
     branch = request.POST.get('branch')
     camp = request.POST.get('camp')
-    q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
+    if date_range == '':
+        start_date = '06/01/2018'
+        end_date = '06/28/2018'
+    else:
+        dates = get_dates(str(date_range))
+        start_date = dates.get('start_date')
+        end_date = dates.get('end_date')
+    q = "select * from get_rpt_shelter_community('" + start_date + "','" + end_date + "','','','')"
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/nfi_host_table.html', {'dataset': dataset})
 

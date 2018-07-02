@@ -105,6 +105,7 @@
                 <button onclick="tableToExcel('cfs_summary_table', 'List of activities', 'cfs_summary_report.xls')"  class = "btn btn-primary" style = "margin-bottom: 10px;"><span style="color: #F5F5F5;" class="glyphicon glyphicon-circle-arrow-down"></span> Export</button>
             </div>
                 <div id="cfs_summary_table_block">
+                    {% include 'hcmp_report/cfs_summary_table.html' %}
 
                 </div>
             </div>
@@ -152,7 +153,31 @@
                 type: 'POST',
                 data:{ 'date_range' : date_range,'upazila':upazila,'branch': branch,'camp':camp,'union':union,'village':village},
                 success: function (data) {
-                    $("#cfs_summary_table_block").html(data);
+                    //$("#cfs_summary_table_block").html(data);
+                    data_1 = data.dataset_1
+                    data_2 = data.dataset_2
+                    data_3 = data.dataset_3
+                    console.log(data_2)
+                    var j = 1
+                    for (var i = 0 ; i < data_1.length ; i++){
+                         $("#type_"+j).html('<font face="Calibri" color="#000000">'+data_1[i]['ractivity']+'</font>');
+                         $("#t_"+j).html('<font face="Calibri" color="#000000">'+data_1[i]['total_number']+'</font>');
+                         j++;
+                    }
+                    var k = 6
+                    for (var i = 0 ; i < data_2.length ; i++){
+                        var ac = data_2[i]['ractivity'] || '';
+                        var total = data_2[i]['total_number'] || '';
+                         $("#type_"+k).html('<font face="Calibri" color="#000000">'+ac+'</font>');
+                         $("#t_"+k).html('<font face="Calibri" color="#000000">'+total+'</font>');
+                         k++;
+                    }
+                    var l = 10
+                    for (var i = 0 ; i < data_3.length ; i++){
+                         $("#type_"+l).html('<font face="Calibri" color="#000000">'+data_3[i]['ractivity']+'</font>');
+                         $("#t_"+l).html('<font face="Calibri" color="#000000">'+data_3[i]['total_number']+'</font>');
+                         l++;
+                    }
 
 
                 }

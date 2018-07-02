@@ -493,7 +493,9 @@ def get_cfs_summary_data_table(request):
     dataset_1 = __db_fetch_values_dict(q1)
     dataset_2 = __db_fetch_values_dict(q2)
     dataset_3 = __db_fetch_values_dict(q3)
-    return render(request, 'hcmp_report/cfs_summary_table.html', {'dataset_1': dataset_1,'dataset_2' : dataset_2,'dataset_3':dataset_3})
+    response_data = {'dataset_1': dataset_1,'dataset_2' : dataset_2,'dataset_3':dataset_3}
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
+    #return render(request, 'hcmp_report/cfs_summary_table.html', {'dataset_1': dataset_1,'dataset_2' : dataset_2,'dataset_3':dataset_3})
 
 
 @login_required

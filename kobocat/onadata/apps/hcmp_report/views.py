@@ -487,9 +487,13 @@ def get_cfs_summary_data_table(request):
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
         end_date = dates.get('end_date')
-    q = "select * from get_rpt_cfs_fdmn('" + start_date + "','" + end_date + "','','','','','')"
-    dataset = __db_fetch_values_dict(q)
-    return render(request, 'hcmp_report/cfs_summary_table.html', {'dataset': dataset})
+    q1 = "select * from  get_rpt_cfs_summary_1('" + start_date + "','" + end_date + "','','','','','')"
+    q2 = "select * from  get_rpt_cfs_summary_2('" + start_date + "','" + end_date + "','','','','','')"
+    q3 = "select * from  get_rpt_cfs_summary_3('" + start_date + "','" + end_date + "','','','','','')"
+    dataset_1 = __db_fetch_values_dict(q1)
+    dataset_2 = __db_fetch_values_dict(q2)
+    dataset_3 = __db_fetch_values_dict(q3)
+    return render(request, 'hcmp_report/cfs_summary_table.html', {'dataset_1': dataset_1,'dataset_2' : dataset_2,'dataset_3':dataset_3})
 
 
 @login_required
@@ -682,10 +686,11 @@ def get_site_management_data_table(request):
         start_date = dates.get('start_date')
         end_date = dates.get('end_date')
 
-    q = "select * from get_rpt_health_tb('" + start_date + "','" + end_date + "','','','')"
+    q = "select * from  get_site_management('"+start_date+"','"+end_date+"','','','','','')"
     dataset = __db_fetch_values_dict(q)
+    return HttpResponse(json.dumps(dataset), content_type="application/json")
 
-    return render(request, 'hcmp_report/site_management_table.html', {'dataset': dataset})
+    #return render(request, 'hcmp_report/site_management_table.html', {'dataset': dataset})
 
 
 @login_required

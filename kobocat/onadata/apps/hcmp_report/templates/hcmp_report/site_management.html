@@ -68,7 +68,7 @@
                 <button onclick="tableToExcel('site_management_table', 'List of activities', 'site_management_report.xls')"  class = "btn btn-primary" style = "margin-bottom: 10px;"><span style="color: #F5F5F5;" class="glyphicon glyphicon-circle-arrow-down"></span> Export</button>
             </div>
                 <div id="site_management_table_block">
-
+                        {% include 'hcmp_report/site_management_table.html' %}
                 </div>
             </div>
         </div>
@@ -83,7 +83,9 @@
     <script type="text/javascript" src="/static/js/Date-Range-Picker-For-Twitter-Bootstrap/date.js"></script>
 	<script type="text/javascript" src="/static/js/Date-Range-Picker-For-Twitter-Bootstrap/daterangepicker.js"></script>
         <script>
+
         $(document).ready(function () {
+
             $('#date_range').daterangepicker({ showDropdowns: true,maxDate: new Date()});
             //var s_type = ''
             get_site_management_data_table()
@@ -106,13 +108,18 @@
 
         function get_site_management_data_table(){
             getfilterCriteria();
-            console.log("date::"+date_range+",upazila::"+upazila+",branch"+branch);
             $.ajax({
                 url: '/hcmp_report/get_site_management_data_table/',
                 type: 'POST',
                 data:{ 'date_range' : date_range,'upazila':upazila,'branch': branch,'camp':camp},
                 success: function (data) {
-                    $("#site_management_table_block").html(data);
+                    for (var i = 0 ; i < data.length ; i++){
+                         $("#a_"+data[i]['sl_no']).html('<font face="Calibri" color="#000000">'+data[i]['rparticulars']+'</font>');
+                         $("#u_"+data[i]['sl_no']).html('<font face="Calibri" color="#000000">'+data[i]['unit_txt']+'</font>');
+                         $("#t_"+data[i]['sl_no']).html('<font face="Calibri" color="#000000">'+data[i]['rtotal']+'</font>');
+                         $("#c_"+data[i]['sl_no']).html('<font face="Calibri" color="#000000">'+data[i]['rtotal_cum']+'</font>');
+
+                    }
 
 
                 }

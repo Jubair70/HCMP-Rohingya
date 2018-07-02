@@ -1,3 +1,4 @@
+
 <div style="overflow-x: auto" class="access_table">
 <table id = "wash_table" cellspacing="0" border="1">
 	<colgroup span="8" width="85"></colgroup>
@@ -19,7 +20,7 @@
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#EE0082"><font face="Calibri" color="#000000">Boy &lt;5 (Individuals)</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#EE0082"><b><font face="Calibri" color="#000000">Girl &lt;5 (Individuals)</font></b></td>
 	</tr>
-	<tr>
+	<!--<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="left" valign=bottom><font face="Calibri" color="#000000">1. WASH</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000"><br></font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000"><br></font></td>
@@ -29,18 +30,21 @@
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000"><br></font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000"><br></font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom><br></td>
-	</tr>
+	</tr>-->
+    {% for data in dataset  %}
 	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="74" align="right" valign=bottom bgcolor="#F2F2F2" sdval="1.1" sdnum="1033;"><b><font face="Calibri" color="#000000">1.1</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#EBF1DE"><b><font face="Calibri" color="#000000">Total Latrines Constructed</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">Latrine</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">Counting formula=E$10+E$14</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">Counting formula=F$10+F$14</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">Counting formula=G$10+G$14</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">Counting formula=H$10+H$14</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">Counting formula=I$10+I$14</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">Counting formula=J$10+J$14</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="74" align="right" valign=bottom bgcolor="#F2F2F2" sdval="1.1" sdnum="1033;"><b><font face="Calibri" color="#000000">{% if  data.rsector == None  %}{% else %}{{ data.rsector }}{% endif %}</font></b></td>
+		<td {% if  data.is_bold == 1  %} class = "bold_class"{% else %} {% endif %} style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{% if  data.ractivities == None  %}{% else %}{{ data.ractivities }}{% endif %}</font></td>
+		<td  style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">{% if  data.runit == None  %}{% else %}{{ data.runit }}{% endif %}</font></td>
+		<td   style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">{% if  data.rdays == None  %}{% else %}{{ data.rdays }}{% endif %}</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">{% if  data.rhousehold == None  %}{% else %}{{ data.rhousehold }}{% endif %}</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">{% if  data.rmale_gte_5 == None  %}{% else %}{{ data.rmale_gte_5 }}{% endif %}</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">{% if  data.rfemale_gte_5 == None  %}{% else %}{{ data.rfemale_gte_5 }}{% endif %}</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">{% if  data.rboy_less_5 == None  %}{% else %}{{ data.rboy_less_5 }}{% endif %}</font></td>
+		<td  style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">{% if  data.rgirl_less_5 == None  %}{% else %}{{ data.rgirl_less_5 }}{% endif %}</font></td>
 	</tr>
+    {% endfor %}
+    <!--
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="74" align="left" valign=bottom bgcolor="#F2F2F2"><b><font face="Calibri" color="#000000"><br></font></b></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#EBF1DE"><b><font face="Calibri" color="#000000">1.1.1 Latrines New Built</font></b></td>
@@ -689,7 +693,7 @@
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">q291</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">q292</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">q293</font></td>
-	</tr>
+	</tr>-->
 </table>
 
 <a id="dlink" style="display:none;"></a>

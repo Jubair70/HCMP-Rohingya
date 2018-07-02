@@ -361,7 +361,14 @@ def get_wash_data_table(request):
     upazila = request.POST.get('upazila')
     branch = request.POST.get('branch')
     camp = request.POST.get('camp')
-    q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
+    if date_range == '':
+        start_date = '01/01/2018'
+        end_date = '12/31/2018'
+    else:
+        dates = get_dates(str(date_range))
+        start_date = dates.get('start_date')
+        end_date = dates.get('end_date')
+    q = "select * from get_rpt_wash('" + start_date + "','" + end_date +"','','','')"
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/wash_table.html', {'dataset': dataset})
 
@@ -627,7 +634,14 @@ def get_drr_nfi_data_table(request):
     upazila = request.POST.get('upazila')
     branch = request.POST.get('branch')
     camp = request.POST.get('camp')
-    q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
+    if date_range == '':
+        start_date = '06/01/2018'
+        end_date = '06/28/2018'
+    else:
+        dates = get_dates(str(date_range))
+        start_date = dates.get('start_date')
+        end_date = dates.get('end_date')
+    q = "select * from get_rpt_drr_shelter('" + start_date + "','" + end_date + "','','','')"
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/drr_nfi_table.html', {'dataset': dataset})
 
@@ -643,7 +657,14 @@ def get_drr_wash_data_table(request):
     upazila = request.POST.get('upazila')
     branch = request.POST.get('branch')
     camp = request.POST.get('camp')
-    q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
+    if date_range == '':
+        start_date = '06/01/2018'
+        end_date = '06/28/2018'
+    else:
+        dates = get_dates(str(date_range))
+        start_date = dates.get('start_date')
+        end_date = dates.get('end_date')
+    q = "select * from get_rpt_drr_wash('" + start_date + "','" + end_date + "','','','')"
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/drr_wash_table.html', {'dataset': dataset})
 

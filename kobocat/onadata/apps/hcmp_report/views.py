@@ -377,7 +377,7 @@ def get_wash_data_table(request):
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
         end_date = dates.get('end_date')
-    q = "select * from get_rpt_wash('" + start_date + "','" + end_date +"','','','')"
+    q = "select * from get_rpt_wash('" + start_date + "','" + end_date + "','','','')"
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/wash_table.html', {'dataset': dataset})
 
@@ -509,9 +509,9 @@ def get_cfs_summary_data_table(request):
     dataset_1 = __db_fetch_values_dict(q1)
     dataset_2 = __db_fetch_values_dict(q2)
     dataset_3 = __db_fetch_values_dict(q3)
-    response_data = {'dataset_1': dataset_1,'dataset_2' : dataset_2,'dataset_3':dataset_3}
+    response_data = {'dataset_1': dataset_1, 'dataset_2': dataset_2, 'dataset_3': dataset_3}
     return HttpResponse(json.dumps(response_data), content_type="application/json")
-    #return render(request, 'hcmp_report/cfs_summary_table.html', {'dataset_1': dataset_1,'dataset_2' : dataset_2,'dataset_3':dataset_3})
+    # return render(request, 'hcmp_report/cfs_summary_table.html', {'dataset_1': dataset_1,'dataset_2' : dataset_2,'dataset_3':dataset_3})
 
 
 @login_required
@@ -718,11 +718,11 @@ def get_site_management_data_table(request):
         start_date = dates.get('start_date')
         end_date = dates.get('end_date')
 
-    q = "select * from  get_site_management('"+start_date+"','"+end_date+"','','','','','')"
+    q = "select * from  get_site_management('" + start_date + "','" + end_date + "','','','','','')"
     dataset = __db_fetch_values_dict(q)
     return HttpResponse(json.dumps(dataset), content_type="application/json")
 
-    #return render(request, 'hcmp_report/site_management_table.html', {'dataset': dataset})
+    # return render(request, 'hcmp_report/site_management_table.html', {'dataset': dataset})
 
 
 @login_required
@@ -880,9 +880,9 @@ def get_geolocation_csv(request, id_string):
 
     if id_string not in notapp:
         geolocation_data = __db_fetch_values(
-            "select (select field_name from geo_data where id = (select field_parent_id from geo_data where id = gd.field_parent_id)) as upazila,(select field_name from geo_data where id = gd.field_parent_id limit 1) as union_name,field_name as village from geo_data gd where field_type_id = 92")
+            "select(select field_name from geo_data where id = (select field_parent_id from geo_data where id = gd.field_parent_id)) as upazila_label, (select field_parent_id from geo_data where id = gd.field_parent_id) as upazila, (select field_name from geo_data where id = gd.field_parent_id limit 1) as union_name_label, gd.field_parent_id as union_name, field_name as village_label, id as village from geo_data gd where field_type_id = 92")
         branch_camp_data = __db_fetch_values(
-            "select (select field_name from geo_data where id = upazila_id) as upazila,branch.name as branch,camp.name as camp from camp left join branch on branch.id = camp.branch_id")
+            "SELECT(SELECT field_name FROM geo_data WHERE id = upazila_id) AS upazila_label, upazila_id as upazila, branch.name AS branch_label, branch.code as branch, camp.name AS camp_label, camp.code AS camp FROM camp LEFT JOIN branch ON branch.id = camp.branch_id")
         try:
             os.stat("onadata/media/geodata/" + str(id_string) + "/")
         except:
@@ -892,9 +892,10 @@ def get_geolocation_csv(request, id_string):
             f_path = os.path.join(settings.MEDIA_ROOT, "geodata/" + str(id_string) + "/village.csv")
             with open(f_path, 'w') as outfile:
                 writer = csv.writer(outfile)
-                writer.writerow(['upazila', 'union_name', 'village'])
+                writer.writerow(
+                    ['upazila_label', 'upazila', 'union_name_label', 'union_name', 'village_label', 'village'])
                 for data in geolocation_data:
-                    writer.writerow([data[0], data[1], data[2]])
+                    writer.writerow([data[0], data[1], data[2], data[3], data[4], data[5]])
 
             filenames.append(f_path)
 
@@ -902,9 +903,9 @@ def get_geolocation_csv(request, id_string):
 
         with open(f2_path, 'w') as outfile2:
             writer2 = csv.writer(outfile2)
-            writer2.writerow(['upazila', 'branch', 'camp'])
+            writer2.writerow(['upazila_label', 'upazila', 'branch_label', 'branch', 'camp_label', 'camp'])
             for data in branch_camp_data:
-                writer2.writerow([data[0], data[1], data[2]])
+                writer2.writerow([data[0], data[1], data[2], data[3], data[4], data[5]])
 
         filenames.append(f2_path)
 
@@ -921,7 +922,7 @@ def get_geolocation_csv(request, id_string):
 
         resp = {
             'module_name': id_string,
-            #'csv_url': "http://"+request.META['HTTP_HOST'] + "/media/geodata/" + str(id_string) + "/geolocations.zip"
+            # 'csv_url': "http://"+request.META['HTTP_HOST'] + "/media/geodata/" + str(id_string) + "/geolocations.zip"
             'csv_url': "http://" + request.META['HTTP_HOST'] + "/media/geodata/" + str(id_string) + "/geolocations.zip"
         }
 

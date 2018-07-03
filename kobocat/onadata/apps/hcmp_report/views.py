@@ -921,7 +921,8 @@ def get_geolocation_csv(request, id_string):
 
         resp = {
             'module_name': id_string,
-            'csv_url': "http://"+request.META['HTTP_HOST'] + "/media/geodata/" + str(id_string) + "/geolocations.zip"
+            #'csv_url': "http://"+request.META['HTTP_HOST'] + "/media/geodata/" + str(id_string) + "/geolocations.zip"
+            'csv_url': "http://" + request.META['HTTP_HOST'] + "/media/geodata/" + str(id_string) + "/geolocations.zip"
         }
 
     else:

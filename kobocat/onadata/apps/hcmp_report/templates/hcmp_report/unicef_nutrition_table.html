@@ -3,10 +3,11 @@
 	<colgroup width="193"></colgroup>
 	<colgroup width="314"></colgroup>
 	<colgroup width="235"></colgroup>
+    {% for data in dataset %}
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="left" valign=bottom><font color="#000000"><br></font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">How many HH/Khana are Visited?</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q5</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_1 }}</font></td>
 	</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="18" align="left" valign=bottom bgcolor="#A4C2F4"><font color="#000000"><br></font></td>
@@ -16,59 +17,59 @@
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" rowspan=14 height="292" align="center" valign=middle><font color="#000000">Tent To Tent Counselling</font></td>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregivers of children 0-23 months counselled on IYCF 1st visit (new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q7</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_2 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregivers of children 0-23 months counselled on IYCF more than 1st visit (old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q8</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_3 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Pregnant women (SELF) counselled 1st visit (new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q9</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_4 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Pregnant women (SELF) counselled more than 1st visit (old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q10</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_5 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Lactating mother (SELF) counselled 1st visit (new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q11</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_6 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Lactating mother (SELF) counselled more than 1st visit (old))</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q12</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_7 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Adolescents (SELF) counselled 1st visit (new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q13</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_8 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Adolescents (SELF) counselled more than 1st visit (old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q14</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_9 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregiver (0-6 months-boys) referred for Relactation support in BFC places</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q15</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000"> {{ data.c_10 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregiver (0-6 months-girls) referred for Relactation support in BFC places</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q16</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000"> {{ data.c_11 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregiver (0-23 months-boys) referred for Psychosocial support in BFC places</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q17</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000"> {{ data.c_12 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregiver (0-23 months-girls) referred for Psychosocial support in BFC places</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q18</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000"> {{ data.c_13 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregiver (0-23 months-boys) referred for wet nursing support in BFC places</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q19</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000"> {{ data.c_14 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregiver (0-23 months-girls) referred for wet nursing support in BFC places</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q20</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000"> {{ data.c_15 }}</font></td>
 	</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="18" align="left" valign=bottom bgcolor="#A4C2F4"><font color="#000000"><br></font></td>
@@ -78,83 +79,83 @@
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" rowspan=20 height="417" align="center" valign=middle><font color="#000000">Breast Feeding Corner Counselling (Primary Health Center)</font></td>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregivers of children 0-23 months (boys+girls) counselled on IYCF 1st visit (new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q22</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000"> {{ data.c_16 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregivers of children 0-23 months (boys+girls) counselled on IYCF more than 1st visit (old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q23</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000"> {{ data.c_17 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Pregnant women (SELF) counselled 1st visit (new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q24</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000"> {{ data.c_18 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Pregnant women (SELF) counselled more than 1st visit (old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q25</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000"> {{ data.c_19 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Lactating mother (SELF) counselled 1st visit (new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q26</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000"> {{ data.c_20 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Lactating mother (SELF) counselled more than 1st visit (old))</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q27</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_21 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Adolescents (SELF) counselled 1st visit (new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q28</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_22 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Adolescents (SELF) counselled more than 1st visit (old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q29</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_23 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregiver (0-6 months-boys) received for Relactation support in BFC places 1st visit (new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q30</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_24 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregiver (0-6 months-boys) received for Relactation support in BFC places more than 1st visit (old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q31</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_25 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregiver (0-6 months-girls) received for Relactation support in BFC places 1st visit (new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q32</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_26 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregiver (0-6 months-girls) received for Relactation support in BFC places more than 1st visit (old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q33</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_27 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregiver (0-23 months-boys) received Psychosocial support in BFC places 1st visit (new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q34</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_28 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregiver (0-23 months-boys) received Psychosocial support in BFC places more than 1st visit (old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q35</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_29 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregiver (0-23 months-girls) received Psychosocial support in BFC places 1st visit (new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q36</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_30 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregiver (0-23 months-girls) received Psychosocial support in BFC places more than 1st visit (old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q37</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_31 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregiver (0-23 months-boys) received for wet nursing support in BFC places 1st visit (new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q38</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_32 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregiver (0-23 months-boys) received for wet nursing support in BFC places more than 1st visit (old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q39</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_33 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregiver (0-23 months-girls) received for wet nursing support in BFC places 1st visit (new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q40</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_34 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregiver (0-23 months-girls) received for wet nursing support in BFC places more than 1st visit (old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q41</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_35 }}</font></td>
 	</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="18" align="left" valign=bottom bgcolor="#A4C2F4"><font color="#000000"><br></font></td>
@@ -164,83 +165,83 @@
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" rowspan=20 height="417" align="center" valign=middle><font color="#000000">Breast Feeding Corner Counselling (Child Friendly Space)</font></td>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregivers of children 0-23 months (boys+girls) counselled on IYCF 1st visit (new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q43</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_36 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregivers of children 0-23 months (boys+girls) counselled on IYCF more than 1st visit (old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q44</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_37}}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Pregnant women (SELF) counselled 1st visit (new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q45</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_38 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Pregnant women (SELF) counselled more than 1st visit (old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q46</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_39}}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Lactating mother (SELF) counselled 1st visit (new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q47</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_40 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Lactating mother (SELF) counselled more than 1st visit (old))</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q48</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_41 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Adolescents (SELF) counselled 1st visit (new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q49</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_42}}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Adolescents (SELF) counselled more than 1st visit (old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q50</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_43 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregiver (0-6 months-boys) received for Relactation support in BFC places 1st visit (new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q51</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_44 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregiver (0-6 months-boys) received for Relactation support in BFC places more than 1st visit (old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q52</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_45 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregiver (0-6 months-girls) received for Relactation support in BFC places 1st visit (new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q53</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_46}}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregiver (0-6 months-girls) received for Relactation support in BFC places more than 1st visit (old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q54</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_47 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregiver (0-23 months-boys) received Psychosocial support in BFC places 1st visit (new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q55</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_48 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregiver (0-23 months-boys) received Psychosocial support in BFC places more than 1st visit (old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q56</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_49 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregiver (0-23 months-girls) received Psychosocial support in BFC places 1st visit (new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q57</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_50 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregiver (0-23 months-girls) received Psychosocial support in BFC places more than 1st visit (old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q58</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_51 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregiver (0-23 months-boys) received for wet nursing support in BFC places 1st visit (new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q59</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_52 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregiver (0-23 months-boys) received for wet nursing support in BFC places more than 1st visit (old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q60</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_53 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregiver (0-23 months-girls) received for wet nursing support in BFC places 1st visit (new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q61</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_54 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Mothers/caregiver (0-23 months-girls) received for wet nursing support in BFC places more than 1st visit (old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q62</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_55 }}</font></td>
 	</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="18" align="left" valign=bottom bgcolor="#A4C2F4"><font color="#000000"><br></font></td>
@@ -250,27 +251,27 @@
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" rowspan=6 height="125" align="center" valign=middle><font color="#000000">MUAC Screening</font></td>
 		<td align="left" valign=bottom><font color="#000000">No. of boys (6-59 months) screened with MUAC (1st time-new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q64</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_56 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of boys (6-59 months) screened with MUAC (2nd time-old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q65</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_57 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of girls (6-59 months) screened with MUAC (1st time-new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q66</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_58 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of girls (6-59 months) screened with MUAC (2nd time-old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q67</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_59 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">Total 6-59 months (boys+girls) screened with MUAC (1st time-new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q64+q66</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_60 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">Total 6-59 months (boys+girls) screened with MUAC (2nd time-old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q65+q67</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_61 }}</font></td>
 	</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="18" align="left" valign=bottom bgcolor="#A4C2F4"><font color="#000000"><br></font></td>
@@ -280,39 +281,39 @@
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" rowspan=9 height="188" align="center" valign=middle><font color="#000000">Severe Acute Malnutrition (SAM)</font></td>
 		<td align="left" valign=bottom><font color="#000000">No. of boys SAM identified (1st time-new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q71</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_62 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of boys SAM identified (2nd time-old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q72</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_63 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of girls SAM identified (1st time-new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q73</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_64 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of girls SAM identified (2nd time-old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q74</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_65 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">Total (boys+girls) SAM identified (1st time-new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q71+q73</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_66 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">Total (boys+girls) SAM identified (2nd time-old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q72+q74</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_67 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of boys SAM refer (1st time-new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q77</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_68 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of girls SAM refer (1st time-new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q78</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_69 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">Total (boys+girls) SAM referred (1st time-new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q77+q78</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_70 }}</font></td>
 	</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="18" align="left" valign=bottom bgcolor="#A4C2F4"><font color="#000000"><br></font></td>
@@ -322,39 +323,39 @@
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" rowspan=9 height="188" align="center" valign=middle><font color="#000000">SAM Referral details (Outpatient Therapeutic Programme)</font></td>
 		<td align="left" valign=bottom><font color="#000000">Referral Slip No.</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q81</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_71 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of SAM referred to ACF OTP</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q82</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_72 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of SAM referred to SCI OTP</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q83</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_73 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of SAM referred to Concern OTP</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q84</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_74 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of SAM referred to World Vision OTP</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q85</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_75 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of SAM referred to CARE OTP</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q86</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_76 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of SAM referred to SHED OTP</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q87</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_77 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of SAM referred to SAPRV OTP</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q88</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_78 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of SAM referred to TDH OTP</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q89</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_79 }}</font></td>
 	</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="18" align="left" valign=bottom bgcolor="#A4C2F4"><font color="#000000"><br></font></td>
@@ -364,39 +365,39 @@
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" rowspan=9 height="188" align="center" valign=middle><font color="#000000">Moderate Acute Malnutrition (MAM)</font></td>
 		<td align="left" valign=bottom><font color="#000000">No. of boys MAM identified (1st time-new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q91</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_80 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of boys MAM identified (2nd time-old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q92</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_81 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of girls MAM identified (1st time-new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q93</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_82 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of girls MAM identified (2nd time-old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q94</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_83 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">Total (boys+girls) MAM identified (1st time-new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q91+q93</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_84 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">Total (boys+girls) MAM identified (2nd time-old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q92+q94</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_85 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of boys MAM refer (1st time-new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q97</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_86}}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of girls MAM refer (1st time-new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q98</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_87}}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">Total (boys+girls) MAM referred (1st time-new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q97+q98</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_88 }}</font></td>
 	</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="18" align="left" valign=bottom bgcolor="#A4C2F4"><font color="#000000"><br></font></td>
@@ -406,7 +407,7 @@
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="146" align="center" valign=middle><font color="#000000">MAM Referral details (Supplementary Feeding Programme)</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font color="#000000">No. MAM referred to TSFP</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Calibri" color="#000000">q101</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Calibri" color="#000000">{{ data.c_89 }}</font></td>
 	</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="18" align="left" valign=bottom bgcolor="#A4C2F4"><font color="#000000"><br></font></td>
@@ -416,91 +417,91 @@
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" rowspan=22 height="643" align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000">Micronutrient Powder (MNP) distribution (6-59 months children)</font></td>
 		<td align="left" valign=bottom><font color="#000000">No. of 6-23 months boys received MNP (1st time-new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q103</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_90 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of 6-23 months boys received MNP (2nd time-old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q104</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_91 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of 6-23 months boys received MNP (3rd time-old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q105</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_92 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of 6-23 months boys received MNP (4th time-old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q106</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_93 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of 6-23 months girls received MNP (1st time-new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q107</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_94 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of 6-23 months girls received MNP (2nd time-old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q108</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_95 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of 6-23 months girls received MNP (3rd time-old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q109</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_96 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of 6-23 months girls received MNP (4th time-old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q110</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_97 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of 6-23 months (boys+girls-new) received MNP</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q103+q107</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_98 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of 6-23 months (boys+girls-old) received MNP</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q104+q105+q106+q108+q109+q110</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_99 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of 24-59 months boys received MNP (1st time-new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q113</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_100 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of 24-59 months boys received MNP (2nd time-old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q114</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_101 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of 24-59 months boys received MNP (3rd time-old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q115</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_102 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of 24-59 months boys received MNP (4th time-old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q116</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_103 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of 24-59 months girls received MNP (1st time-new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q117</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_104 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of 24-59 months girls received MNP (2nd time-old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q118</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_105 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of 24-59 months girls received MNP (3rd time-old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q119</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_106 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of 24-59 months girls received MNP (4th time-old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q120</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_107 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of 24-59 months (boys+girls-new) received MNP</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q113+q117</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_108 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of 24-59 months (boys+girls-old) received MNP</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q114+q115+q116+q118+q119+q120</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_109}}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">Total quantity of MNP [6-23 (boys+girls)-new] distributed</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q121</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_110 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">Total quantity of MNP [24-59(boys+girls)-old] distributed</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q122</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_111 }}</font></td>
 	</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="18" align="left" valign=bottom bgcolor="#A4C2F4"><font color="#000000"><br></font></td>
@@ -510,51 +511,51 @@
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" rowspan=12 height="250" align="center" valign=middle><font color="#000000">Iron and Folic Acid (IFA) distribution (Adolescent girls + Pregnant + Lactating)</font></td>
 		<td align="left" valign=bottom><font color="#000000">No. of Adolescent received IFA tablet (1st time-new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q124</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_112 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Adolescent received IFA tablet (2nd time-old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q125</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_113 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Pregnant women (PW) received IFA tablet (1st time-new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q126</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_114 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Pregnant women (PW) received IFA tablet (2nd time-old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q127</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_115 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Pregnant women (PW) received IFA tablet (3rd time-old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q128</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_116 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Pregnant women (PW) received IFA tablet (4th time-old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q129</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_117 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Lactating Mother (LM) received IFA tablet (1st time-new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q130</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_118}}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Lactating Mother (LM) received IFA tablet (2nd time-old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q131</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_119 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Lactating Mother (LM) received IFA tablet (3rd time-old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q132</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_120 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Lactating Mother (LM) received IFA tablet (4th time-old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q133</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_121 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">Total quantity of IFA (PW+LM-new) distributed </font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q134</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_122 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">Total quantity of IFA (PW+LM-old) distributed</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q135</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_123 }}</font></td>
 	</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="18" align="left" valign=bottom bgcolor="#A4C2F4"><font color="#000000"><br></font></td>
@@ -564,19 +565,19 @@
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" rowspan=4 height="83" align="center" valign=middle><font color="#000000">Deworming Tablets (Adolescent girls)</font></td>
 		<td align="left" valign=bottom><font color="#000000">No. of Adolescent received deworming tablet (1st time-new)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q137</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_124 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Adolescent received deworming tablet (2nd time-old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q138</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_125 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">Total quantity of deworming tablet (Adolescent-new) distributed</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q139</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_126 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">Total quantity of deworming tablet (Adolescent-old) distributed</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q140</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_127 }}</font></td>
 	</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="18" align="left" valign=bottom bgcolor="#A4C2F4"><font color="#000000"><br></font></td>
@@ -586,15 +587,15 @@
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" rowspan=3 height="276" align="center" valign=middle><font color="#000000">Courtyard Session (CYS)</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">No. of Courtyard Session (CYS) conducted</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q142</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_128 }}</font></td>
 	</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">No. of Pregnant women attended at CYS</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q143</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_129 }}</font></td>
 	</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">No. of Lactating Mother attended at CYS</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q144</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_130 }}</font></td>
 	</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="18" align="left" valign=bottom bgcolor="#A4C2F4"><font color="#000000"><br></font></td>
@@ -604,7 +605,7 @@
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="88" align="center" valign=middle><font color="#000000">Soap distribution</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">No. of soap distributed among PLW in CYS</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q146</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_131 }}</font></td>
 	</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="18" align="left" valign=bottom bgcolor="#A4C2F4"><font color="#000000"><br></font></td>
@@ -614,31 +615,31 @@
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" rowspan=7 height="146" align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000">Leadership Meeting (LM)</font></td>
 		<td align="left" valign=bottom><font color="#000000">No. of leadership meeting conducted (new/old)</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q148</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_132 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Head Maji attended at LM</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q149</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_133 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Sub-maji attended at LM</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q150</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_134 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of teacher attended at LM</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q151</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_135 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Imam attended at LM</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q152</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_136}}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of Huzur attended at LM</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q153</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_137 }}</font></td>
 	</tr>
 	<tr>
 		<td align="left" valign=bottom><font color="#000000">No. of others attended at LM</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q154</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_138 }}</font></td>
 	</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="18" align="left" valign=bottom bgcolor="#A4C2F4"><font color="#000000"><br></font></td>
@@ -648,8 +649,9 @@
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="128" align="left" valign=bottom><font color="#000000"><br></font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">No.of donations of infant formula /milk reported in the camp</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">q155</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Calibri" color="#000000">{{ data.c_139 }}</font></td>
 	</tr>
+    {% endfor %}
 </table>
 
 <a id="dlink" style="display:none;"></a>

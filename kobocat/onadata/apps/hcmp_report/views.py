@@ -149,6 +149,29 @@ def get_upz_list():
     return upz_list
 
 
+def get_code(id):
+    if id != '%':
+        code = __db_fetch_single_value("select geocode from geo_data where id  =  "+str(int(id))+" ")
+    else:
+        code = id
+    return code
+
+def get_branch_code(branch_id):
+    if branch_id != '%':
+        code = __db_fetch_single_value("select code from branch where id  =  "+str(int(branch_id))+" ")
+    else:
+        code = branch_id
+    return code
+
+def get_camp_code(camp_id):
+    if camp_id != '%':
+        code = __db_fetch_single_value("select code from camp where id  =  "+str(int(camp_id))+" ")
+    else:
+        code = camp_id
+    return code
+
+
+
 def get_dates(daterange):
     date_list = daterange.split('-')
     data = {
@@ -165,9 +188,10 @@ def tb_hiv(request):
 
 def get_tb_hiv_data_table(request):
     date_range = request.POST.get('date_range')
-    upazila = request.POST.get('upazila')
-    branch = request.POST.get('branch')
-    camp = request.POST.get('camp')
+    upazila = get_code(request.POST.get('upazila'))
+    branch = get_branch_code(request.POST.get('branch'))
+    camp = get_camp_code(request.POST.get('camp'))
+
     if date_range == '':
         start_date = '06/01/2018'
         end_date = '06/28/2018'
@@ -175,8 +199,7 @@ def get_tb_hiv_data_table(request):
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
         end_date = dates.get('end_date')
-
-    q = "select * from get_rpt_health_tb('" + start_date + "','" + end_date + "','','','')"
+    q = "select * from get_rpt_health_tb('" + start_date + "','" + end_date + "','"+upazila+"','"+branch+"','"+camp+"')"
     dataset = __db_fetch_values_dict(q)
     datalist = []
     data_dict = {}
@@ -203,10 +226,17 @@ def malaria(request):
 
 def get_malaria_data_table(request):
     date_range = request.POST.get('date_range')
-    upazila = request.POST.get('upazila')
-    branch = request.POST.get('branch')
-    camp = request.POST.get('camp')
-    q = "select * from get_rpt_health_maleria('06/01/2018','06/28/2018','','','')"
+    upazila = get_code(request.POST.get('upazila'))
+    branch = get_branch_code(request.POST.get('branch'))
+    camp = get_camp_code(request.POST.get('camp'))
+    if date_range == '':
+        start_date = '06/01/2018'
+        end_date = '06/28/2018'
+    else:
+        dates = get_dates(str(date_range))
+        start_date = dates.get('start_date')
+        end_date = dates.get('end_date')
+    q = "select * from get_rpt_health_maleria('" + start_date + "','" + end_date + "','"+upazila+"','"+branch+"','"+camp+"')"
     dataset = __db_fetch_values_dict(q)
     datalist = []
     data_dict = {}
@@ -233,10 +263,17 @@ def immunization(request):
 
 def get_immunization_data_table(request):
     date_range = request.POST.get('date_range')
-    upazila = request.POST.get('upazila')
-    branch = request.POST.get('branch')
-    camp = request.POST.get('camp')
-    q = "select * from get_rpt_health_immunization('06/01/2018','06/28/2018','','','')"
+    upazila = get_code(request.POST.get('upazila'))
+    branch = get_branch_code(request.POST.get('branch'))
+    camp = get_camp_code(request.POST.get('camp'))
+    if date_range == '':
+        start_date = '06/01/2018'
+        end_date = '06/28/2018'
+    else:
+        dates = get_dates(str(date_range))
+        start_date = dates.get('start_date')
+        end_date = dates.get('end_date')
+    q = "select * from get_rpt_health_immunization('" + start_date + "','" + end_date + "','"+upazila+"','"+branch+"','"+camp+"')"
     dataset = __db_fetch_values_dict(q)
     datalist = []
     data_dict = {}
@@ -257,10 +294,17 @@ def outbreak_disease(request):
 
 def get_outbreak_disease_data_table(request):
     date_range = request.POST.get('date_range')
-    upazila = request.POST.get('upazila')
-    branch = request.POST.get('branch')
-    camp = request.POST.get('camp')
-    q = "select * from get_rpt_health_outbreak_disease('06/01/2018','06/28/2018','','','')"
+    upazila = get_code(request.POST.get('upazila'))
+    branch = get_branch_code(request.POST.get('branch'))
+    camp = get_camp_code(request.POST.get('camp'))
+    if date_range == '':
+        start_date = '06/01/2018'
+        end_date = '06/28/2018'
+    else:
+        dates = get_dates(str(date_range))
+        start_date = dates.get('start_date')
+        end_date = dates.get('end_date')
+    q = "select * from get_rpt_health_outbreak_disease('" + start_date + "','" + end_date + "','"+upazila+"','"+branch+"','"+camp+"')"
     dataset = __db_fetch_values_dict(q)
 
     return render(request, 'hcmp_report/outbreak_disease_table.html', {'dataset': dataset})
@@ -274,14 +318,21 @@ def health(request):
 
 def get_health_data_table(request):
     date_range = request.POST.get('date_range')
-    upazila = request.POST.get('upazila')
-    branch = request.POST.get('branch')
-    camp = request.POST.get('camp')
+    upazila = get_code(request.POST.get('upazila'))
+    branch = get_branch_code(request.POST.get('branch'))
+    camp = get_camp_code(request.POST.get('camp'))
+    if date_range == '':
+        start_date = '06/01/2018'
+        end_date = '06/28/2018'
+    else:
+        dates = get_dates(str(date_range))
+        start_date = dates.get('start_date')
+        end_date = dates.get('end_date')
     # 1st report
-    q_1 = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
+    q_1 = "select * from get_rpt_health_1('" + start_date + "','" + end_date + "','"+upazila+"','"+branch+"','"+camp+"')"
     dataset_1 = __db_fetch_values_dict(q_1)
     # 2nd report
-    q_2 = "select * from get_rpt_health_2('06/01/2018','06/28/2018','','','')"
+    q_2 = "select * from get_rpt_health_2('" + start_date + "','" + end_date + "','"+upazila+"','"+branch+"','"+camp+"')"
     dataset_2 = __db_fetch_values_dict(q_2)
     return render(request, 'hcmp_report/health_table.html', {'dataset': dataset_1, 'dataset_2': dataset_2})
 
@@ -294,9 +345,18 @@ def wfp_nutrition(request):
 
 def get_wfp_nutrition_data_table(request):
     date_range = request.POST.get('date_range')
-    upazila = request.POST.get('upazila')
-    branch = request.POST.get('branch')
-    camp = request.POST.get('camp')
+    upazila = get_code(request.POST.get('upazila'))
+    branch = get_branch_code(request.POST.get('branch'))
+    camp = get_camp_code(request.POST.get('camp'))
+    village = get_code(request.POST.get('village'))
+    union = get_code(request.POST.get('union'))
+    if date_range == '':
+        start_date = '06/01/2018'
+        end_date = '06/28/2018'
+    else:
+        dates = get_dates(str(date_range))
+        start_date = dates.get('start_date')
+        end_date = dates.get('end_date')
     q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/wfp_nutrition_table.html', {'dataset': dataset})
@@ -322,7 +382,7 @@ def get_unicef_nutrition_data_table(request):
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
         end_date = dates.get('end_date')
-    q = "select * from get_rpt_unicef_nutrition( '1/1/2010', '1/1/2010', '%', '%', '%', '%', '%')"
+    q = "select * from get_rpt_unicef_nutrition( '" + start_date + "','" + end_date + "','"+upazila+"','"+union+"','"+village+"','"+branch+"','"+camp+"')"
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/unicef_nutrition_table.html', {'dataset': dataset})
 
@@ -335,10 +395,17 @@ def education_student(request):
 
 def get_education_student_data_table(request):
     date_range = request.POST.get('date_range')
-    upazila = request.POST.get('upazila')
-    branch = request.POST.get('branch')
-    camp = request.POST.get('camp')
-    q = "select * from get_rpt_education_student('06/01/2018','06/28/2018','','','')"
+    upazila = get_code(request.POST.get('upazila'))
+    branch = get_branch_code(request.POST.get('branch'))
+    camp = get_camp_code(request.POST.get('camp'))
+    if date_range == '':
+        start_date = '06/01/2018'
+        end_date = '06/28/2018'
+    else:
+        dates = get_dates(str(date_range))
+        start_date = dates.get('start_date')
+        end_date = dates.get('end_date')
+    q = "select * from get_rpt_education_student('" + start_date + "','" + end_date + "','" + upazila + "','" + branch + "','" + camp + "')"
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/education_student_table.html', {'dataset': dataset})
 
@@ -351,10 +418,17 @@ def education_teacher(request):
 
 def get_education_teacher_data_table(request):
     date_range = request.POST.get('date_range')
-    upazila = request.POST.get('upazila')
-    branch = request.POST.get('branch')
-    camp = request.POST.get('camp')
-    q = "select * from get_rpt_education_teacher('06/01/2018','06/28/2018','','','')"
+    upazila = get_code(request.POST.get('upazila'))
+    branch = get_branch_code(request.POST.get('branch'))
+    camp = get_camp_code(request.POST.get('camp'))
+    if date_range == '':
+        start_date = '06/01/2018'
+        end_date = '06/28/2018'
+    else:
+        dates = get_dates(str(date_range))
+        start_date = dates.get('start_date')
+        end_date = dates.get('end_date')
+    q = "select * from get_rpt_education_teacher('" + start_date + "','" + end_date + "','" + upazila + "','" + branch + "','" + camp + "')"
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/education_teacher_table.html', {'dataset': dataset})
 
@@ -367,17 +441,17 @@ def wash(request):
 
 def get_wash_data_table(request):
     date_range = request.POST.get('date_range')
-    upazila = request.POST.get('upazila')
-    branch = request.POST.get('branch')
-    camp = request.POST.get('camp')
+    upazila = get_code(request.POST.get('upazila'))
+    branch = get_branch_code(request.POST.get('branch'))
+    camp = get_camp_code(request.POST.get('camp'))
     if date_range == '':
-        start_date = '01/01/2018'
-        end_date = '12/31/2018'
+        start_date = '06/01/2018'
+        end_date = '06/28/2018'
     else:
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
         end_date = dates.get('end_date')
-    q = "select * from get_rpt_wash('" + start_date + "','" + end_date + "','','','')"
+    q = "select * from get_rpt_wash('" + start_date + "','" + end_date + "','" + upazila + "','" + branch + "','" + camp + "')"
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/wash_table.html', {'dataset': dataset})
 
@@ -402,7 +476,8 @@ def get_agriculture_fdmn_data_table(request):
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
         end_date = dates.get('end_date')
-    q = "select * from get_rpt_agriculture_fdmn('" + start_date + "','" + end_date + "','','','','','')"
+    q = "select * from get_rpt_agriculture_fdmn( '" + start_date + "','" + end_date + "','" + upazila + "','" + union + "','" + village + "','" + branch + "','" + camp + "')"
+
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/agriculture_fdmn_table.html', {'dataset': dataset})
 

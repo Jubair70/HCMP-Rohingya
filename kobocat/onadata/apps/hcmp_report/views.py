@@ -469,8 +469,6 @@ def get_agriculture_fdmn_data_table(request):
     upazila = request.POST.get('upazila')
     branch = request.POST.get('branch')
     camp = request.POST.get('camp')
-    village = request.POST.get('village')
-    union = request.POST.get('union')
     if date_range == '':
         start_date = '01/01/2018'
         end_date = '12/31/2018'
@@ -478,7 +476,7 @@ def get_agriculture_fdmn_data_table(request):
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
         end_date = dates.get('end_date')
-    q = "select * from get_rpt_agriculture_fdmn( '" + start_date + "','" + end_date + "','" + upazila + "','" + union + "','" + village + "','" + branch + "','" + camp + "')"
+    q = "select * from get_rpt_agriculture_fdmn( '" + start_date + "','" + end_date + "','" + upazila + "','" + branch + "','" + camp + "')"
 
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/agriculture_fdmn_table.html', {'dataset': dataset})
@@ -517,19 +515,17 @@ def cfs_fdmn(request):
 
 def get_cfs_fdmn_data_table(request):
     date_range = request.POST.get('date_range')
-    upazila = request.POST.get('upazila')
-    branch = request.POST.get('branch')
-    camp = request.POST.get('camp')
-    village = request.POST.get('village')
-    union = request.POST.get('union')
+    upazila = get_code(request.POST.get('upazila'))
+    branch = get_branch_code(request.POST.get('branch'))
+    camp = get_camp_code(request.POST.get('camp'))
     if date_range == '':
-        start_date = '01/01/2018'
-        end_date = '12/31/2018'
+        start_date = '06/01/2018'
+        end_date = '06/28/2018'
     else:
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
         end_date = dates.get('end_date')
-    q = "select * from get_rpt_cfs_fdmn('" + start_date + "','" + end_date + "','','','','','')"
+    q = "select * from get_rpt_cfs_fdmn('" + start_date + "','" + end_date + "','"+upazila+"','"+branch+"','"+camp+"')"
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/cfs_fdmn_table.html', {'dataset': dataset})
 
@@ -568,11 +564,7 @@ def cfs_summary(request):
 
 def get_cfs_summary_data_table(request):
     date_range = request.POST.get('date_range')
-    upazila = request.POST.get('upazila')
-    branch = request.POST.get('branch')
-    camp = request.POST.get('camp')
-    village = request.POST.get('village')
-    union = request.POST.get('union')
+    upazila = get_code(request.POST.get('upazila'))
     if date_range == '':
         start_date = '01/01/2018'
         end_date = '12/31/2018'
@@ -580,9 +572,9 @@ def get_cfs_summary_data_table(request):
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
         end_date = dates.get('end_date')
-    q1 = "select * from  get_rpt_cfs_summary_1('" + start_date + "','" + end_date + "','','','','','')"
-    q2 = "select * from  get_rpt_cfs_summary_2('" + start_date + "','" + end_date + "','','','','','')"
-    q3 = "select * from  get_rpt_cfs_summary_3('" + start_date + "','" + end_date + "','','','','','')"
+    q1 = "select * from  get_rpt_cfs_summary_1('" + start_date + "','" + end_date + "','"+upazila+"')"
+    q2 = "select * from  get_rpt_cfs_summary_2('" + start_date + "','" + end_date + "','"+upazila+"')"
+    q3 = "select * from  get_rpt_cfs_summary_3('" + start_date + "','" + end_date + "','"+upazila+"')"
     dataset_1 = __db_fetch_values_dict(q1)
     dataset_2 = __db_fetch_values_dict(q2)
     dataset_3 = __db_fetch_values_dict(q3)
@@ -599,19 +591,17 @@ def pss(request):
 
 def get_pss_data_table(request):
     date_range = request.POST.get('date_range')
-    upazila = request.POST.get('upazila')
-    branch = request.POST.get('branch')
-    camp = request.POST.get('camp')
-    village = request.POST.get('village')
-    union = request.POST.get('union')
+    upazila = get_code(request.POST.get('upazila'))
+    branch = get_branch_code(request.POST.get('branch'))
+    camp = get_camp_code(request.POST.get('camp'))
     if date_range == '':
-        start_date = '01/01/2018'
-        end_date = '12/31/2018'
+        start_date = '06/01/2018'
+        end_date = '06/28/2018'
     else:
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
         end_date = dates.get('end_date')
-    q = "select * from get_rpt_pss('" + start_date + "','" + end_date + "','','','','','')"
+    q = "select * from get_rpt_pss('" + start_date + "','" + end_date + "','" + upazila + "','" + branch + "','" + camp + "')"
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/pss_table.html', {'dataset': dataset})
 
@@ -671,9 +661,9 @@ def nfi_fdmn(request):
 
 def get_nfi_fdmn_data_table(request):
     date_range = request.POST.get('date_range')
-    upazila = request.POST.get('upazila')
-    branch = request.POST.get('branch')
-    camp = request.POST.get('camp')
+    upazila = get_code(request.POST.get('upazila'))
+    branch = get_branch_code(request.POST.get('branch'))
+    camp = get_camp_code(request.POST.get('camp'))
     if date_range == '':
         start_date = '06/01/2018'
         end_date = '06/28/2018'
@@ -681,7 +671,7 @@ def get_nfi_fdmn_data_table(request):
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
         end_date = dates.get('end_date')
-    q = "select * from get_rpt_shelter_nfi('" + start_date + "','" + end_date + "','','','')"
+    q = "select * from get_rpt_shelter_nfi('" + start_date + "','" + end_date + "','" + upazila + "','" + branch + "','" + camp + "')"
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/nfi_fdmn_table.html', {'dataset': dataset})
 

@@ -129,8 +129,10 @@
                     console.log(data_2)
                     var j = 1
                     for (var i = 0 ; i < data_1.length ; i++){
-                         $("#type_"+j).html('<font face="Calibri" color="#000000">'+data_1[i]['ractivity']+'</font>');
-                         $("#t_"+j).html('<font face="Calibri" color="#000000">'+data_1[i]['total_number']+'</font>');
+                         var ac_1 = data_1[i]['ractivity'] || '';
+                         var total_1 = data_1[i]['total_number'] || '';
+                         $("#type_"+j).html('<font face="Calibri" color="#000000">'+ac_1+'</font>');
+                         $("#t_"+j).html('<font face="Calibri" color="#000000">'+total_1+'</font>');
                          j++;
                     }
                     var k = 6
@@ -143,8 +145,10 @@
                     }
                     var l = 10
                     for (var i = 0 ; i < data_3.length ; i++){
-                         $("#type_"+l).html('<font face="Calibri" color="#000000">'+data_3[i]['ractivity']+'</font>');
-                         $("#t_"+l).html('<font face="Calibri" color="#000000">'+data_3[i]['total_number']+'</font>');
+                         var ac_2 = data_3[i]['ractivity'] || '';
+                         var total_2 = data_3[i]['total_number'] || '';
+                         $("#type_"+l).html('<font face="Calibri" color="#000000">'+ac_2+'</font>');
+                         $("#t_"+l).html('<font face="Calibri" color="#000000">'+total_2+'</font>');
                          l++;
                     }
 

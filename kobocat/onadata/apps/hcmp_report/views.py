@@ -441,8 +441,8 @@ def get_wash_data_table(request):
     branch = get_branch_code(request.POST.get('branch'))
     camp = get_camp_code(request.POST.get('camp'))
     if date_range == '':
-        start_date = '06/01/2018'
-        end_date = '06/28/2018'
+        start_date = '01/01/2018'
+        end_date = '07/28/2018'
     else:
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
@@ -487,8 +487,8 @@ def get_agriculture_host_data_table(request):
     village = get_code(request.POST.get('village'))
     union = get_code(request.POST.get('union'))
     if date_range == '':
-        start_date = '06/01/2018'
-        end_date = '06/28/2018'
+        start_date = '01/01/2018'
+        end_date = '07/28/2018'
     else:
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')

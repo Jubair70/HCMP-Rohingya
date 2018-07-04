@@ -348,8 +348,8 @@ def get_wfp_nutrition_data_table(request):
     upazila = get_code(request.POST.get('upazila'))
     branch = get_branch_code(request.POST.get('branch'))
     camp = get_camp_code(request.POST.get('camp'))
-    village = get_code(request.POST.get('village'))
-    union = get_code(request.POST.get('union'))
+    #village = get_code(request.POST.get('village'))
+    #union = get_code(request.POST.get('union'))
     if date_range == '':
         start_date = '06/01/2018'
         end_date = '06/28/2018'
@@ -357,8 +357,10 @@ def get_wfp_nutrition_data_table(request):
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
         end_date = dates.get('end_date')
-    q = "select * from get_rpt_health_1('06/01/2018','06/28/2018','','','')"
+    q = "select * from get_rpt_wfp_nutrition( '" + start_date + "','" + end_date + "','"+upazila+"','"+branch+"','"+camp+"')"
+    print q
     dataset = __db_fetch_values_dict(q)
+    print dataset
     return render(request, 'hcmp_report/wfp_nutrition_table.html', {'dataset': dataset})
 
 
@@ -370,11 +372,11 @@ def unicef_nutrition(request):
 
 def get_unicef_nutrition_data_table(request):
     date_range = request.POST.get('date_range')
-    upazila = request.POST.get('upazila')
-    branch = request.POST.get('branch')
-    camp = request.POST.get('camp')
-    village = request.POST.get('village')
-    union = request.POST.get('union')
+    upazila = get_code(request.POST.get('upazila'))
+    branch = get_branch_code(request.POST.get('branch'))
+    camp = get_camp_code(request.POST.get('camp'))
+    #village = request.POST.get('village')
+    #union = request.POST.get('union')
     if date_range == '':
         start_date = '01/01/2018'
         end_date = '12/31/2018'
@@ -382,7 +384,7 @@ def get_unicef_nutrition_data_table(request):
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
         end_date = dates.get('end_date')
-    q = "select * from get_rpt_unicef_nutrition( '" + start_date + "','" + end_date + "','"+upazila+"','"+union+"','"+village+"','"+branch+"','"+camp+"')"
+    q = "select * from get_rpt_unicef_nutrition( '" + start_date + "','" + end_date + "','"+upazila+"','"+branch+"','"+camp+"')"
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/unicef_nutrition_table.html', {'dataset': dataset})
 
@@ -793,7 +795,7 @@ def get_site_management_data_table(request):
         start_date = dates.get('start_date')
         end_date = dates.get('end_date')
 
-    q = "select * from  get_site_management('" + start_date + "','" + end_date + "','','','','','')"
+    q = "select * from  get_site_management('" + start_date + "','" + end_date + "','','','')"
     dataset = __db_fetch_values_dict(q)
     return HttpResponse(json.dumps(dataset), content_type="application/json")
 

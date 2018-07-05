@@ -196,8 +196,8 @@ def get_tb_hiv_data_table(request):
     camp = get_camp_code(request.POST.get('camp'))
 
     if date_range == '':
-        start_date = '06/01/2018'
-        end_date = '06/28/2018'
+        start_date = '01/01/2010'
+        end_date = '12/28/2021'
     else:
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
@@ -233,8 +233,8 @@ def get_malaria_data_table(request):
     branch = get_branch_code(request.POST.get('branch'))
     camp = get_camp_code(request.POST.get('camp'))
     if date_range == '':
-        start_date = '06/01/2018'
-        end_date = '06/28/2018'
+        start_date = '01/01/2010'
+        end_date = '12/28/2021'
     else:
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
@@ -270,8 +270,8 @@ def get_immunization_data_table(request):
     branch = get_branch_code(request.POST.get('branch'))
     camp = get_camp_code(request.POST.get('camp'))
     if date_range == '':
-        start_date = '06/01/2018'
-        end_date = '06/28/2018'
+        start_date = '01/01/2010'
+        end_date = '12/28/2021'
     else:
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
@@ -301,8 +301,8 @@ def get_outbreak_disease_data_table(request):
     branch = get_branch_code(request.POST.get('branch'))
     camp = get_camp_code(request.POST.get('camp'))
     if date_range == '':
-        start_date = '06/01/2018'
-        end_date = '06/28/2018'
+        start_date = '01/01/2010'
+        end_date = '12/28/2021'
     else:
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
@@ -325,8 +325,8 @@ def get_health_data_table(request):
     branch = get_branch_code(request.POST.get('branch'))
     camp = get_camp_code(request.POST.get('camp'))
     if date_range == '':
-        start_date = '06/01/2018'
-        end_date = '06/28/2018'
+        start_date = '01/01/2010'
+        end_date = '12/28/2021'
     else:
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
@@ -352,8 +352,8 @@ def get_wfp_nutrition_data_table(request):
     branch = get_branch_code(request.POST.get('branch'))
     camp = get_camp_code(request.POST.get('camp'))
     if date_range == '':
-        start_date = '06/01/2018'
-        end_date = '06/28/2018'
+        start_date = '01/01/2010'
+        end_date = '12/28/2021'
     else:
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
@@ -375,8 +375,8 @@ def get_unicef_nutrition_data_table(request):
     branch = get_branch_code(request.POST.get('branch'))
     camp = get_camp_code(request.POST.get('camp'))
     if date_range == '':
-        start_date = '01/01/2018'
-        end_date = '12/31/2018'
+        start_date = '01/01/2010'
+        end_date = '12/28/2021'
     else:
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
@@ -398,8 +398,8 @@ def get_education_student_data_table(request):
     branch = get_branch_code(request.POST.get('branch'))
     camp = get_camp_code(request.POST.get('camp'))
     if date_range == '':
-        start_date = '01/01/2018'
-        end_date = '12/31/2018'
+        start_date = '01/01/2010'
+        end_date = '12/28/2021'
     else:
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
@@ -422,7 +422,7 @@ def get_education_teacher_data_table(request):
     camp = get_camp_code(request.POST.get('camp'))
     if date_range == '':
         start_date = '01/01/2010'
-        end_date = '12/31/2018'
+        end_date = '12/28/2021'
     else:
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
@@ -444,8 +444,8 @@ def get_wash_data_table(request):
     branch = get_branch_code(request.POST.get('branch'))
     camp = get_camp_code(request.POST.get('camp'))
     if date_range == '':
-        start_date = '01/01/2018'
-        end_date = '07/28/2018'
+        start_date = '01/01/2010'
+        end_date = '12/28/2021'
     else:
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
@@ -467,8 +467,8 @@ def get_agriculture_fdmn_data_table(request):
     branch = get_branch_code(request.POST.get('branch'))
     camp = get_camp_code(request.POST.get('camp'))
     if date_range == '':
-        start_date = '01/01/2018'
-        end_date = '12/31/2018'
+        start_date = '01/01/2010'
+        end_date = '12/28/2021'
     else:
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
@@ -490,8 +490,8 @@ def get_agriculture_host_data_table(request):
     village = get_code(request.POST.get('village'))
     union = get_code(request.POST.get('union'))
     if date_range == '':
-        start_date = '01/01/2018'
-        end_date = '07/28/2018'
+        start_date = '01/01/2010'
+        end_date = '12/28/2021'
     else:
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
@@ -513,8 +513,8 @@ def get_cfs_fdmn_data_table(request):
     branch = get_branch_code(request.POST.get('branch'))
     camp = get_camp_code(request.POST.get('camp'))
     if date_range == '':
-        start_date = '06/01/2018'
-        end_date = '06/28/2018'
+        start_date = '01/01/2010'
+        end_date = '12/28/2021'
     else:
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
@@ -536,8 +536,8 @@ def get_cfs_host_data_table(request):
     village = get_code(request.POST.get('village'))
     union = get_code(request.POST.get('union'))
     if date_range == '':
-        start_date = '01/01/2018'
-        end_date = '07/28/2018'
+        start_date = '01/01/2010'
+        end_date = '12/28/2021'
     else:
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
@@ -557,8 +557,8 @@ def get_cfs_summary_data_table(request):
     date_range = request.POST.get('date_range')
     upazila = get_code(request.POST.get('upazila'))
     if date_range == '':
-        start_date = '01/01/2018'
-        end_date = '12/31/2018'
+        start_date = '01/01/2010'
+        end_date = '12/28/2021'
     else:
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
@@ -586,8 +586,8 @@ def get_pss_data_table(request):
     branch = get_branch_code(request.POST.get('branch'))
     camp = get_camp_code(request.POST.get('camp'))
     if date_range == '':
-        start_date = '06/01/2018'
-        end_date = '06/28/2018'
+        start_date = '01/01/2010'
+        end_date = '12/28/2021'
     else:
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
@@ -609,8 +609,8 @@ def get_c4d_data_table(request):
     branch = get_branch_code(request.POST.get('branch'))
     camp = get_camp_code(request.POST.get('camp'))
     if date_range == '':
-        start_date = '01/01/2018'
-        end_date = '12/31/2018'
+        start_date = '01/01/2010'
+        end_date = '12/28/2021'
     else:
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
@@ -632,8 +632,8 @@ def get_gbv_data_table(request):
     branch = get_branch_code(request.POST.get('branch'))
     camp = get_camp_code(request.POST.get('camp'))
     if date_range == '':
-        start_date = '01/01/2018'
-        end_date = '12/31/2018'
+        start_date = '01/01/2010'
+        end_date = '12/28/2021'
     else:
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
@@ -656,8 +656,8 @@ def get_nfi_fdmn_data_table(request):
     branch = get_branch_code(request.POST.get('branch'))
     camp = get_camp_code(request.POST.get('camp'))
     if date_range == '':
-        start_date = '06/01/2018'
-        end_date = '06/28/2018'
+        start_date = '01/01/2010'
+        end_date = '12/28/2021'
     else:
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
@@ -679,8 +679,8 @@ def get_nfi_host_data_table(request):
     village = get_code(request.POST.get('village'))
     union = get_code(request.POST.get('union'))
     if date_range == '':
-        start_date = '01/01/2018'
-        end_date = '07/28/2018'
+        start_date = '01/01/2010'
+        end_date = '12/28/2021'
     else:
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
@@ -702,8 +702,8 @@ def get_drr_nfi_data_table(request):
     branch = get_branch_code(request.POST.get('branch'))
     camp = get_camp_code(request.POST.get('camp'))
     if date_range == '':
-        start_date = '06/01/2018'
-        end_date = '06/28/2018'
+        start_date = '01/01/2010'
+        end_date = '12/28/2021'
     else:
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
@@ -725,8 +725,8 @@ def get_drr_wash_data_table(request):
     branch = get_branch_code(request.POST.get('branch'))
     camp = get_camp_code(request.POST.get('camp'))
     if date_range == '':
-        start_date = '06/01/2018'
-        end_date = '06/28/2018'
+        start_date = '01/01/2010'
+        end_date = '12/28/2021'
     else:
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
@@ -745,8 +745,8 @@ def get_training_data_table(request):
     date_range = request.POST.get('date_range')
     sector = request.POST.get('sector')
     if date_range == '':
-        start_date = '05/01/2018'
-        end_date = '06/28/2018'
+        start_date = '01/01/2010'
+        end_date = '12/28/2021'
     else:
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
@@ -769,8 +769,8 @@ def get_site_management_data_table(request):
     branch = get_branch_code(request.POST.get('branch'))
     camp = get_camp_code(request.POST.get('camp'))
     if date_range == '':
-        start_date = '06/01/2018'
-        end_date = '06/28/2018'
+        start_date = '01/01/2010'
+        end_date = '12/28/2021'
     else:
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
@@ -791,8 +791,8 @@ def get_meeting_data_table(request):
     date_range = request.POST.get('date_range')
     sector = request.POST.get('sector')
     if date_range == '':
-        start_date = '05/01/2018'
-        end_date = '06/30/2018'
+        start_date = '01/01/2010'
+        end_date = '12/28/2021'
     else:
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
@@ -813,8 +813,8 @@ def visitor(request):
 def get_visitor_data_table(request):
     date_range = request.POST.get('date_range')
     if date_range == '':
-        start_date = '05/01/2018'
-        end_date = '06/30/2018'
+        start_date = '01/01/2010'
+        end_date = '12/28/2021'
     else:
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')

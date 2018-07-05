@@ -10,9 +10,9 @@
 	</tr>
     {% for data in dataset %}
 	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="38" align="center" valign=bottom bgcolor="#C9DAF8"><font face="Calibri" color="#000000">{{ data.rparticulars }}</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">{{ data.rnumber }}</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">{{ data.rcumulative }}</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="38" align="center" valign=bottom bgcolor="#C9DAF8"><font face="Calibri" color="#000000">{% if  data.rparticulars == None  %}{% else %}{{ data.rparticulars }}{% endif %}</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">{% if  data.rnumber == None  %}{% else %}{{ data.rnumber }}{% endif %}</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">{% if  data.rcumulative == None  %}{% else %}{{ data.rcumulative }}{% endif %}</font></td>
 	</tr>
     {% endfor %}
     <!--

@@ -114,10 +114,14 @@
                 data:{ 'date_range' : date_range,'upazila':upazila,'branch': branch,'camp':camp},
                 success: function (data) {
                     for (var i = 0 ; i < data.length ; i++){
-                         $("#a_"+data[i]['sl_no']).html('<font face="Calibri" color="#000000">'+data[i]['rparticulars']+'</font>');
-                         $("#u_"+data[i]['sl_no']).html('<font face="Calibri" color="#000000">'+data[i]['unit_txt']+'</font>');
-                         $("#t_"+data[i]['sl_no']).html('<font face="Calibri" color="#000000">'+data[i]['rtotal']+'</font>');
-                         $("#c_"+data[i]['sl_no']).html('<font face="Calibri" color="#000000">'+data[i]['rtotal_cum']+'</font>');
+                        var particular = data[i]['rparticulars'] || ''
+                        var unit_txt = data[i]['unit_txt'] || ''
+                        var rtotal = data[i]['rtotal'] || ''
+                        var rtotal_cum = data[i]['rtotal_cum'] || ''
+                         $("#a_"+data[i]['sl_no']).html('<font face="Calibri" color="#000000">'+particular+'</font>');
+                         $("#u_"+data[i]['sl_no']).html('<font face="Calibri" color="#000000">'+unit_txt+'</font>');
+                         $("#t_"+data[i]['sl_no']).html('<font face="Calibri" color="#000000">'+rtotal+'</font>');
+                         $("#c_"+data[i]['sl_no']).html('<font face="Calibri" color="#000000">'+rtotal_cum+'</font>');
 
                     }
 

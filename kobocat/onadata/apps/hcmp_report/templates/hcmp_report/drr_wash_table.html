@@ -11,10 +11,10 @@
 	</tr>
     {% for data in dataset %}
 	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#CFE2F3"><font face="Calibri" color="#000000">{{ data.rparticulars }}</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">{{ data.unit_txt }}</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">{{ data.rtotal_plan }}</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">{{ data.rtotal_achieved }}</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#CFE2F3"><font face="Calibri" color="#000000">{% if  data.rparticulars == None  %}{% else %}{{ data.rparticulars }}{% endif %}</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">{% if  data.unit_txt == None  %}{% else %}{{ data.unit_txt }}{% endif %}</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">{% if  data.rtotal_plan == None  %}{% else %}{{ data.rtotal_plan }}{% endif %}</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000">{% if  data.rtotal_achieved == None  %}{% else %}{{ data.rtotal_achieved }}{% endif %}</font></td>
 	</tr>
     {% endfor %}
     <!--

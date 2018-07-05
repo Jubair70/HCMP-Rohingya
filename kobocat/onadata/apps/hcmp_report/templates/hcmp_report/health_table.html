@@ -1,6 +1,6 @@
 <div style="overflow-x: auto" class="access_table">
 
-<button onclick="tableToExcel('health_table1', 'List of activities', 'health_report1.xls')"  class = "btn btn-primary" style = "margin-bottom: 10px;"><span style="color: #F5F5F5;" class="glyphicon glyphicon-circle-arrow-down"></span> Export</button>
+<button onclick="tableToExcel('health_table1', 'Sheet1', 'health_report1.xls')"  class = "btn btn-primary" style = "margin-bottom: 10px;"><span style="color: #F5F5F5;" class="glyphicon glyphicon-circle-arrow-down"></span> Export</button>
 
 <table id ="health_table1" cellspacing="0" border="1">
 	<colgroup width="123"></colgroup>
@@ -19,16 +19,16 @@
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFD966"><font face="Calibri" color="#000000">Total</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFF2CC"><font face="Calibri" color="#000000">&lt;5M</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFE699"><font face="Calibri" color="#000000">&lt;5F</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFF2CC"><font face="Calibri" color="#000000">≥5M</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFE699"><font face="Calibri" color="#000000">≥5F</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFF2CC"><font face="Calibri" color="#000000">&#x2265;5M</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFE699"><font face="Calibri" color="#000000">&#x2265;5F</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFF2CC"><font face="Calibri" color="#000000">&lt;5M</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFE699"><font face="Calibri" color="#000000">&lt;5F</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFF2CC"><font face="Calibri" color="#000000">≥5M</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFE699"><font face="Calibri" color="#000000">≥5F</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFF2CC"><font face="Calibri" color="#000000">&#x2265;5M</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFE699"><font face="Calibri" color="#000000">&#x2265;5F</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFF2CC"><font face="Calibri" color="#000000">&lt;5M</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFE699"><font face="Calibri" color="#000000">&lt;5F</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFF2CC"><font face="Calibri" color="#000000">≥5M</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFE699"><font face="Calibri" color="#000000">≥5F</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFF2CC"><font face="Calibri" color="#000000">&#x2265;5M</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#FFE699"><font face="Calibri" color="#000000">&#x2265;5F</font></td>
 	</tr>
     {% for data in dataset %}
 	<tr>
@@ -55,11 +55,11 @@
 <a id="dlink" style="display:none;"></a>
 
 <div style="margin-bottom:30px;"></div>
-<button onclick="tableToExcel2('health_table2', 'List of activities', 'health_report2.xls')"  class = "btn btn-primary" style = "margin-bottom: 10px;"><span style="color: #F5F5F5;" class="glyphicon glyphicon-circle-arrow-down"></span> Export</button>
+<button onclick="tableToExcel2('health_table2', 'Sheet1', 'health_report2.xls')"  class = "btn btn-primary" style = "margin-bottom: 10px;"><span style="color: #F5F5F5;" class="glyphicon glyphicon-circle-arrow-down"></span> Export</button>
 <table id="health_table2" cellspacing="0" border="1">
 	<colgroup span="16" width="85"></colgroup>
 	<tr>
-		<td height="20" align="left" valign=bottom bgcolor="#FFF2CC"><font face="Calibri" color="#000000"><br></font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000"  height="20" align="left" valign=bottom bgcolor="#FFF2CC"><font face="Calibri" color="#000000"><br></font></td>
 		<td style="border-bottom: 1px solid #000000" colspan=3 align="left" valign=bottom bgcolor="#FFF2CC"><font face="Calibri" color="#000000">Both</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=4 align="left" valign=bottom bgcolor="#FFF2CC"><font face="Calibri" color="#000000">CHO</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=4 align="left" valign=bottom bgcolor="#FFF2CC"><font face="Calibri" color="#000000">PHC</font></td>
@@ -67,9 +67,9 @@
 		</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="20" align="left" valign=bottom bgcolor="#FFFFFF"><font face="Calibri" color="#000000"><br></font></td>
-		<td align="left" valign=bottom bgcolor="#F8CBAD"><font face="Calibri" color="#000000">CHO</font></td>
-		<td align="left" valign=bottom bgcolor="#F8CBAD"><font face="Calibri" color="#000000">PHC</font></td>
-		<td align="left" valign=bottom bgcolor="#F8CBAD"><font face="Calibri" color="#000000">Total</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000"  align="left" valign=bottom bgcolor="#F8CBAD"><font face="Calibri" color="#000000">CHO</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000"  align="left" valign=bottom bgcolor="#F8CBAD"><font face="Calibri" color="#000000">PHC</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000"  align="left" valign=bottom bgcolor="#F8CBAD"><font face="Calibri" color="#000000">Total</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2 align="left" valign=bottom bgcolor="#F8CBAD"><font face="Calibri" color="#000000">Adolescent (10-19)</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2 align="left" valign=bottom bgcolor="#F8CBAD"><font face="Calibri" color="#000000">Adult (Age 20+)</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2 align="left" valign=bottom bgcolor="#F8CBAD"><font face="Calibri" color="#000000">Adolescent (10-19)</font></td>
@@ -79,21 +79,21 @@
 		</tr>
 	<tr>
 		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="20" align="left" valign=bottom bgcolor="#BDD6EE"><font face="Calibri" color="#000000"><br></font></td>
-		<td align="left" valign=bottom bgcolor="#BDD6EE"><font face="Calibri" color="#000000"><br></font></td>
-		<td align="left" valign=bottom bgcolor="#BDD6EE"><font face="Calibri" color="#000000"><br></font></td>
-		<td align="left" valign=bottom bgcolor="#BDD6EE"><font face="Calibri" color="#000000"><br></font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000"  align="left" valign=bottom bgcolor="#BDD6EE"><font face="Calibri" color="#000000"><br></font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000"  align="left" valign=bottom bgcolor="#BDD6EE"><font face="Calibri" color="#000000"><br></font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000"  align="left" valign=bottom bgcolor="#BDD6EE"><font face="Calibri" color="#000000"><br></font></td>
 		<td style="border-bottom: 1px solid #000000" align="left" valign=bottom bgcolor="#BDD6EE"><font face="Calibri" color="#000000">M</font></td>
-		<td align="left" valign=bottom bgcolor="#BDD6EE"><font color="#000000">F</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000"  align="left" valign=bottom bgcolor="#BDD6EE"><font color="#000000">F</font></td>
 		<td style="border-bottom: 1px solid #000000" align="left" valign=bottom bgcolor="#BDD6EE"><font face="Calibri" color="#000000">M</font></td>
-		<td align="left" valign=bottom bgcolor="#BDD6EE"><font color="#000000">F</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000"  align="left" valign=bottom bgcolor="#BDD6EE"><font color="#000000">F</font></td>
 		<td style="border-bottom: 1px solid #000000" align="left" valign=bottom bgcolor="#BDD6EE"><font face="Calibri" color="#000000">M</font></td>
-		<td align="left" valign=bottom bgcolor="#BDD6EE"><font color="#000000">F</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000"  align="left" valign=bottom bgcolor="#BDD6EE"><font color="#000000">F</font></td>
 		<td style="border-bottom: 1px solid #000000" align="left" valign=bottom bgcolor="#BDD6EE"><font face="Calibri" color="#000000">M</font></td>
-		<td align="left" valign=bottom bgcolor="#BDD6EE"><font color="#000000">F</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000"  align="left" valign=bottom bgcolor="#BDD6EE"><font color="#000000">F</font></td>
 		<td style="border-bottom: 1px solid #000000" align="left" valign=bottom bgcolor="#BDD6EE"><font face="Calibri" color="#000000">M</font></td>
-		<td align="left" valign=bottom bgcolor="#BDD6EE"><font color="#000000">F</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000"  align="left" valign=bottom bgcolor="#BDD6EE"><font color="#000000">F</font></td>
 		<td style="border-bottom: 1px solid #000000" align="left" valign=bottom bgcolor="#BDD6EE"><font face="Calibri" color="#000000">M</font></td>
-		<td align="left" valign=bottom bgcolor="#BDD6EE"><font color="#000000">F</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000"  align="left" valign=bottom bgcolor="#BDD6EE"><font color="#000000">F</font></td>
 	</tr>
 
     {% for data_2 in dataset_2 %}
@@ -103,13 +103,13 @@
 		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font face="Calibri" color="#000000">{% if  data_2.rboth_phc == None  %}{% else %}{{ data_2.rboth_phc }}{% endif %}</font></td>
 		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{% if  data_2.rboth_total == None  %}{% else %}{{ data_2.rboth_total }}{% endif %}</font></td>
 		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{% if  data_2.rcho_adolescentm == None  %}{% else %} {{ data_2.rcho_adolescentm }}{% endif %}<br></font></td>
-		<td align="left" valign=bottom ><font color="#000000">{% if  data_2.rcho_adolescentf == None  %}{% else %} {{ data_2.rcho_adolescentf }}{% endif %}</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000"  align="left" valign=bottom ><font color="#000000">{% if  data_2.rcho_adolescentf == None  %}{% else %} {{ data_2.rcho_adolescentf }}{% endif %}</font></td>
 		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{% if  data_2.rcho_adultm == None  %}{% else %}{{ data_2.rcho_adultm }}{% endif %}<br></font></td>
-		<td align="left" valign=bottom ><font color="#000000">{% if  data_2.rcho_adultf == None  %}{% else %}{{ data_2.rcho_adultf }}{% endif %}</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000"  align="left" valign=bottom ><font color="#000000">{% if  data_2.rcho_adultf == None  %}{% else %}{{ data_2.rcho_adultf }}{% endif %}</font></td>
 		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{% if  data_2.rphc_adolescentm == None  %}{% else %}{{ data_2.rphc_adolescentm }}{% endif %}<br></font></td>
-		<td align="left" valign=bottom ><font color="#000000">{% if  data_2.rphc_adolescentf == None  %}{% else %}{{ data_2.rphc_adolescentf }}{% endif %}</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000"  align="left" valign=bottom ><font color="#000000">{% if  data_2.rphc_adolescentf == None  %}{% else %}{{ data_2.rphc_adolescentf }}{% endif %}</font></td>
 		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{% if  data_2.rphc_adultm == None  %}{% else %}{{ data_2.rphc_adultm}}{% endif %}<br></font></td>
-		<td align="left" valign=bottom ><font color="#000000">{% if  data_2.rphc_adultf == None  %}{% else %}{{ data_2.rphc_adultf }}{% endif %}</font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000"  align="left" valign=bottom ><font color="#000000">{% if  data_2.rphc_adultf == None  %}{% else %}{{ data_2.rphc_adultf }}{% endif %}</font></td>
 		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{% if  data_2.rboth_adolescentm == None  %}{% else %}{{ data_2.rboth_adolescentm}}{% endif %}<br></font></td>
 		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{% if  data_2.rboth_adolescentf == None  %}{% else %}{{ data_2.rboth_adolescentf }}{% endif %}</font></td>
 		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom ><font face="Calibri" color="#000000">{% if  data_2.rboth_adultm == None  %}{% else %}{{ data_2.rboth_adultm }}{% endif %}<br></font></td>

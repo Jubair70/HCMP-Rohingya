@@ -56,12 +56,15 @@ import os
 import zipfile
 from django.conf import settings
 
-SECTOR_LIST = [{'name': 'Health', 'value': 1}, {'name': 'Nutrition', 'value': 2}, {'name': 'Education', 'value': 3},
-               {'name': 'Wash', 'value': 4}, {'name': 'Agriculture & Environment', 'value': 5},
-               {'name': 'Child Protection', 'value': 6}, {'name': 'C4D', 'value': 7},
-               {'name': 'GBV', 'value': 8}, {'name': 'Shelter/NFI', 'value': 9},
-               {'name': 'DRR', 'value': 10}, {'name': 'Training', 'value': 11},
-               {'name': 'Site Management', 'value': 12}, {'name': 'Communication', 'value': 13}]
+
+
+
+SECTOR_LIST = [{'name': 'Health', 'value': 8}, {'name': 'Nutrition', 'value': 9}, {'name': 'Education', 'value': 6},
+               {'name': 'Wash', 'value': 10}, {'name': 'Agriculture & Environment', 'value': 1},
+               {'name': 'Child Protection', 'value': 3}, {'name': 'C4D', 'value': 2},
+               {'name': 'GBV', 'value': 7}, {'name': 'Shelter/NFI', 'value': 10},
+               {'name': 'DRR', 'value': 5}, {'name': 'Training', 'value': 12},
+               {'name': 'Site Management', 'value': 11}, {'name': 'Communication', 'value': 4}]
 
 
 def __db_fetch_values(query):
@@ -418,8 +421,8 @@ def get_education_teacher_data_table(request):
     branch = get_branch_code(request.POST.get('branch'))
     camp = get_camp_code(request.POST.get('camp'))
     if date_range == '':
-        start_date = '06/01/2018'
-        end_date = '06/28/2018'
+        start_date = '01/01/2010'
+        end_date = '12/31/2018'
     else:
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
@@ -636,6 +639,7 @@ def get_gbv_data_table(request):
         start_date = dates.get('start_date')
         end_date = dates.get('end_date')
     q = "select * from get_rpt_gbv('" + start_date + "','" + end_date + "','" + upazila + "','" + branch + "','" + camp + "')"
+    print q
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/gbv_table.html', {'dataset': dataset})
 
@@ -793,11 +797,12 @@ def get_meeting_data_table(request):
         dates = get_dates(str(date_range))
         start_date = dates.get('start_date')
         end_date = dates.get('end_date')
-    q = "select json->>'date' as meeting_date,json->>'meeting_type' as meeting_type,json->>'sector' as sector,(select value_label from xform_extracted where xform_id=588 and field_name='sector' and value_text=json->>'sector') as sector_name,(select value_label from xform_extracted where xform_id=588 and field_name='donor' and value_text=json->>'donor' ) as donor_name,json->>'meeting_summary' as meeting_summary ,json->>'file' as uploaded_file from logger_instance where xform_id = (select id from logger_xform where id_string ='meeting') and deleted_at is null and Date(json->>'date') between '" + start_date + "' and '" + end_date + "' and (json->>'sector')::text like '" + str(
+    q = "select json,json->>'date' as meeting_date,json->>'meeting_type' as meeting_type,json->>'sector' as sector,(select value_label from xform_extracted where xform_id=588 and field_name='sector' and value_text=json->>'sector') as sector_name,(select value_label from xform_extracted where xform_id=588 and field_name='donor' and value_text=json->>'donor' ) as donor_name,json->>'meeting_summary' as meeting_summary ,json->>'meeting_doc' as uploaded_file from logger_instance where xform_id = (select id from logger_xform where id_string ='meeting') and deleted_at is null and Date(json->>'date') between '" + start_date + "' and '" + end_date + "' and (json->>'sector')::text like '" + str(
         sector) + "'"
     dataset = __db_fetch_values_dict(q)
-    print dataset
-    return render(request, 'hcmp_report/meeting_table.html', {'dataset': dataset})
+    form_owner = __db_fetch_single_value(
+        "select (select username from auth_user where id  = user_id) as form_owner from logger_xform where id_string= 'meeting' limit 1 ")
+    return render(request, 'hcmp_report/meeting_table.html', {'dataset': dataset,'form_owner' :form_owner})
 
 
 @login_required

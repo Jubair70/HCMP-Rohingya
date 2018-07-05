@@ -9,8 +9,7 @@ from onadata.apps.usermodule.models import UserRoleMap
 from django.utils.translation import ugettext as _, ugettext_lazy
 from onadata.apps.usermodule.helpers import COUNTRIES
 
-
-SECTOR_LIST = (('', 'Select'),(1, 'Health'),(2, 'Nutrition'),(3, 'Education'),(4, 'Wash'),(5, 'Agriculture & Environment'),(6, 'Child Protection'),(7, 'C4D'),(8, 'GBV'),(9, 'Shelter/NFI'),(10, 'DRR'),(11, 'Training'),(12, 'Site Management'),(13, 'Communication'))
+SECTOR_LIST = (('', 'Select'),(1, 'Agriculture & Environment'),(2, 'C4D'),(3, 'Child Protection'),(4, 'Communication'),(5, 'DRR'),(6, 'Education'),(7, 'GBV'),(8, 'Health'),(9, 'Nutrition'),(10, 'Shelter/NFI'),(11, 'Site Management'),(12, 'Training'),(13, 'Wash'))
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(label='Create a password',widget=forms.PasswordInput(),min_length=4)

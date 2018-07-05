@@ -14,12 +14,12 @@
 	</tr>
     {% for data in dataset %}
 	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="18" align="left" valign=bottom>{{ data.donor_name }}<br></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Cambria">{{ data.meeting_date }}</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Cambria">{{ data.meeting_type }}</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Cambria">{{ data.sector_name }}</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Cambria">{{ data.meeting_summary }}</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Cambria">{{ data.uploaded_file }}</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="18" align="left" valign=bottom>{% if  data.donor_name == None  %}{% else %}{{ data.donor_name }}{% endif %}<br></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Cambria">{% if  data.meeting_date == None  %}{% else %}{{ data.meeting_date }}{% endif %}</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Cambria">{% if  data.meeting_type == None  %}{% else %}{{ data.meeting_type }}{% endif %}</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Cambria">{% if  data.sector_name == None  %}{% else %}{{ data.sector_name }}{% endif %}</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Cambria">{% if  data.meeting_summary == None  %}{% else %}{{ data.meeting_summary }}{% endif %}</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><font face="Cambria">{% if  data.uploaded_file == None  %}{% else %}<img  height="100px" width="100px" src="/media/{{ form_owner }}/attachments/{{ data.uploaded_file }}">{% endif %}</font></td>
 	</tr>
     {% endfor %}
 </table>

@@ -55,7 +55,9 @@ import csv
 import os
 import zipfile
 from django.conf import settings
-
+import StringIO
+from pandas import ExcelWriter
+import pandas as pd
 
 
 
@@ -145,11 +147,17 @@ def get_geodata(request, tag):
 
     return HttpResponse(jsonlist)
 
+def get_sector_list():
+    q = "select id,sector_name from sector "
+    sector_list = makeTableList(q)
+    return sector_list
+
 
 def get_upz_list():
     q = "select id,field_name from geo_data where field_type_id = 88"
     upz_list = makeTableList(q)
     return upz_list
+
 
 
 def get_code(id):
@@ -644,6 +652,68 @@ def get_gbv_data_table(request):
     return render(request, 'hcmp_report/gbv_table.html', {'dataset': dataset})
 
 
+"""
+Emtious @ ******* Start
+"""
+@login_required
+def activity_progress_report(request):
+    sector_list = get_sector_list()
+    upz_list = get_upazila_list()
+    return render(request, 'hcmp_report/activity_progress_report.html', {'sector_list':sector_list,'upz_list': upz_list})
+
+
+def get_activity_progress_report_table(request):
+    sector = str(request.POST.get('sector'))
+    upazila = str(request.POST.get('upazila'))
+    union = str(request.POST.get('union'))
+    date_upto = str(request.POST.get('date_upto'))
+    camp = str(request.POST.get('camp'))
+    if date_upto == "":
+        date_upto = datetime.datetime.now().date()
+
+    q = " select * from get_rpt_4w_nfi('"+str(sector)+"', '"+str(upazila)+"', '"+str(union)+"', '"+str(camp)+"', '"+str(date_upto)+"') "
+    print q
+    dataset = __db_fetch_values_dict(q)
+    print(q)
+    return render(request, 'hcmp_report/activity_progress_report_table.html' , {'dataset':dataset})
+
+
+
+def get_upazila_list():
+    q = "select id,name from upazila "
+    upz_list = makeTableList(q)
+    return upz_list
+
+
+def get_union_list(request):
+    upazila = request.POST.get('upazila')
+    q = "select id,name from unions where upazila_id =" + str(upazila)
+    list = makeTableList(q)
+    jsonlist = json.dumps({'union_list': list}, default=decimal_date_default)
+    return HttpResponse(jsonlist)
+
+
+def get_camp_list(request):
+    union = request.POST.get('union')
+    q = "select code,name from camp where union_id = " + str(union)
+    list = makeTableList(q)
+    jsonlist = json.dumps({'camp_list': list}, default=decimal_date_default)
+    return HttpResponse(jsonlist)
+
+
+def sector(request):
+    return render(request, 'hcmp_report/sector.html',)
+
+
+def create_sector(request):
+    return HttpResponseRedirect('/hcmp_report/sector/')
+
+"""
+Emtious @ ******* End
+"""
+
+
+
 @login_required
 def nfi_fdmn(request):
     upz_list = get_upz_list()
@@ -991,3 +1061,317 @@ def get_geolocation_csv(request, id_string):
         }
 
     return HttpResponse(json.dumps(resp))
+
+
+
+'''
+
+        CONFIGURATION
+
+'''
+
+@csrf_exempt
+@login_required
+def sector_list(request):
+    query = "SELECT id,sector_name, contact_focal_point, email, phone_no FROM public.sector order by id asc;"
+    sector_list = json.dumps(__db_fetch_values_dict(query))
+    return render(request, 'hcmp_report/sector_list.html', {
+       'sector_list': sector_list
+    })
+
+
+
+@csrf_exempt
+@login_required
+def project(request,sector_id):
+    q = "select id,name  from donor"
+    df = pandas.DataFrame()
+    df = pandas.read_sql(q, connection)
+    donor_id = df.id.tolist()
+    donor_name = df.name.tolist()
+    donor_list = zip(donor_id, donor_name)
+    if request.POST:
+        donor_id = request.POST.get('donor')
+        code = request.POST.get('code')
+        insert_query = "INSERT INTO public.project(donor_id, sector_id, code) VALUES(" + str(
+            donor_id) + ", " + str(sector_id) + ", '" + str(code) + "')"
+        __db_commit_query(insert_query)
+        return HttpResponse(json.dumps("ok"))
+    sector_name = __db_fetch_single_value("select sector_name from sector where id = "+str(sector_id))
+    return render(request, 'hcmp_report/project.html',
+                 { 'donor_list': donor_list,'sector_id' : sector_id,'sector_name' : sector_name})
+
+
+
+
+
+@login_required
+def get_project(request,sector_id):
+    q = "select id,(select name from donor where id = donor_id) donor,code from project where sector_id =" + str(sector_id)
+    data = __db_fetch_values_dict(q)
+    data_list = []
+    data_dict = {}
+    for tmp in data:
+        data_dict['id'] = tmp['id']
+        data_dict['donor'] = tmp['donor']
+        data_dict['code'] = tmp['code']
+        data_list.append(data_dict.copy())
+        data_dict.clear()
+
+    return render(request, "hcmp_report/project_datalist.html", {'dataset': data_list})
+
+
+
+@csrf_exempt
+@login_required
+def activity_list(request,sector_id):
+    query = "select row_number() over (order by id) as serial_number,activity_name,id,code from activity where sector_id = "+str(sector_id)
+    activity_list = json.dumps(__db_fetch_values_dict(query))
+    sector_name = __db_fetch_single_value("select sector_name from sector where id = "+str(sector_id))
+    return render(request, 'hcmp_report/activity_list.html',
+                 { 'activity_list': activity_list,'sector_id' : sector_id,'sector_name' : sector_name})
+
+
+
+
+@csrf_exempt
+@login_required
+def add_activity(request,sector_id):
+    code = __db_fetch_single_value("select coalesce(max(code),0) from activity") + 1
+    sector_name = __db_fetch_single_value("select sector_name from sector where id = " + str(sector_id))
+
+    if request.POST:
+        activity_name = request.POST.get('name')
+        activity_code = request.POST.get('code')
+        data = __db_fetch_values_dict(
+            "select code from activity where  code = " + str(activity_code))
+        if len(data) == 0:
+            insert_query = "INSERT INTO public.activity(id,activity_name, sector_id,code) VALUES(DEFAULT ,'" + str(
+                activity_name) + "', " + str(sector_id) + ",'"+str(activity_code)+"')"
+            __db_commit_query(insert_query)
+            return HttpResponseRedirect("/hcmp_report/activity-list/"+str(sector_id))
+
+    return render(request, 'hcmp_report/add_activity.html',
+                 { 'sector_id' : sector_id,'sector_name' : sector_name,'code' : code})
+
+
+
+@csrf_exempt
+def check_duplicate_activity_code(request):
+    activity_code = request.POST.get('code')
+    sector_id = request.POST.get('sector_id')
+    data = __db_fetch_values_dict("select code from activity where code = "+str(activity_code))
+    if len(data) == 0:
+        flag = 1
+    else:
+        flag = 0
+    return HttpResponse(flag)
+
+
+@csrf_exempt
+@login_required
+def subactivity_list(request,activity_id):
+    query = "select row_number() over (order by id) as serial_number,sub_activity_name,id,code from sub_activity where activity_id = " + str(
+        activity_id)
+    subactivity_list = json.dumps(__db_fetch_values_dict(query))
+    q = "select activity_name,(select sector_name from sector where id =sector_id) sector from activity"
+    data = __db_fetch_values_dict(q)
+    for temp in data:
+        data_dict = {
+            'subactivity_list' : subactivity_list,'activity_name' : temp['activity_name'],'sector' : temp['sector'],'activity_id' :activity_id
+        }
+    return render(request, 'hcmp_report/subactivity_list.html',data_dict)
+
+
+
+@csrf_exempt
+@login_required
+def add_subactivity(request,activity_id):
+    sub_code = __db_fetch_single_value("select coalesce(max(code),0) from sub_activity where activity_id=" + activity_id) + 1
+    activity_name= __db_fetch_single_value("select activity_name from activity where id = " + str(activity_id))
+    sector_name = __db_fetch_single_value("select sector_name from sector where id = (select sector_id from activity where id = " + str(activity_id)+")")
+
+    if request.POST:
+        subactivity_name = request.POST.get('name')
+        code = request.POST.get('code')
+        data = __db_fetch_values_dict(
+            "select code from sub_activity where activity_id = " + str(activity_id) + "  and code = " + str(code))
+        if len(data) == 0:
+            insert_query = "INSERT INTO public.sub_activity(id,sub_activity_name, code,activity_id) VALUES(DEFAULT ,'" + str(
+                subactivity_name) + "', " + str(code) + ","+str(activity_id)+")"
+            __db_commit_query(insert_query)
+        return HttpResponseRedirect("/hcmp_report/subactivity_list/"+str(activity_id))
+
+    return render(request, 'hcmp_report/add_subactivity.html',
+                 { 'activity_id' : activity_id,'activity_name' : activity_name,'sector_name' : sector_name,'code' : sub_code})
+
+
+@csrf_exempt
+def check_duplicate_sub_activity_code(request):
+    code = request.POST.get('code')
+    activity_id = request.POST.get('activity_id')
+    data = __db_fetch_values_dict("select code from sub_activity where activity_id = "+str(activity_id)+"  and code = "+str(code))
+    if len(data) == 0:
+        flag = 1
+    else:
+        flag = 0
+    return HttpResponse(flag)
+
+
+
+
+@csrf_exempt
+@login_required
+def activity_map_list(request,subactivity_id):
+    query = "select row_number() over (order by id) as serial_number,((select name from donor where id = (select donor_id from project where id = project_id) )||'-' ||((select code from project where id = project_id))) project,id,Date(start_date) start_date,Date(end_date) end_date, target from activity_mapping where sub_activity_id = " + str(
+        subactivity_id)
+    mapping_list = json.dumps(__db_fetch_values_dict(query), default=decimal_date_default)
+    data_dict = get_sub_activity_info(subactivity_id)
+    data = {
+        'sub_activity': data_dict.get('sub_activity_name'), 'activity': data_dict.get('activity'),'subactivity_id': subactivity_id,
+        'sector': data_dict.get('sector'), 'mapping_list': mapping_list
+    }
+    return render(request, 'hcmp_report/activity_map_list.html',data)
+
+
+@csrf_exempt
+@login_required
+def add_activity_map(request,subactivity_id):
+    data_dict = get_sub_activity_info(subactivity_id)
+    sector_id = data_dict.get('sector_id')
+    q = "select id,((select name from donor where id = donor_id) ||'-'||code) donor_project from project where sector_id = "+str(sector_id)
+    df = pandas.DataFrame()
+    df = pandas.read_sql(q, connection)
+    project_id = df.id.tolist()
+    donor_name = df.donor_project.tolist()
+    project_list = zip(project_id, donor_name)
+    data = {
+        'sub_activity' : data_dict.get('sub_activity_name'),'activity' : data_dict.get('activity'),'sector' : data_dict.get('sector'),'project_list' :project_list,'subactivity_id' : subactivity_id
+    }
+
+    if request.POST:
+        project_id = request.POST.get('project_id')
+        start_date = request.POST.get('start_date')
+        end_date = request.POST.get('end_date')
+        target = request.POST.get('target')
+        insert_query = "INSERT INTO public.activity_mapping(id, project_id, start_date, end_date, target, sub_activity_id)VALUES (DEFAULT , "+str(project_id)+", '"+start_date+"', '"+end_date+"', "+str(target)+", "+str(subactivity_id)+");"
+        __db_commit_query(insert_query)
+        return HttpResponseRedirect("/hcmp_report/activity-map-list/"+str(subactivity_id))
+
+    return render(request, 'hcmp_report/add_activity_map.html',data)
+
+
+def get_sub_activity_info(sub_activity_id):
+    q = "select  id,sub_activity_name,(select activity_name from activity where id  = activity_id) activity, (select sector_name from sector where id = (select sector_id from activity where id = sub_activity.activity_id)) sector,(select id from sector where id = (select sector_id from activity where id = sub_activity.activity_id)) sector_id from sub_activity where id = "+str(sub_activity_id)
+    #print q
+    data = __db_fetch_values_dict(q)
+    #print data
+    data_dict = {}
+    for temp in data:
+        data_dict = {
+            'sub_activity_name' : temp['sub_activity_name'],'activity' : temp['activity'],'sector' : temp['sector'],'sector_id' :temp['sector_id']
+        }
+    return data_dict
+
+
+
+"""
+    API
+"""
+
+def get_activity_csv(request,id_string):
+    if id_string == 'activity_progress_nfi':
+        sector_id = 1
+    if id_string == 'activity_progress_shelter':
+        sector_id = 2
+    if id_string == 'activity_progress_c4d':
+        sector_id = 2
+
+
+    #q = "with t1 as(SELECT id AS sub_activity_id, activity_id, sub_activity_name, code::text sub_activity_code FROM sub_activity WHERE activity_id =ANY (SELECT id FROM activity WHERE sector_id = "+str(sector_id)+")), t2 as (SELECT id , activity_name , code::text activity_code FROM activity WHERE sector_id = "+str(sector_id)+"), t3 as (SELECT * FROM t1 LEFT JOIN t2 ON t1.activity_id = t2.id), t4 as (SELECT sub_activity_id, (SELECT name FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_name, (SELECT id FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_code FROM activity_mapping) SELECT DISTINCT t4.donor_name donor_label, t4.donor_code::text donor, t3.activity_name activity_label, t4.donor_code ||t3.activity_code activity, t3.sub_activity_name subactivity_label, t4.donor_code||t3.activity_code||t3.sub_activity_code sub_activity FROM t3 LEFT JOIN t4 ON t3.sub_activity_id = t4.sub_activity_id"
+    q= "with t1 as(SELECT id AS sub_activity_id, activity_id, sub_activity_name, code::text sub_activity_code FROM sub_activity WHERE activity_id =ANY (SELECT id FROM activity WHERE sector_id = "+str(sector_id)+")), t2 AS (SELECT id , activity_name , code::text activity_code FROM activity WHERE sector_id = "+str(sector_id)+"), t3 AS (SELECT * FROM t1 LEFT JOIN t2 ON t1.activity_id = t2.id), t4 AS (SELECT sub_activity_id, (SELECT name FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_name, (select code from project where id = project_id limit 1) project_code, (SELECT id FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_code FROM activity_mapping) SELECT t4.donor_name donor_label, t4.donor_code::text donor, t3.activity_name activity_label, t4.donor_code ||t3.activity_code activity, t3.sub_activity_name subactivity_label, t4.donor_code||t3.activity_code||t3.sub_activity_code sub_activity,t4.donor_name||'-'||t4.project_code project_label,t4.donor_code||t3.activity_code||t3.sub_activity_code||t4.project_code project FROM t3 LEFT JOIN t4 ON t3.sub_activity_id = t4.sub_activity_id "
+    print q
+    df = pandas.read_sql(q, connection)
+    #print df
+    file_name = 'act' + '.csv'
+    file_path = 'onadata/media/forms/'+id_string+'/'
+    file  = file_path+file_name
+
+    if not os.path.exists(file_path):
+        os.makedirs(file_path)
+
+    df.to_csv(file, encoding='utf-8',index=False)
+    # Folder name in ZIP archive which contains the above files
+    # E.g [thearchive.zip]/somefiles/file2.txt
+    zip_subdir = "itemsetfiles"
+    zip_filename = "%s.zip" % zip_subdir
+    # Open StringIO to grab in-memory ZIP contents
+    s = StringIO.StringIO()
+    # The zip compressor
+    zf = zipfile.ZipFile(s, "w")
+
+    # Add file, at correct path
+    zf.write(file, file_name)
+
+    # Must close zip for all contents to be written
+    zf.close()
+    # Grab ZIP file from in-memory, make response with correct MIME-type
+    resp = HttpResponse(s.getvalue(), mimetype="application/x-zip-compressed")
+    # ..and correct content-disposition
+    resp['Content-Disposition'] = 'attachment; filename=%s' % zip_filename
+
+    return resp
+
+
+
+#Custom export for HCMP Reporting
+@csrf_exempt
+def get_export(request):
+    end_date = request.POST.get('end_date')
+    id_string = request.POST.get('f_id')
+    if id_string == 'activity_progress_nfi':
+        sector_id = 1
+    if id_string == 'activity_progress_shelter':
+        sector_id = 2
+    if id_string == 'activity_progress_c4d':
+        sector_id = 2
+    q = " select * from get_rpt_4w_nfi('" + str(sector_id) + "', '%', '%', '%', '" + str(end_date) + "') "
+    print q
+    main_df = pd.read_sql(q, connection)
+
+    columns = ['r_start_date', 'r_end_date','r_last_update_date','r_activity_status','r_total_planned_households','r_reached_total_male','r_reached_total_female','r_total_adult_females','r_total_adult_males','r_total_child_females','r_total_child_males','r_zone','r_focal_point','r_mobile','r_email']
+    main_df.drop(columns, inplace=True, axis=1)
+    # changing cols with rename()
+    main_df = main_df.rename(columns={"r_sl": "Serial",
+                                    "r_program_partner": "Program Partner",
+                                    "r_implement_partner": "Implement partner",
+                                      "r_response": "Response",
+                                      "r_donor": "Donor",
+                                      "r_act_activity": "Activity",
+                                      "r_act_sub_activity": "Sub Activity",
+                                      "r_act_cash_in_hand": "cash/in kind",
+                                      "r_act_activity_details": "Activity Details",
+                                      "r_act_unit_per_hh": "Activity Unit per hh",
+                                      "r_act_reached_total_hh": "Activity reached total hh",
+                                      "r_act_reached_total_beneficiaries": "Total beneficiaries",
+                                      "r_submission_date": "Activity date",
+                                      "r_district": "District",
+                                      "r_upazila": "Upazila",
+                                      "r_union_name": "Union",
+                                      "r_camp": "Camp",
+                                      "r_zone": "Zone",
+                                      "r_target_population": "Target population",
+                                      "r_act_remarks": "Activity Remarks"})
+
+
+    millis = int(round(time.time() * 1000))
+    file_name = id_string + str(millis) + '.xls'
+    path = 'media/exported_files/' + file_name
+    file_path = '/home/hcmp/src_hcmp_rpt/kobocat/onadata/' + path
+    writer = ExcelWriter(file_path, engine='xlwt')
+    main_df.to_excel(writer, 'sheet1', index=False)
+    writer.save()
+    print file_path
+
+    return HttpResponse(path)
+

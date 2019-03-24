@@ -1,0 +1,83 @@
+{% extends 'base_test.html' %}
+{% load i18n %}
+{% block additional-headers %}
+   <link href="/static/css/bootstrap-datepicker.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+
+    <div class="portlet box red">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-reorder"></i><a style = "color: #fff;" href = "/hcmp_report/sector_list/">{{ sector_name }}</a> ><a style="color: #fff;" onclick="history.go(-1);"  href = "#">{{ activity_name }}</a>
+            </div>
+        </div>
+
+        <div class="portlet-body form">
+            <form class="horizontal-form" id="" method="post" action="/hcmp_report/add_subactivity/{{ activity_id }}/"
+                  enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label > Sub Activity : </label>
+                                <input type="text" class="form-control" name="name" id="name" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label > Code: </label>
+                                <input type="number" value = {{ code }} class="form-control" onblur="check_duplicate_sub_activity_code(this.value);" name="code" id="sac_code" required>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-danger pull-left" id="submit" name="submit" type="submit"
+                                    data-original-title=""
+                                    title="">Submit</button>
+                            <button onclick="history.go(-1);" style="margin-left:10px;" type="button"
+                                    class="btn btn-info pull-left" data-original-title="" title="">Cancel
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block additional-javascript %}
+
+    <script type="text/javascript" src="/static/js/bootstrap-datepicker.js"></script>
+    <script>
+    var activity_id = '{{ activity_id }}';
+    function check_duplicate_sub_activity_code(code){
+        $.ajax({
+            url: '/hcmp_report/check_duplicate_sub_activity_code/',
+            data: {'code':code,'activity_id' : activity_id},
+            type: 'POST',
+            success: function (data) {
+
+                if (data == '0'){
+                    alert("This sub activity code is duplicate for this activity.");
+                    $("#sac_code").val("")
+                }
+                else{
+
+                }
+            }
+        });
+    }
+    </script>
+
+{% endblock %}

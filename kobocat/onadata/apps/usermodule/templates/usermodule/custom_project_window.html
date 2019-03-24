@@ -68,7 +68,7 @@
                </div>
             </div>
             <div class="col-md-3">
-               <div class="form-group">
+               <!--<div class="form-group">
                   <label class="control-label">Status</label>
                   <select id ="status" class="form-control status">
                      <option value="custom">Select Status</option>
@@ -76,7 +76,7 @@
                      <option value="Approved">Approved</option>
                      <option value="Pending">Pending</option>
                   </select>
-               </div>
+               </div>-->
             </div>
          </div>
          <div class="row">
@@ -95,11 +95,11 @@
          <li role="presentation" {% if tab_selection == "#data_table" %} class="active" {% endif %}><a data-toggle="tab"      href="#data_table" aria-controls="profile">Data View</a></li>
          <!-- <li {% if tab_selection == "#grid" %} class="active" {% endif %}><a data-toggle="tab" href="#grid">Grid</a></li> -->
          <li {% if tab_selection == "#excel" %} class="active" {% endif %}><a data-toggle="tab" href="#excel">Exports</a></li>
-         <li {% if tab_selection == "#chart" %} class="active" {% endif %}><a data-toggle="tab" href="#chart">Chart</a></li>
+         <!--<li {% if tab_selection == "#chart" %} class="active" {% endif %}><a data-toggle="tab" href="#chart">Chart</a></li>
          <li {% if tab_selection == "#gallery" %} class="active" {% endif %}><a data-toggle="tab" href="#gallery">View Gallery</a></li>
          <li {% if tab_selection == "#audio" %} class="active" {% endif %}><a data-toggle="tab" href="#audio">Audio</a></li>
          <li {% if tab_selection == "#attachments" %} class="active" {% endif %}><a data-toggle="tab" href="#attachments">Attachments</a></li>
-         <li {% if tab_selection == "#pending_approval" %} class="active" {% endif %}><a data-toggle="tab" href="#pending_approval">Pending approval</a></li>
+         <li {% if tab_selection == "#pending_approval" %} class="active" {% endif %}><a data-toggle="tab" href="#pending_approval">Pending approval</a></li> -->
       </ul>
       <div class="tab-content">
          <div id="excel" class="tab-pane fade {% if tab_selection == "#excel" %} in active {% endif %}">
@@ -111,12 +111,11 @@
             <div class="row">
                <div class="col-md-4">
                   <select id ="report_format" class="form-control">
-                     <option value="custom">Select a Report Format</option>
                      <option value="xls">XLS</option>
                      
                   </select>
                </div>
-               <div class="col-md-4">
+              <!-- <div class="col-md-4">
                   <select class="form-control" id ="rprt_data_type" name="rprt_data_type" title="Currently Only working for only Excel type">
                      <option value="custom">Select a Report Data Type</option>
                      <option value="lbl">Label</option>
@@ -128,16 +127,17 @@
                      <option value="{{lan}}">{{lan}}</option>
                      {% endfor %}
                   </select>
-</div>
+</div>-->
                <div class="col-md-4">
-                  <input id="export-button" type="submit" onclick="filterDownload(event,1);" class="btn red" value="{% trans 'Export' %}" />
+                  <!--<input id="export-button" type="submit" onclick="filterDownload(event,1);" class="btn red" value="{% trans 'Export' %}" />-->
+                  <button id="form_data_export" onclick='get_export("{{xform.id_string}}")' class="btn red" >Export</button>
                </div>
                <input type="hidden" name="custom" id="custom" value="excel"/>
                <input type="hidden" name="query" id="query1" value=""/>
             </div>
             </form>
             <div class="top-buffer"></div>
-            <table id="forms-table" class="table table-bordered table-striped">
+            <!--<table id="forms-table" class="table table-bordered table-striped">
                <thead>
                   <tr>
                      <th>#</th>
@@ -197,7 +197,7 @@
          </tr>
          {% endfor %}
          </tbody>
-         </table>
+         </table>-->
       </div>
    </div>
    <div id="chart" class="tab-pane fade {% if tab_selection == "#chart" %} in active {% endif %}">
@@ -471,6 +471,8 @@
      // getQuery() is located in onadata.apps.viewer.static.js.data_view.js
      // this function evaluated the filter query on which export will be generated.
      var filter_query = getQuery();
+     console.log('filter_query++++++++++++++++++++++++++++++++++++++');
+     console.log(filter_query)
      $('#query'+formnumber).val(filter_query);
      var action_url = '';
      var action_url_last_half = '' ;
@@ -488,6 +490,28 @@
      }else if(formnumber === 2) {
        $( "#attachments_form" ).submit();
      }
+   }
+
+   /* Custom Export for HCMP Reporting */
+   function get_export(id_string){
+       f_id = id_string;
+       end_date = $("#end_date").val()
+       console.log(f_id +'===='+end_date)
+       $.ajax({
+         url:'/hcmp_report/get_export/',
+         type:'POST',
+         data: {
+             'f_id' : f_id, 'end_date' : end_date
+         },
+         success: function (data) {
+             console.log("))))))))))))))))))))))))))))))))))))))")
+             console.log(data)
+                    var host_port = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
+                    window.location = host_port+'/'+data
+             console.log(host_port+data)
+
+                }
+       });
    }
 </script>
 <!-- <script type="text/javascript" src="/static/js/data_view_extra.js"></script> -->

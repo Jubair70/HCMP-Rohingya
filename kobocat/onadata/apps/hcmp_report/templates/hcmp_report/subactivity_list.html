@@ -1,0 +1,110 @@
+{% extends 'base_test.html' %}
+{% load i18n %}
+{% block additional-headers %}
+   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    <link href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css" rel="stylesheet">
+{% endblock %}
+
+
+
+{% block content %}
+
+    <div class="portlet box red">
+        <div class="portlet-title">
+            <div class="caption"><i class="fa fa-adn"></i><a style = "color: #fff;" href = "/hcmp_report/sector_list/">{{ sector }}</a> > <a style="color: #fff;" onclick="history.go(-1);"  href = "#">{{ activity_name }}</a></div>
+        </div>
+        <div class="portlet-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="/hcmp_report/add_subactivity/{{ activity_id }}">
+                        <button type="submit" class="btn btn-info pull-left" id="add_new" data-original-title=""
+                                title="">Add New
+                        </button>
+                    </a>
+                </div>
+            </div>
+            <br>
+            <table id="subactivity_table" class="table table-bordered table-striped table-condensed flip-content nowrap">
+                <thead class="flip-content">
+                <tr>
+                    <th>SL</th>
+                    <th>Sub Activity</th>
+                    <th>Code</th>
+                    <th class="td-center"></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+                </div>
+
+                <div class="modal-body">
+                    <p>You are about to delete a branch info, this procedure is irreversible.</p>
+                    <p>Do you want to proceed?</p>
+                    <p class="debug-url"></p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <a href="#" class="btn btn-danger btn-ok">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block additional-javascript %}
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.flash.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.print.min.js"></script>
+
+    <script>
+var table;
+    $(document).ready(function () {
+
+ table = $('#subactivity_table').DataTable({
+            "scrollX": true, "ordering": false,
+            deferRender: true
+        });
+
+        });
+
+
+        var tbody = '';
+        var subactivity_list = {{ subactivity_list|safe }};
+        console.log(subactivity_list)
+        for (var idx in subactivity_list) {
+            tbody += '<tr><td>' + subactivity_list[idx].serial_number+ '</td><td>' + subactivity_list[idx].sub_activity_name + '</td><td>' + subactivity_list[idx].code + '</td><td class="td-center"><a class="btn red btn-md"  href="/hcmp_report/activity-map-list/' + subactivity_list[idx].id + '">Config</a><a style="margin-left: 5px;" class="btn btn-danger" onclick ="delete_entity('+ subactivity_list[idx].id +')" href="#" >Delete</a></td></tr>';
+        }
+
+        $("#subactivity_table").find('tbody').html(tbody);
+
+        function delete_entity(id) {
+            if (confirm("Are you sure you want to delete this?")) {
+
+            }
+            else {
+                return false;
+            }
+        }
+
+    </script>
+{% endblock %}

@@ -1,0 +1,22 @@
+<table id ="project_table" class="table table-bordered table-hover table-fixed table-striped">
+        <thead>
+
+            <th>Donor Name</th>
+            <th> Project Code </th>
+            <th> </th>
+
+        </thead>
+        <tbody>
+        {% for data in dataset %}
+        <tr>
+            <td>{{data.donor}}</td>
+            <td>{{data.code}}</td>
+            <td>
+                <a onclick="delete_entity({{ data.id }})"  class="btn btn-danger" type="button" data-original-title="" title="">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+

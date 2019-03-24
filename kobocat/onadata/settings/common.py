@@ -19,7 +19,7 @@ from django.core.exceptions import SuspiciousOperation
 from django.utils.log import AdminEmailHandler
 import djcelery
 from pymongo import MongoClient
-
+POSTGIS_VERSION = (2,2,2)
 from celery.signals import after_setup_logger
 
 from celery.schedules import crontab

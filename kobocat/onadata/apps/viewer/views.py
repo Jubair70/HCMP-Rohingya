@@ -772,7 +772,8 @@ def custom_data_view(request, username, id_string):
                 state_list="'" + str(eachval[0]) + "'"
             else:
                 state_list=state_list + "," + "'" + str(eachval[0]) + "'"
-        userlist = " AND vwlogger_instance.user_id ="+str(request.user.id)
+        #userlist = " AND vwlogger_instance.user_id ="+str(request.user.id)
+        userlist=""
 
     if state_list!="" and state_list!="*":
         state_list="(" + state_list + ")"

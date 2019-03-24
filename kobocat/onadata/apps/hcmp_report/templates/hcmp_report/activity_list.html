@@ -1,0 +1,105 @@
+{% extends 'base_test.html' %}
+{% load i18n %}
+{% block additional-headers %}
+   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    <link href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css" rel="stylesheet">
+{% endblock %}
+
+
+
+{% block content %}
+
+    <div class="portlet box red">
+        <div class="portlet-title">
+            <div class="caption"><i class="fa fa-adn"></i><a style="color: #fff;" onclick="history.go(-1);"  href = "#">{{ sector_name }}</a></div>
+        </div>
+        <div class="portlet-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="/hcmp_report/add-activity/{{ sector_id }}/">
+                        <button type="submit" class="btn btn-info pull-left" id="add_new" data-original-title=""
+                                title="">Add New
+                        </button>
+                    </a>
+                </div>
+            </div>
+            <br>
+            <table id="activity_table" class="table table-bordered table-striped table-condensed flip-content nowrap">
+                <thead class="flip-content">
+                <tr>
+                    <th>SL</th>
+                    <th>Activity</th>
+                    <th>Code</th>
+                    <th class="td-center"></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+                </div>
+
+                <div class="modal-body">
+                    <p>You are about to delete a branch info, this procedure is irreversible.</p>
+                    <p>Do you want to proceed?</p>
+                    <p class="debug-url"></p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <a href="#" class="btn btn-danger btn-ok">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block additional-javascript %}
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+
+    <script>
+var table;
+    $(document).ready(function () {
+
+ table = $('#activity_table').DataTable({
+            "scrollX": true, "ordering": false,
+            deferRender: true
+        });
+
+        });
+
+
+        var tbody = '';
+        var activity_list = {{ activity_list|safe }};
+        console.log(activity_list)
+        for (var idx in activity_list) {
+            tbody += '<tr><td>' + activity_list[idx].serial_number + '</td><td>' + activity_list[idx].activity_name +'</td><td>' + activity_list[idx].code +  '</td><td class="td-center"><a class="btn red btn-md"  href="/hcmp_report/subactivity_list/' + activity_list[idx].id + '">Sub Activity</a><a style="margin-left: 5px;" class="btn btn-danger" onclick ="delete_entity('+ activity_list[idx].id +')" >Delete</a></td></tr>';
+        }
+
+        $("#activity_table").find('tbody').html(tbody);
+
+        function delete_entity(id) {
+            if (confirm("Are you sure you want to delete this?")) {
+
+            }
+            else {
+                return false;
+            }
+        }
+
+
+    </script>
+{% endblock %}

@@ -51,12 +51,29 @@ urlpatterns = patterns('',
                        url(r'^get_c4d_data_table/$', views.get_c4d_data_table, name='get_c4d_data_table'),
                        url(r'^gbv/$', views.gbv, name='gbv'),
                        url(r'^get_gbv_data_table/$', views.get_gbv_data_table, name='get_gbv_data_table'),
+
+                       # ------------ Emtiaz (S) ----------------
+
+                       url(r'^activity_progress_report/$', views.activity_progress_report, name='activity_progress_report'),
+                       url(r'^get_activity_progress_report_table/$', views.get_activity_progress_report_table,
+                           name='get_activity_progress_report_table'),
+                       url(r'^get_union_list/$', views.get_union_list, name='get_union_list'),
+                       url(r'^get_camp_list/$', views.get_camp_list, name='get_camp_list'),
+
+                       url(r'^sector/$', views.sector, name='sector'),
+                       url(r'^create_sector/$', views.create_sector, name='create_sector'),
+
+                       # ------------ Emtiaz (E) ----------------
+
+
                        url(r'^nfi_fdmn/$', views.nfi_fdmn, name='nfi_fdmn'),
                        url(r'^get_nfi_fdmn_data_table/$', views.get_nfi_fdmn_data_table,
                            name='get_nfi_fdmn_data_table'),
+
                        url(r'^nfi_host/$', views.nfi_host, name='nfi_host'),
                        url(r'^get_nfi_host_data_table/$', views.get_nfi_host_data_table,
                            name='get_nfi_host_data_table'),
+
                        url(r'^drr_nfi/$', views.drr_nfi, name='drr_nfi'),
                        url(r'^get_drr_nfi_data_table/$', views.get_drr_nfi_data_table, name='get_drr_nfi_data_table'),
                        url(r'^drr_wash/$', views.drr_wash, name='drr_wash'),
@@ -90,4 +107,24 @@ urlpatterns = patterns('',
                            name='delete_camp'),
                        url(r'^get_geolocation_csv/(?P<id_string>[^/]+)/$', views.get_geolocation_csv),
 
-                       )
+                       # ------------------- Configuration ------------------------------------------#
+                    url(r'^sector_list/$', views.sector_list, name='sector_list'),
+                    url(r'^project/(?P<sector_id>\d+)/$', views.project,name='project'),
+                    url(r'^get_project/(?P<sector_id>\d+)/$', views.get_project,name='get_project'),
+                    url(r'^activity-list/(?P<sector_id>\d+)/$', views.activity_list, name='activity_list'),
+                    url(r'^add-activity/(?P<sector_id>\d+)/$', views.add_activity, name='add_activity'),
+                    url(r'^subactivity_list/(?P<activity_id>\d+)/$', views.subactivity_list, name='subactivity_list'),
+                    url(r'^add_subactivity/(?P<activity_id>\d+)/$', views.add_subactivity, name='add_subactivity'),
+                    url(r'^activity-map-list/(?P<subactivity_id>\d+)/$', views.activity_map_list, name='activity_map_list'),
+                    url(r'^add-activity-map/(?P<subactivity_id>\d+)/$', views.add_activity_map, name='add_activity_map'),
+                    url(r'^check_duplicate_activity_code/$', views.check_duplicate_activity_code, name='check_duplicate_activity_code'),
+                    url(r'^check_duplicate_sub_activity_code/$', views.check_duplicate_sub_activity_code, name='check_duplicate_sub_activity_code'),
+                    url(r'^get_export/$', views.get_export, name='get_export'),
+
+                    # ------------------- API ------------------------------------------#
+                    url(r'^get_activity_csv/(?P<id_string>[^/]+)/$', views.get_activity_csv, name='get_activity_csv'),
+
+
+
+
+)

@@ -1,0 +1,273 @@
+<div style="overflow-x: auto" class="access_table">
+
+    <table id="activity_progress_table" cellspacing="0" border="1">
+        {#	<colgroup width="179"></colgroup>#}
+        {#	<colgroup width="213"></colgroup>#}
+        {#	<colgroup width="75"></colgroup>#}
+        {#<colgroup width="75"></colgroup>#}
+        {#<colgroup width="75"></colgroup>#}
+
+        <thead>
+        <tr>
+            <th class="parent-header"></th>
+            <th colspan="3" class="parent-header">WHO</th>
+            <th colspan="6" class="parent-header">WHAT</th>
+            <th colspan="4" class="parent-header">WHOM</th>
+            <th colspan="6" class="parent-header">Beneficiary</th>
+            <th colspan="3" class="parent-header">WHEN</th>
+            <th colspan="6" class="parent-header">WHERE</th>
+            <th colspan="4" class="parent-header">Reporting Focal</th>
+        </tr>
+
+        <tr >
+            <td class="sub-header-no">NO</td>
+            <td class="sub-header-who">Programme Partner</td>
+            <td class="sub-header-who">Implementing Partner</td>
+            <td class="sub-header-who">Donor</td>
+            <td class="sub-header-what">Response</td>
+            <td class="sub-header-what">Activity Type</td>
+            <td class="sub-header-what">Sub Activity Type</td>
+            <td class="sub-header-what">Cash/ In Hand</td>
+            <td class="sub-header-what">Activity Details</td>
+            <td class="sub-header-what">Activity Status</td>
+            <td class="sub-header-whom">Unit Per HH</td>
+            <td class="sub-header-whom">Total Planned Households</td>
+            <td class="sub-header-whom">Total Reached Households</td>
+            <td class="sub-header-whom">Total Reached Individuals</td>
+            <td class="sub-header-beneficairy">Reached Toal Male (Individuals)</td>
+            <td class="sub-header-beneficairy">Reached Toal Female (Individuals)</td>
+            <td class="sub-header-beneficairy">Total Adult Female (>18y) Beneficiaries</td>
+            <td class="sub-header-beneficairy">Total Adult Male (>18y) Beneficiaries</td>
+            <td class="sub-header-beneficairy">Total Child Female (<18y) Beneficiaries</td>
+            <td class="sub-header-beneficairy">Total Child Male (<18y) Beneficiaries</td>
+            <td class="sub-header-when">Start Date (mm-dd-yy)</td>
+            <td class="sub-header-when">End Date (mm-dd-yy)</td>
+            <td class="sub-header-when">Last Update Date (mm-dd-yy)</td>
+            <td class="sub-header-where">District</td>
+            <td class="sub-header-where">Upazila</td>
+            <td class="sub-header-where">Union</td>
+            <td class="sub-header-where">Camp</td>
+            <td class="sub-header-where">Zone/Para</td>
+            <td class="sub-header-where">Target Population</td>
+            <td class="sub-header-reporting-focal">Comments</td>
+            <td class="sub-header-reporting-focal">Contact Focal Point</td>
+            <td class="sub-header-reporting-focal">Phone Number</td>
+            <td class="sub-header-reporting-focal">Email</td>
+
+        </tr>
+        </thead>
+
+        <tbody>
+
+        {% for data in dataset %}
+        <tr style="text-align: center">
+                <td> {% if data.r_sl == None  %}
+                        -
+                    {% else %}
+                    {{ data.r_sl }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_program_partner == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_program_partner }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_implement_partner == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_implement_partner }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_donor == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_donor }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_response == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_response }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_act_activity == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_act_activity }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_act_sub_activity == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_act_sub_activity }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_act_cash_in_hand == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_act_cash_in_hand }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_act_activity_details == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_act_activity_details }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_activity_status == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_activity_status }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_act_unit_per_hh == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_act_unit_per_hh }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_total_planned_households == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_total_planned_households }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_act_reached_total_hh == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_act_reached_total_hh }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_act_reached_total_beneficiaries == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_act_reached_total_beneficiaries }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_reached_total_male == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_reached_total_male }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_reached_total_female == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_reached_total_female }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_total_adult_females == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_total_adult_females }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_total_adult_males == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_total_adult_males }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_total_child_females == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_total_child_females }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_total_child_males == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_total_child_males }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_start_date == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_start_date }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_end_date == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_end_date }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_last_update_date == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_last_update_date }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_district == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_district }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_upazila == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_upazila }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_union_name == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_union_name }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_camp == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_camp }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_zone == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_zone }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_target_population == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_target_population }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_act_remarks == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_act_remarks }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_focal_point == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_focal_point }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_mobile == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_mobile }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_email == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_email }}
+                    {% endif %}
+                </td>
+
+
+            </tr>
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+
+    <a id="dlink" style="display:none;"></a>
+</div>

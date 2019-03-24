@@ -1,0 +1,184 @@
+{% extends "base_test.html" %}
+{% block additional-headers %}
+    <link href="/static/css/datepicker.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/js/DataTables/datatables.css">
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.29.0/mapbox-gl.css' rel='stylesheet'/>
+    <style type="text/css">
+
+
+    </style>
+{% endblock %}
+
+{% block content %}
+
+
+<div class = "col-md-12">
+        <div class="portlet box red">
+    <div class="portlet-title">
+        <div class="caption"><i class="fa fa-sitemap"></i><a style = "color: #fff;" href = "/hcmp_report/sector_list/">{{ sector_name }}</a></div>
+    </div>
+    <div class="portlet-body">
+        <!--Load report Form-->
+
+                 <div class ="row">
+                 <form name="project_form" id="project_form"   method="post" action = "/hcmp_report/project/{{ sector_id }}/" >
+                    {% csrf_token %}
+                     <div class = "col-md-6">
+
+                        <div class="col-md-12"><label class="control-label">Donor </label><br>
+                            <select class="form-control" id = "donor" name ="donor" required>
+                                <option value = "">Select Any</option>
+                                 {% for donor_id,donor_name in donor_list %}
+                                            <option value="{{ donor_id }}">{{ donor_name }}</option>
+                                        {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-12"><label class="control-label">Project Code </label><br>
+                            <input class="form-control"  value = "" type ="text" id = "code" name ="code" required>
+                        </div>
+                        <br>
+                         <div class="col-md-7">
+                         </div>
+                         <div class = "row"></div>
+                        <div class="col-md-12"><input class="btn btn-success" type="submit" value="Submit"/></div>
+                    </div>
+                 </form>
+
+            </div>
+
+    </div>
+</div>
+
+</div>
+
+            <div class ="col-md-12" style = "margin-top: 10px;">
+
+		<div class="portlet box red">
+    <div class="portlet-title">
+        <div class="caption"><i class="fa fa-sitemap"></i></div>
+    </div>
+    <div class="portlet-body">
+
+                <div id="project_table_block">
+
+                </div>
+    </div>
+        </div>
+            </div>
+
+
+
+     <!-- data upload success modal-->
+    <div class="modal fade" id="successModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button" class="bootbox-close-button close" data-dismiss="modal" aria-hidden="true" style="margin-top: -10px;">×</button>
+                        <h4 class="modal-title" id="myModalLabel">Data has been added successfully.</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn  btn-success" data-dismiss="modal">Close</button>
+                        </button>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <!--modal ended-->
+    <!-- data delete success modal-->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button" class="bootbox-close-button close" data-dismiss="modal" aria-hidden="true" style="margin-top: -10px;">×</button>
+                        <h4 class="modal-title" id="myModalLabel">Data has been deleted successfully.</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn  btn-success" data-dismiss="modal">Close</button>
+                        </button>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <!--modal ended-->
+{% endblock %}
+
+{% block additional-javascript %}
+    <script type="text/javascript" src="{{STATIC_URL}}assets/plugins/data-tables/jquery.dataTables.js"></script>
+        <script>
+         var sector_id = '{{ sector_id }}'
+
+
+        $(document).ready(function () {
+
+            get_project_table();
+
+        });
+
+        function get_project_table(){
+        $.ajax({
+            url: '/hcmp_report/get_project/{{ sector_id }}/',
+            type: 'POST',
+            success: function (data) {
+                $("#project_table_block").html(data);
+                $('#project_table').dataTable({
+                            "retrieve": true,
+                            "bFilter": true,
+                            "paging": true,
+                            "scrollCollapse": true,
+                            select: true,
+                            // dom: 'Bfrtip',
+                            //dom: 'Blfrtip',
+                            //buttons: [{extend: 'excel', text: "Export to excel", title: 'Conducted training and coverage'}],
+                            ordering: true,
+                            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                            "scrollX": true
+
+                        });
+
+            }
+        });
+    //}
+    }
+    function showAjaxConfirmationMessages(data) {
+            $("#div_flash_messages").html("");
+            $("#div_flash_messages").append("<div class='alert alert-" + data.type + " fade in'><a class='close' href='#' data-dismiss='alert'>×</a> <p>" + data.messages + "</p></div>");
+    }
+    $(document).on("submit", "#project_form", function (event) {
+        console.log("submit file share");
+            event.preventDefault();
+            form_url = $(this).attr('action');
+            var data = new FormData(this); // <-- 'this' is form element
+            //return formData;
+            $.ajax({
+                type: 'POST',
+                url: form_url,
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function (data) {
+                    console.log("sucess uploaded");
+                    //showAjaxConfirmationMessages(data);
+                    $('#successModal').modal('show');
+                    $("#donor").val("");
+                    $("#code").val("");
+
+                    get_project_table();
+                },
+                error: function (xhr, status, error) {
+                    //load_OneToManyRelation();
+                }
+            }); //ajax end
+        });
+        function delete_entity(id) {
+            if (confirm("Are you sure you want to delete this?")) {
+
+            }
+            else {
+                return false;
+            }
+        }
+
+
+
+    </script>
+{% endblock %}

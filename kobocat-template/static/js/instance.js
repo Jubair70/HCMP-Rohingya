@@ -170,11 +170,11 @@ function createTable(canEdit,datavals) {
         var specificEditDelete = '';
     }
 
-    var editDelete = '<div class="row"><div class="col-md-6" style="">'+specificEditDelete+'<a onclick="printMe();" class="btn "></a></div></div><div class="top-buffer-min">';
+   /* var editDelete = '<div class="row"><div class="col-md-6" style="">'+specificEditDelete+'<a onclick="printMe();" class="btn "></a></div></div><div class="top-buffer-min">';
     dataContainer.append(editDelete);
 
     var notesSection = '<div id="notes" style="display: none;"><form action=" onsubmit="return addOrEditNote()" method="post" name="notesform" id="notesform"><input type="hidden" value="" name="instance_id" id="instance_id" /><div class="controls"><textarea id="note" class="form-control" rows="2" name="note" placeholder="' + gettext("Add note to instance") + '" autocomplete="off" style="width: 100%"></textarea></div><div class="controls controls-row"><div class="top-buffer-min"><button type="submit" id="note_save" class="btn green" style="" >' + gettext("Save note") + '</button></div></form><div id="notes-section"></div></div><div class="top-buffer">';
-    dataContainer.append(notesSection);
+    dataContainer.append(notesSection);*/
 
     if(approvedef.length>0){
     var statusApproveSection = '<div class="col-md-2"><select class="form-control" id="status_approve" name="status_approve"></select></div><button onclick="updateARStatus('+instance_id+')" class="btn red">Update Status</button>';

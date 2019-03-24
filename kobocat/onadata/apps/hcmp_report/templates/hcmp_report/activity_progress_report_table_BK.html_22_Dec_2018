@@ -1,0 +1,108 @@
+<div style="overflow-x: auto" class="access_table">
+
+    <table id="activity_progress_table" cellspacing="0" border="1">
+        {#	<colgroup width="179"></colgroup>#}
+        {#	<colgroup width="213"></colgroup>#}
+        {#	<colgroup width="75"></colgroup>#}
+        {#<colgroup width="75"></colgroup>#}
+        {#<colgroup width="75"></colgroup>#}
+
+        <thead>
+        <tr>
+            <th class="parent-header"></th>
+            <th colspan="3" class="parent-header">WHO</th>
+            <th colspan="6" class="parent-header">WHAT</th>
+            <th colspan="4" class="parent-header">WHOM</th>
+            <th colspan="6" class="parent-header">Beneficiary</th>
+            <th colspan="3" class="parent-header">WHEN</th>
+            <th colspan="6" class="parent-header">WHERE</th>
+            <th colspan="4" class="parent-header">Reporting Focal</th>
+        </tr>
+
+        <tr>
+            <td class="sub-header-no">NO</td>
+            <td class="sub-header-who">Programme Partner</td>
+            <td class="sub-header-who">Implementing Partner</td>
+            <td class="sub-header-who">Donor</td>
+            <td class="sub-header-what">Response</td>
+            <td class="sub-header-what">Activity Type</td>
+            <td class="sub-header-what">Sub Activity Type</td>
+            <td class="sub-header-what">Cash/ In Hand</td>
+            <td class="sub-header-what">Activity Details</td>
+            <td class="sub-header-what">Activity Status</td>
+            <td class="sub-header-whom">Unit Per HH</td>
+            <td class="sub-header-whom">Total Planned Households</td>
+            <td class="sub-header-whom">Total Reached Households</td>
+            <td class="sub-header-whom">Total Reached Individuals</td>
+            <td class="sub-header-beneficairy">Reached Toal Male (Individuals)</td>
+            <td class="sub-header-beneficairy">Reached Toal Female (Individuals)</td>
+            <td class="sub-header-beneficairy">Total Adult Female (>18y) Beneficiaries</td>
+            <td class="sub-header-beneficairy">Total Adult Male (>18y) Beneficiaries</td>
+            <td class="sub-header-beneficairy">Total Child Female (<18y) Beneficiaries</td>
+            <td class="sub-header-beneficairy">Total Child Male (<18y) Beneficiaries</td>
+            <td class="sub-header-when">Start Date (mm-dd-yy)</td>
+            <td class="sub-header-when">End Date (mm-dd-yy)</td>
+            <td class="sub-header-when">Last Update Date (mm-dd-yy)</td>
+            <td class="sub-header-where">District</td>
+            <td class="sub-header-where">Upazila</td>
+            <td class="sub-header-where">Union</td>
+            <td class="sub-header-where">Camp</td>
+            <td class="sub-header-where">Zone/Para</td>
+            <td class="sub-header-where">Target Population</td>
+            <td class="sub-header-reporting-focal">Comments</td>
+            <td class="sub-header-reporting-focal">Contact Focal Point</td>
+            <td class="sub-header-reporting-focal">Phone Number</td>
+            <td class="sub-header-reporting-focal">Email</td>
+
+        </tr>
+        </thead>
+
+        <tbody>
+
+        {% for data in dataset %}
+            <tr>
+                <td>{{ data.r_sl }}</td>
+                <td>{{ data.r_program_partner }}</td>
+                <td>{{ data.r_implement_partner }}</td>
+                <td>{{ data.r_donor }}</td>
+                <td>{{ data.r_response }}</td>
+                <td>{{ data.r_act_activity }}</td>
+                <td>{{ data.r_act_sub_activity }}</td>
+                <td>{{ data.r_act_cash_in_hand }}</td>
+                <td>{{ data.r_act_activity_details }}</td>
+                <td>{{ data.r_activity_status }}</td>
+                <td>{{ data.r_act_unit_per_hh }}</td>
+                <td>{{ data.r_total_planned_households }}</td>
+                <td>{{ data.r_act_reached_total_hh }}</td>
+                <td>{{ data.r_act_reached_total_beneficiaries }}</td>
+                <td>{{ data.r_reached_total_male }}</td>
+                <td>{{ data.r_reached_total_female }}</td>
+                <td>{{ data.r_total_adult_females }}</td>
+                <td>{{ data.r_total_adult_males }}</td>
+                <td>{{ data.r_total_child_females }}</td>
+                <td>{{ data.r_total_child_males }}</td>
+                <td>{{ data.r_start_date }}</td>
+                <td>{{ data.r_end_date }}</td>
+                <td>{{ data.r_last_update_date }}</td>
+                <td>{{ data.r_district }}</td>
+                <td>{{ data.r_upazila }}</td>
+                <td>{{ data.r_union_name }}</td>
+                <td>{{ data.r_camp }}</td>
+                <td>{{ data.r_zone }}</td>
+                <td>{{ data.r_target_population }}</td>
+                <td>{{ data.r_act_remarks }}</td>
+                <td>{{ data.r_focal_point }}</td>
+                <td>{{ data.r_mobile }}</td>
+                <td>{{ data.r_email }}</td>
+
+
+            </tr>
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+
+    <a id="dlink" style="display:none;"></a>
+</div>

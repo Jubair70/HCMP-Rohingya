@@ -1,0 +1,88 @@
+{% extends 'base_test.html' %}
+{% load i18n %}
+{% block additional-headers %}
+   <link href="/static/css/bootstrap-datepicker.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+
+    <div class="portlet box red">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-reorder"></i> <a style = "color: #fff;" href = "/hcmp_report/sector_list/">{{ sector }}</a> > {{ activity }} ><a style="color: #fff;" onclick="history.go(-1);"  href = "#"> {{ sub_activity }}</a>
+            </div>
+        </div>
+
+        <div class="portlet-body form">
+            <form class="horizontal-form" id="" method="post" action="/hcmp_report/add-activity-map/{{ subactivity_id }}/"
+                  enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-body">
+
+                    <div class="row">
+                         <div class="col-md-5"><div class="form-group"><label class="control-label">Donor </label><br>
+                            <select class="form-control" id = "donor" name ="project_id" required>
+                                <option value = "">Select Any</option>
+                                 {% for project_id,donor_name in project_list %}
+                                            <option value="{{ project_id }}">{{ donor_name }}</option>
+                                        {% endfor %}
+                            </select>
+                        </div>
+                         </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label > Start Date : </label>
+                                <input type="text" class="form-control datepicker" name="start_date" id="start_date" required>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label > End Date : </label>
+                                <input type="text" class="form-control datepicker" name="end_date" id="end_date" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label > Target: </label>
+                                <input type="number" class="form-control" name="target" id="name" required>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-danger pull-left" id="submit" name="submit" type="submit"
+                                    data-original-title=""
+                                    title="">Submit</button>
+                            <button onclick="history.go(-1);" style="margin-left:10px;" type="button"
+                                    class="btn btn-info pull-left" data-original-title="" title="">Cancel
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block additional-javascript %}
+
+    <script type="text/javascript" src="/static/js/bootstrap-datepicker.js"></script>
+    <script>
+    $( ".datepicker" ).each(function() {
+            $(this).datepicker({format:"yyyy-mm-dd",autoclose:true,orientation:"bottom" });
+        });
+
+    </script>
+
+{% endblock %}

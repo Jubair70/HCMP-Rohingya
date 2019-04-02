@@ -58,7 +58,7 @@ from django.conf import settings
 import StringIO
 from pandas import ExcelWriter
 import pandas as pd
-
+import datetime
 
 
 SECTOR_LIST = [{'name': 'Health', 'value': 8}, {'name': 'Nutrition', 'value': 9}, {'name': 'Education', 'value': 6},
@@ -459,6 +459,7 @@ def get_wash_data_table(request):
         start_date = dates.get('start_date')
         end_date = dates.get('end_date')
     q = "select * from get_rpt_wash('" + start_date + "','" + end_date + "','" + upazila + "','" + branch + "','" + camp + "')"
+    print(q)
     dataset = __db_fetch_values_dict(q)
     return render(request, 'hcmp_report/wash_table.html', {'dataset': dataset})
 
@@ -1191,19 +1192,25 @@ def add_subactivity(request,activity_id):
     activity_name= __db_fetch_single_value("select activity_name from activity where id = " + str(activity_id))
     sector_name = __db_fetch_single_value("select sector_name from sector where id = (select sector_id from activity where id = " + str(activity_id)+")")
 
+    qry = "select id,unit_name from sub_activity_units"
+    df = pandas.DataFrame()
+    df = pandas.read_sql(qry,connection)
+    unit = zip(df.id.tolist(),df.unit_name.tolist())
+
     if request.POST:
         subactivity_name = request.POST.get('name')
         code = request.POST.get('code')
+        unit = request.POST.get('unit')
         data = __db_fetch_values_dict(
             "select code from sub_activity where activity_id = " + str(activity_id) + "  and code = " + str(code))
         if len(data) == 0:
-            insert_query = "INSERT INTO public.sub_activity(id,sub_activity_name, code,activity_id) VALUES(DEFAULT ,'" + str(
-                subactivity_name) + "', " + str(code) + ","+str(activity_id)+")"
+            insert_query = "INSERT INTO public.sub_activity(id,sub_activity_name, code,activity_id,unit_id) VALUES(DEFAULT ,'" + str(
+                subactivity_name) + "', " + str(code) + ","+str(activity_id)+","+str(unit)+")"
             __db_commit_query(insert_query)
         return HttpResponseRedirect("/hcmp_report/subactivity_list/"+str(activity_id))
 
     return render(request, 'hcmp_report/add_subactivity.html',
-                 { 'activity_id' : activity_id,'activity_name' : activity_name,'sector_name' : sector_name,'code' : sub_code})
+                 { 'activity_id' : activity_id,'activity_name' : activity_name,'sector_name' : sector_name,'code' : sub_code,'unit':unit})
 
 
 @csrf_exempt
@@ -1238,6 +1245,7 @@ def activity_map_list(request,subactivity_id):
 @login_required
 def add_activity_map(request,subactivity_id):
     data_dict = get_sub_activity_info(subactivity_id)
+
     sector_id = data_dict.get('sector_id')
     q = "select id,((select name from donor where id = donor_id) ||'-'||code) donor_project from project where sector_id = "+str(sector_id)
     df = pandas.DataFrame()
@@ -1245,8 +1253,17 @@ def add_activity_map(request,subactivity_id):
     project_id = df.id.tolist()
     donor_name = df.donor_project.tolist()
     project_list = zip(project_id, donor_name)
+
+    query = "select project_id,to_char(start_date::date,'yyyy-mm-dd') start_date,to_char(end_date::date,'yyyy-mm-dd') end_date from activity_mapping where  sub_activity_id = " + str(subactivity_id)
+    v_dat = __db_fetch_values_dict(query)
+    validate_dict = {}
+    for each in v_dat:
+        validate_dict[each['project_id']] = {'start_date':each['start_date'],'end_date':each['end_date']}
+
+    print(validate_dict)
+
     data = {
-        'sub_activity' : data_dict.get('sub_activity_name'),'activity' : data_dict.get('activity'),'sector' : data_dict.get('sector'),'project_list' :project_list,'subactivity_id' : subactivity_id
+       'validate_dict':json.dumps(validate_dict), 'sub_activity' : data_dict.get('sub_activity_name'),'activity' : data_dict.get('activity'),'sector' : data_dict.get('sector'),'project_list' :project_list,'subactivity_id' : subactivity_id
     }
 
     if request.POST:
@@ -1254,7 +1271,16 @@ def add_activity_map(request,subactivity_id):
         start_date = request.POST.get('start_date')
         end_date = request.POST.get('end_date')
         target = request.POST.get('target')
-        insert_query = "INSERT INTO public.activity_mapping(id, project_id, start_date, end_date, target, sub_activity_id)VALUES (DEFAULT , "+str(project_id)+", '"+start_date+"', '"+end_date+"', "+str(target)+", "+str(subactivity_id)+");"
+        target_population = request.POST.get('target_population')
+        camp = request.POST.get('camp')
+        union = request.POST.get('union')
+        upazila = request.POST.get('upazila')
+        border_transit_location = request.POST.get('border_transit_location')
+        if target_population in [11,12,13]:
+            camp = ''
+
+
+        insert_query = "INSERT INTO public.activity_mapping(id, project_id, start_date, end_date, target, sub_activity_id,upazila,union_name,camp,border_transit_location)VALUES (DEFAULT , "+str(project_id)+", '"+start_date+"', '"+end_date+"', "+str(target)+", "+str(subactivity_id)+",'"+str(upazila)+"','"+str(union)+"','"+str(camp)+"','"+str(border_transit_location)+"')"
         __db_commit_query(insert_query)
         return HttpResponseRedirect("/hcmp_report/activity-map-list/"+str(subactivity_id))
 
@@ -1274,6 +1300,40 @@ def get_sub_activity_info(sub_activity_id):
     return data_dict
 
 
+def shelter_nfi_daily_report(request):
+    from_date = datetime.datetime.today().date()
+    return render(request, 'hcmp_report/shelter_nfi_daily_report.html',{'from_date':from_date})
+
+@csrf_exempt
+def get_report_shelter_nfi_daily_report(request):
+    search_date = request.POST.get('search_date')
+    target_population = request.POST.get('target_population')
+    upazila = request.POST.get('upazila')
+    union = request.POST.get('union')
+    camp = request.POST.get('camp')
+    query = """select rserial_no,coalesce(ract_name,'') ract_name,coalesce(runit,'') runit,coalesce(rday_cnt,0) rday_cnt,coalesce(rmonth_cnt,0) rmonth_cnt,coalesce(rtotal,0) rtotal from get_rpt_shelter_nfi_day('""" +str(search_date)+ """', '"""+str(upazila)+"""','"""+str(union)+"""','"""+str(camp)+"""','"""+str(target_population)+"""')"""
+    print(query)
+    data = json.dumps(__db_fetch_values_dict(query))
+    return HttpResponse(data)
+
+
+def shelter_nfi_monthly_report(request):
+    from_date = datetime.datetime.today().date()
+    q_donor = "select id,name from donor"
+    df = pandas.DataFrame()
+    df = pandas.read_sql(q_donor,connection)
+    donor = zip(df.id.tolist(),df.name.tolist())
+    return render(request, 'hcmp_report/shelter_nfi_monthly_report.html', {'from_date': from_date,'donor':donor})
+
+
+@csrf_exempt
+def get_report_shelter_nfi_monthly_report(request):
+    search_date = request.POST.get('search_date')
+    donor = request.POST.get('donor')
+    query = """ select rserial_no,coalesce(ract_name,'') ract_name,coalesce(runit,'') runit,coalesce(rcur_mon_cnt,0)::text rcur_mon_cnt,coalesce(rupto_last_month_cnt,0)::text rupto_last_month_cnt,coalesce(rtotal,0)::text rtotal,coalesce(rtarget::text,'') rtarget,case when rtarget is null then '-1' when rtarget::int = 0 then '0' else trunc((rtotal::numeric/rtarget::numeric)*100,2)::text end || ' %' as percentage  from get_rpt_shelter_nfi_month('"""+str(search_date)+"""', '"""+str(donor)+"""') """
+    print(query)
+    data = json.dumps(__db_fetch_values_dict(query))
+    return HttpResponse(data)
 
 """
     API
@@ -1375,3 +1435,115 @@ def get_export(request):
 
     return HttpResponse(path)
 
+def multipleValuedQuryExecution(query):
+    cursor = connection.cursor()
+    cursor.execute(query)
+    value = cursor.fetchall()
+    cursor.close()
+    return value
+
+def singleValuedQuryExecution(query):
+    cursor = connection.cursor()
+    cursor.execute(query)
+    value = cursor.fetchone()
+    cursor.close()
+    return value
+
+@login_required
+def donor(request):
+    queryDonorNameList = 'select id,name donor_name from donor order by id'
+    donorNameList = multipleValuedQuryExecution(queryDonorNameList)
+    jsonDonorNameList = json.dumps({'donorNameList': donorNameList}, default=decimal_date_default)
+
+    content = {
+
+        'jsonDonorNameList': jsonDonorNameList
+    }
+    print(content)
+
+    return render(request, 'hcmp_report/donor.html', content)
+
+
+@login_required
+def donorCreate(request):
+    username = request.user.username
+    donorName = request.POST.get('donor_name', '')
+    isEdit = request.POST.get('isEdit')
+
+    if isEdit != '':
+        queryEditDonorName = "UPDATE public.donor SET name='" + donorName + "' WHERE id= " + isEdit
+        __db_commit_query(queryEditDonorName)  ## Query Execution Function
+    else:
+        queryCreateDonorName = "INSERT INTO public.donor (id, name, created_at,  updated_at)VALUES(nextval('donor_id_seq'::regclass),'" + str(
+            donorName) + "', now(), now())"
+        __db_commit_query(queryCreateDonorName)  ## Query Execution Function
+
+    return HttpResponseRedirect('/hcmp_report/donor/')
+
+
+@login_required
+def donor_Edit(request):
+    id = request.POST.get('id')
+    queryFetchSpecificDonor = " SELECT id,name FROM public.donor where id = " + str(id)
+    getFetchSpecificDonor = singleValuedQuryExecution(queryFetchSpecificDonor)
+
+    jsonFetchSpecificDonor = json.dumps({'getFetchSpecificDonor': getFetchSpecificDonor}, default=decimal_date_default)
+
+    return HttpResponse(jsonFetchSpecificDonor)
+
+@login_required
+def donor_Delete(request,donor_id):
+    del_query = "delete from donor where id ="+str(donor_id)
+    __db_commit_query(del_query)
+    return HttpResponseRedirect('/hcmp_report/donor/')
+
+@csrf_exempt
+def getUpazilas(request):
+    query = "select id,name from upazila"
+    data = json.dumps(__db_fetch_values_dict(query))
+    return HttpResponse(data)
+
+@csrf_exempt
+def getUnions(request):
+    upazila = request.POST.get('upz')
+    query = "select id,name from unions where upazila_id = "+str(upazila)
+    data = json.dumps(__db_fetch_values_dict(query))
+    return HttpResponse(data)
+
+@csrf_exempt
+def getCamp(request):
+    camp = request.POST.get('camp')
+    query = "select code id,name from camp where union_id = "+str(camp)
+    data = json.dumps(__db_fetch_values_dict(query))
+    return HttpResponse(data)
+
+@csrf_exempt
+def get_border_transit_location(request):
+    upazila = request.POST.get('upz')
+    query = "select code id,name from border_transit_location where upazila_id = " + str(upazila)
+    data = json.dumps(__db_fetch_values_dict(query))
+    return HttpResponse(data)
+
+def getActivityMapValidation(request):
+    project_id = request.POST.get('project_id')
+    subactivity_id = request.POST.get('subactivity_id')
+    start_date = request.POST.get('start_date')
+    end_date = request.POST.get('end_date')
+
+    query = "select to_char(start_date::date,'yyyy-mm-dd') start_date,to_char(end_date::date,'yyyy-mm-dd') end_date from activity_mapping where project_id = "+str(project_id)+" and sub_activity_id = "+str(subactivity_id)+" "
+    df = pandas.DataFrame()
+    df = pandas.read_sql(query,connection)
+    stat = -1
+    s_date = ''
+    e_date = ''
+    if df.empty:
+        stat = 0
+    else:
+        stat = 1
+        s_date = df.start_date.tolist()[0]
+        e_date = df.end_date.tolist()[0]
+
+    data ={
+        'stat':stat,'s_date':s_date,'e_date':e_date
+    }
+    return HttpResponse(json.dumps(data))

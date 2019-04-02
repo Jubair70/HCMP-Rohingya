@@ -36,6 +36,22 @@
                         </div>
                     </div>
 
+                <div class="row">
+                       <div class="col-md-5">
+
+                    <div class="form-group">
+                        <label>Unit:</label>
+                        <select class="form-control" name="unit" id="unit" required>
+                            <option value="">Select One</option>
+                            {% for x,y in unit %}
+                                <option value="{{ x }}">{{ y }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                </div>
+
+
 
 
                     <div class="row">

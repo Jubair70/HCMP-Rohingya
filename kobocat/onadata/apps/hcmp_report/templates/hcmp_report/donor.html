@@ -1,0 +1,278 @@
+{% extends 'base_test.html' %}
+{% load i18n %}
+{% load app_filters %}
+{% block additional-headers %}
+    <title xmlns="http://www.w3.org/1999/html">
+        {% block title %} HCMP{% endblock %}
+    </title>
+    <!-- start: css for data view and filters -->
+    <style>
+        {#       th {#}
+        {#            text-align: center !important;#}
+        {#            width: auto !important;#}
+        {#        } #}
+
+        .chart-filter {
+            float: left;
+            padding: 10px;
+        }
+
+        .chart-header-btn {
+            float: left;
+            margin-left: 25px;
+            padding: 1px;
+            position: relative;
+            font-size: 13px;
+        }
+
+        .chart-main-container {
+            width: inherit;
+            height: 400px;
+            min-height: 200px;
+            float: center;
+            padding: 2px;
+            border: 2px rgb(89, 89, 89) double;
+        }
+
+        .table-control-container {
+            margin: 0px 2px !important;
+        }
+
+        .exportMargin {
+
+            margin-bottom: 2%;
+        }
+
+        table.dataTable.no-footer {
+            border-bottom: 0px solid #111 !important;
+        }
+
+        .container {
+            margin-top: 0px;
+        }
+
+        .image-preview-input {
+            position: relative;
+            overflow: hidden;
+            margin: 0px;
+            color: #333;
+            background-color: #fff;
+            border-color: #ccc;
+        }
+
+        .image-preview-input input[type=file] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            filter: alpha(opacity=0);
+        }
+
+        .image-preview-input-title {
+            margin-left: 0px;
+        }
+
+
+    </style>
+    <link href="/static/css/datepicker.css" rel="stylesheet">
+    <link href="/static/css/data_view.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/js/DataTables/datatables.css">
+    <link rel="stylesheet" href="/static/css/blueimp-gallery.min.css">
+
+    <!-- For DROPDOWN FILTERING -->
+{#    <link rel="stylesheet" href="/static/assets/css/style_dropdown_filtering.css">#}
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12" style="margin-bottom: 40px">
+            <h2>Donor Details</h2>
+        </div>
+
+        <form action="/hcmp_report/donorCreate/" enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+
+            <input type="hidden" value="" id="isEdit" name="isEdit">
+
+            <div class="col-xs-2 col-md-2 ">
+                <label class="control-label"><b>Donor Name</b></label>
+
+            </div>
+            <div class="col-xs-3 col-md-3 input-group ">
+                <input type="text" class="form-control " name="donor_name" id="donor_name" value="" required>
+            </div>
+
+            <div class="col-md-3">
+                <input class="btn btn-primary" type="submit" value="Submit">
+            </div>
+        </form>
+
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="form-group col-md-12">
+            <span class="control-label btn btn-primary"><b>Donor List</b></span>
+        </div>
+    </div>
+
+
+    <div class="row">
+
+        <div class="row">
+
+            <br>
+
+        </div>
+
+        <div class="col-md-12">
+            <table id="donorNameListTable" class="table table-bordered table-hover exportMargin">
+                <caption class="textAlign">
+
+                </caption>
+                <thead>
+                <tr>
+                    <th> ID </th>
+                    <th> Donor Name</th>
+                    <th> </th>
+                </tr>
+
+
+                </thead>
+                <tbody>
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+{% block additional-javascript %}
+
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+
+
+
+    <!--Data Table -->
+    <!--  <script type="text/javascript" src="{{ STATIC_URL }}assets/plugins/data-tables/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}assets/plugins/data-tables/DT_bootstrap.js"></script>
+    <script type="text/javascript" src="/static/js/DataTables/datatables.js"></script>
+  -->
+
+    <!--datatable -->
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="//cdn.datatables.net/buttons/1.3.1/js/buttons.flash.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js"></script>
+    <script type="text/javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js"></script>
+    <script type="text/javascript" src="//cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="//cdn.datatables.net/buttons/1.3.1/js/buttons.print.min.js"></script>
+    <!--datatable ended-->
+
+    <script type="text/javascript" src="/static/js/custom_data_view.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap-datepicker.js"></script>
+
+    <script type="text/javascript">
+
+        var jsonDonorNameList =
+        {{ jsonDonorNameList | safe }}
+        var donorList = jsonDonorNameList.donorNameList
+
+        console.log(donorList)
+
+{#        $(document).ready(function () {#}
+
+            getDonorNameList(donorList)  // Getting the Table
+
+{#        });#}
+
+
+        function getDonorNameList(donorList) {
+            console.log(donorList)
+
+            var count = 1
+            var tbody = ''
+
+            for (var i = 0; i < donorList.length; i++) {
+
+                editlink = ''
+
+                tbody += '<tr><td>' + donorList[i][0] + '</td><td>'+donorList[i][1]+'</td><td><button onclick="getEditId('+donorList[i][0]+')" class="btn btn-primary" role="button" >Edit</button><a  style="margin-left: 5px;" class="btn btn-danger"     onclick ="delete_entity(this,' + donorList[i][0] + ')"  href="#" >Delete</a></td></tr>'
+
+                count++;
+            }
+
+             $('#donorNameListTable').find('tbody').html(tbody)
+            dTablewithData = $('#donorNameListTable').DataTable({
+                "retrieve": true,
+                "bFilter": true,
+                "paging": true,
+                "scrollCollapse": true,
+                "searching": true,
+                select: true,
+              // ordering: true,
+               // "aaSorting": [[0, 'desc', 0]],
+                "scrollX": true,
+                "bLengthChange": true,
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                "pageLength": 50
+
+            });
+        }
+
+
+
+        function getEditId(id){
+
+            console.log("Donor ID" + id)
+            $('#isEdit').attr("value", id);
+
+            $.ajax({
+                type: 'POST',
+                url: '/hcmp_report/donor_Edit/',
+                data: {
+
+                    'id': id,
+                },
+                success: function (data) {
+
+                    list = JSON.parse(data);
+                    console.log(list.getFetchSpecificDonor);
+                    $('#donor_name').attr("value", list.getFetchSpecificDonor[1]);
+
+
+                }
+
+            });
+
+
+        }
+
+        function delete_entity(obj, id) {
+            if (confirm("Are you sure you want to delete this?")) {
+                $(obj).attr("href", "/hcmp_report/donor_Delete/" + id);
+            } else {
+                return false;
+            }
+        }
+
+
+    </script>
+
+{% endblock %}
+

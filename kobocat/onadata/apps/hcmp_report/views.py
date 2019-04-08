@@ -1561,8 +1561,10 @@ def activity_progress_edit(request, id_string , instance_id):
 
     if id_string == 'activity_progress_nfi':
         sector_id = 1
+        title = 'Activity Progress - NFI'
     if id_string == 'activity_progress_shelter':
         sector_id = 2
+        title = 'Activity Progress-Shelter'
     if id_string == 'activity_progress_c4d':
         sector_id = 2
 
@@ -1607,7 +1609,7 @@ def activity_progress_edit(request, id_string , instance_id):
 
     return render(request, "hcmp_report/activity_progress_edit.html",
                   {'id_string': id_string, 'xform_id': xform_id, 'username': username,
-                   'opt_donor_list': opt_donor_list, 'opt_activity_list': opt_activity_list,
+                   'opt_donor_list': opt_donor_list, 'opt_activity_list': opt_activity_list, 'title':title ,
                    'opt_sub_activity_list': opt_sub_activity_list, 'opt_project_list': opt_project_list,
                    'form_uuid': form_uuid, 'xml_data': xml_data, 'instance_id': instance_id})
 

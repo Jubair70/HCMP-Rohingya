@@ -867,7 +867,7 @@
                                    ng-click="uploadPic(vms.model);"
                                    value="Submit"/>
 
-                            <button class="btn btn-danger" onclick="location.reload()">Cancel</button>
+                            <input type="button" class="btn btn-danger" ng-click= " back_to_view_page()" value="Cancel" />
                         </div>
 
                     </div>
@@ -1088,6 +1088,13 @@
             return str.replace(re, function (matched) {
                 return mapObj[matched.toLowerCase()];
             });
+        }
+
+
+        $scope.back_to_view_page = function(){
+
+            window.location.href = '/'+$scope.username+'/forms/'+id_string+'/instance/?s_id='+instance_id +'#/'+ instance_id
+
         }
 
         $scope.parseCustomConstraints = function (selectedValue, rule, root, nIndex) {

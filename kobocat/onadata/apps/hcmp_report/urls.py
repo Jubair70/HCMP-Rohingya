@@ -63,6 +63,15 @@ urlpatterns = patterns('',
                        url(r'^sector/$', views.sector, name='sector'),
                        url(r'^create_sector/$', views.create_sector, name='create_sector'),
 
+                       url(r'^activity_progress_edit/(?P<id_string>[^/]+)/(?P<instance_id>\d+)/$', views.activity_progress_edit, name='activity_progress_edit'),
+
+                       url(r'^get_opt_activity_list/(?P<id_string>[^/]+)/(?P<donor>[^/]+)/$', views.get_opt_activity_list, name='get_opt_activity_list'),
+                       url(r'^get_opt_sub_activity_list/(?P<id_string>[^/]+)/(?P<donor>[^/]+)/(?P<activity>[^/]+)/$',
+                           views.get_opt_sub_activity_list, name='get_opt_sub_activity_list'),
+
+                       url(r'^get_opt_project_list/(?P<id_string>[^/]+)/(?P<donor>[^/]+)/(?P<activity>[^/]+)/(?P<sub_activity>[^/]+)/$',
+                           views.get_opt_project_list, name='get_opt_project_list'),
+
                        # ------------ Emtiaz (E) ----------------
 
 
@@ -139,6 +148,4 @@ urlpatterns = patterns('',
                     url(r'^get_activity_csv/(?P<id_string>[^/]+)/$', views.get_activity_csv, name='get_activity_csv'),
 
 
-
-
-)
+                       )

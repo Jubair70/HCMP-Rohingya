@@ -570,6 +570,8 @@ def get_unions(request):
 
 @csrf_exempt
 def submitXMLData(request):
+
+
     jsondata = json.loads(request.body)
     xml_data = jsondata.get("xml_submission_file")
     tree = ET.XML(xml_data)

@@ -35,13 +35,13 @@
                         <div class="col-md-5">
                             <div class="form-group">
                                 <label > Start Date : </label>
-                                <input type="text" class="form-control datepicker" name="start_date" id="start_date" readonly autocomplete="off" required>
+                                <input type="text" class="form-control datepicker" name="start_date" id="start_date"  autocomplete="off" required>
                             </div>
                         </div>
                         <div class="col-md-5">
                             <div class="form-group">
                                 <label > End Date : </label>
-                                <input type="text" class="form-control datepicker" name="end_date" id="end_date" readonly autocomplete="off" required>
+                                <input type="text" class="form-control datepicker" name="end_date" id="end_date"  autocomplete="off" required>
                             </div>
                         </div>
                     </div>
@@ -51,6 +51,16 @@
                             <div class="form-group">
                                 <label > Target: </label>
                                 <input type="number" class="form-control" name="target" id="name" required>
+                            </div>
+                        </div>
+                         <div class="col-md-5">
+                            <div class="form-group">
+                                <label > Status: </label>
+                                <select class="form-control" id="status" name="status" required>
+                                    <option value="">Select Any</option>
+                                    <option value="ongoing">On Going</option>
+                                    <option value="completed">Completed</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -126,6 +136,9 @@
 
     <script type="text/javascript" src="/static/js/bootstrap-datepicker.js"></script>
     <script>
+     $(".datepicker").on('keydown', function(e){
+        e.preventDefault();
+    });
     $( ".datepicker" ).each(function() {
             $(this).datepicker({format:"yyyy-mm-dd",autoclose:true,orientation:"bottom" });
         });
@@ -309,55 +322,57 @@ function load_union(upz_object) {
 
 
 
-        $('#submit').on('click',function (e) {
-           target_population = $('#target_population').val();
-           upazila = parseInt($('#upazila').val());
-           union = parseInt($('#union').val());
-           camp  = $('#camp').val();
-           border_transit_location = parseInt($('#border_transit_location').val());
-           console.log(upazila,union,camp);
-           if(target_population == 10 )
-           {
-               if(camp =='' && !( union && upazila))
-               {
-
-                   alert('Select Upazila, Union and Camp when Target Population is Refugee in Camps');
-                   return false;
-               }
-
-           }
-           else if(target_population == 11 || target_population == 12)
-           {
-               if(!(union && upazila))
-               {
-                   alert('Select Upazila and Union when Target Population is Refugee in Host Communities/Bangladeshi in Host Communities');
-                   return false;
-               }
-           }
-           else if(target_population == 13)
-           {
-               if(!(border_transit_location && upazila))
-               {
-                   alert('Select Upazila and Border/Transit Point when Target Population is Border/Transit Point');
-                   return false;
-               }
-           }
+        $('#submit').on('click', function (e) {
+            target_population = $('#target_population').val();
+            upazila = parseInt($('#upazila').val());
+            union = parseInt($('#union').val());
+            camp = $('#camp').val();
+            border_transit_location = parseInt($('#border_transit_location').val());
+            start_date = $('#start_date').val();
+            end_date = $('#end_date').val();
+            project_id = $('#donor').val();
 
 
-           if(validate_dict[project_id])
-           {
+            if(start_date > end_date)
+            {
+                alert('Start Date should be greater than End Date');
+                return false;
+            }
 
-                if($('#start_date').val() != validate_dict[project_id].start_date || $('#end_date').val() != validate_dict[project_id].end_date )
-                {
+            if (target_population == 10) {
+                if (camp == '' && !( union && upazila)) {
+
+                    alert('Select Upazila, Union and Camp when Target Population is Refugee in Camps');
+                    return false;
+                }
+
+
+            }
+            else if (target_population == 11 || target_population == 12) {
+                if (!(union && upazila)) {
+                    alert('Select Upazila and Union when Target Population is Refugee in Host Communities/Bangladeshi in Host Communities');
+                    return false;
+                }
+
+            }
+            else if (target_population == 13) {
+                if (!(border_transit_location && upazila)) {
+                    alert('Select Upazila and Border/Transit Point when Target Population is Border/Transit Point');
+                    return false;
+                }
+            }
+
+
+
+
+            if (validate_dict[project_id]) {
+
+
+                if (start_date != validate_dict[project_id].start_date || end_date != validate_dict[project_id].end_date) {
                     alert("Do not change start date or end date if previously existed")
                     return false;
                 }
-           }
-
-
-
-
-
+            }
         });
 
     </script>

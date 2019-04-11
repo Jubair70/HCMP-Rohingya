@@ -63,6 +63,15 @@ urlpatterns = patterns('',
                        url(r'^sector/$', views.sector, name='sector'),
                        url(r'^create_sector/$', views.create_sector, name='create_sector'),
 
+                       url(r'^activity_progress_edit/(?P<id_string>[^/]+)/(?P<instance_id>\d+)/$', views.activity_progress_edit, name='activity_progress_edit'),
+
+                       url(r'^get_opt_activity_list/(?P<id_string>[^/]+)/(?P<donor>[^/]+)/$', views.get_opt_activity_list, name='get_opt_activity_list'),
+                       url(r'^get_opt_sub_activity_list/(?P<id_string>[^/]+)/(?P<donor>[^/]+)/(?P<activity>[^/]+)/$',
+                           views.get_opt_sub_activity_list, name='get_opt_sub_activity_list'),
+
+                       url(r'^get_opt_project_list/(?P<id_string>[^/]+)/(?P<donor>[^/]+)/(?P<activity>[^/]+)/(?P<sub_activity>[^/]+)/$',
+                           views.get_opt_project_list, name='get_opt_project_list'),
+
                        # ------------ Emtiaz (E) ----------------
 
 
@@ -120,6 +129,8 @@ urlpatterns = patterns('',
                        url(r'^get_report_shelter_nfi_monthly_report/$', views.get_report_shelter_nfi_monthly_report, name="get_report_shelter_nfi_monthly_report"),
                        url(r'^get_border_transit_location/$', views.get_border_transit_location, name="get_border_transit_location"),
                        url(r'^getActivityMapValidation/$', views.getActivityMapValidation, name="getActivityMapValidation"),
+                       url(r'^site_improvement_report/$', views.site_improvement_report, name="site_improvement_report"),
+url(r'^get_site_improvement_report/$', views.get_site_improvement_report, name="get_site_improvement_report"),
 
                        # ------------------- Configuration ------------------------------------------#
                     url(r'^sector_list/$', views.sector_list, name='sector_list'),
@@ -131,6 +142,7 @@ urlpatterns = patterns('',
                     url(r'^add_subactivity/(?P<activity_id>\d+)/$', views.add_subactivity, name='add_subactivity'),
                     url(r'^activity-map-list/(?P<subactivity_id>\d+)/$', views.activity_map_list, name='activity_map_list'),
                     url(r'^add-activity-map/(?P<subactivity_id>\d+)/$', views.add_activity_map, name='add_activity_map'),
+                    url(r'^edit-activity-map/(?P<subactivity_id>\d+)/(?P<id>\d+)/$', views.edit_activity_map, name="edit_activity_map"),
                     url(r'^check_duplicate_activity_code/$', views.check_duplicate_activity_code, name='check_duplicate_activity_code'),
                     url(r'^check_duplicate_sub_activity_code/$', views.check_duplicate_sub_activity_code, name='check_duplicate_sub_activity_code'),
                     url(r'^get_export/$', views.get_export, name='get_export'),

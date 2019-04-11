@@ -61,6 +61,9 @@ import pandas as pd
 import datetime
 
 
+from django.utils.encoding import smart_str, smart_unicode
+
+
 SECTOR_LIST = [{'name': 'Health', 'value': 8}, {'name': 'Nutrition', 'value': 9}, {'name': 'Education', 'value': 6},
                {'name': 'Wash', 'value': 10}, {'name': 'Agriculture & Environment', 'value': 1},
                {'name': 'Child Protection', 'value': 3}, {'name': 'C4D', 'value': 2},
@@ -702,6 +705,7 @@ def get_camp_list(request):
     return HttpResponse(jsonlist)
 
 
+
 def sector(request):
     return render(request, 'hcmp_report/sector.html',)
 
@@ -1230,7 +1234,7 @@ def check_duplicate_sub_activity_code(request):
 @csrf_exempt
 @login_required
 def activity_map_list(request,subactivity_id):
-    query = "select row_number() over (order by id) as serial_number,((select name from donor where id = (select donor_id from project where id = project_id) )||'-' ||((select code from project where id = project_id))) project,id,Date(start_date) start_date,Date(end_date) end_date, target from activity_mapping where sub_activity_id = " + str(
+    query = "select id,row_number() over (order by id) as serial_number,((select name from donor where id = (select donor_id from project where id = project_id) )||'-' ||((select code from project where id = project_id))) project,id,Date(start_date) start_date,Date(end_date) end_date, target from activity_mapping where sub_activity_id = " + str(
         subactivity_id)
     mapping_list = json.dumps(__db_fetch_values_dict(query), default=decimal_date_default)
     data_dict = get_sub_activity_info(subactivity_id)
@@ -1260,7 +1264,6 @@ def add_activity_map(request,subactivity_id):
     for each in v_dat:
         validate_dict[each['project_id']] = {'start_date':each['start_date'],'end_date':each['end_date']}
 
-    print(validate_dict)
 
     data = {
        'validate_dict':json.dumps(validate_dict), 'sub_activity' : data_dict.get('sub_activity_name'),'activity' : data_dict.get('activity'),'sector' : data_dict.get('sector'),'project_list' :project_list,'subactivity_id' : subactivity_id
@@ -1276,16 +1279,115 @@ def add_activity_map(request,subactivity_id):
         union = request.POST.get('union')
         upazila = request.POST.get('upazila')
         border_transit_location = request.POST.get('border_transit_location')
+        status = request.POST.get('status')
         if target_population in [11,12,13]:
             camp = ''
 
 
-        insert_query = "INSERT INTO public.activity_mapping(id, project_id, start_date, end_date, target, sub_activity_id,upazila,union_name,camp,border_transit_location)VALUES (DEFAULT , "+str(project_id)+", '"+start_date+"', '"+end_date+"', "+str(target)+", "+str(subactivity_id)+",'"+str(upazila)+"','"+str(union)+"','"+str(camp)+"','"+str(border_transit_location)+"')"
+        insert_query = "INSERT INTO public.activity_mapping(id, project_id, start_date, end_date, target, sub_activity_id,upazila,union_name,camp,border_transit_location,status,target_population)VALUES (DEFAULT , "+str(project_id)+", '"+start_date+"', '"+end_date+"', "+str(target)+", "+str(subactivity_id)+",'"+str(upazila)+"','"+str(union)+"','"+str(camp)+"','"+str(border_transit_location)+"','"+str(status)+"','"+str(target_population)+"')"
         __db_commit_query(insert_query)
         return HttpResponseRedirect("/hcmp_report/activity-map-list/"+str(subactivity_id))
 
     return render(request, 'hcmp_report/add_activity_map.html',data)
 
+
+def edit_activity_map(request,subactivity_id,id):
+    if request.POST:
+        id = request.POST.get('id')
+        project_id = request.POST.get('project_id')
+        start_date = request.POST.get('start_date')
+        end_date = request.POST.get('end_date')
+        target = request.POST.get('target')
+        target_population = request.POST.get('target_population')
+        camp = request.POST.get('camp')
+        union = request.POST.get('union')
+        upazila = request.POST.get('upazila')
+        border_transit_location = request.POST.get('border_transit_location')
+        status = request.POST.get('status')
+        if target_population in [11, 12, 13]:
+            camp = ''
+
+        update_query = "UPDATE public.activity_mapping SET project_id="+str(project_id)+", start_date='"+str(start_date)+"', end_date='"+str(end_date)+"', target="+str(target)+", target_population='"+str(target_population)+"', upazila='"+str(upazila)+"', union_name='"+str(union)+"', camp='"+str(camp)+"', border_transit_location='"+str(border_transit_location)+"', status='"+str(status)+"' WHERE id="+str(id)
+        __db_commit_query(update_query)
+        return HttpResponseRedirect("/hcmp_report/activity-map-list/" + str(subactivity_id))
+    data_dict = get_sub_activity_info(subactivity_id)
+
+    sector_id = data_dict.get('sector_id')
+    q = "select id,((select name from donor where id = donor_id) ||'-'||code) donor_project from project where sector_id = " + str(
+        sector_id)
+    df = pandas.DataFrame()
+    df = pandas.read_sql(q, connection)
+    project_id = df.id.tolist()
+    donor_name = df.donor_project.tolist()
+    project_list = zip(project_id, donor_name)
+
+    query = "select project_id,to_char(start_date::date,'yyyy-mm-dd') start_date,to_char(end_date::date,'yyyy-mm-dd') end_date from activity_mapping where  sub_activity_id = " + str(
+        subactivity_id)
+    v_dat = __db_fetch_values_dict(query)
+    validate_dict = {}
+    for each in v_dat:
+        validate_dict[each['project_id']] = {'start_date': each['start_date'], 'end_date': each['end_date']}
+
+    get_prev_data_query = "SELECT o.id,o.created_at,o.updated_at,o.project_id,o.target,o.sub_activity_id,o.target_population,o.upazila,o.union_name,o.camp,o.border_transit_location,o.status,start_date::date,end_date::date FROM activity_mapping as o where id = "+str(id)
+    df = pandas.DataFrame()
+    df = pandas.read_sql(get_prev_data_query, connection)
+    project_id = df.project_id.tolist()[0]
+    start_date = df.start_date.tolist()[0]
+    end_date = df.end_date.tolist()[0]
+    target = df.target.tolist()[0]
+    status = df.status.tolist()[0]
+    target_population = df.target_population.tolist()[0]
+    camp = df.camp.tolist()[0]
+    union = df.union_name.tolist()[0]
+    upazila = df.upazila.tolist()[0]
+    # upz_name = df.upz_name.tolist()[0]
+    border_transit_location = df.border_transit_location.tolist()[0]
+
+    set_qry = "select code id,name from upazila "
+    set_upz = json.dumps(__db_fetch_values_dict(set_qry))
+
+    if upazila == '' or upazila is None:
+        set_qry = "select code id,name from unions"
+    else:
+        set_qry = "select code id,name from unions where upazila_id = " + str(upazila)
+    set_uni = json.dumps(__db_fetch_values_dict(set_qry))
+
+    if union == '' or union is None:
+        set_qry = "select code id,name from camp"
+    else:
+        set_qry = "select code id,name from camp where union_id = " + str(union)
+    set_camp = json.dumps(__db_fetch_values_dict(set_qry))
+
+    if upazila == '' or upazila is None:
+        set_qry = "select code id,name from border_transit_location"
+    else:
+        set_qry = "select code id,name from border_transit_location where upazila_id = " + str(upazila)
+    set_border = json.dumps(__db_fetch_values_dict(set_qry))
+
+    data = {
+        'validate_dict': json.dumps(validate_dict), 'sub_activity': data_dict.get('sub_activity_name'),
+        'activity': data_dict.get('activity'), 'sector': data_dict.get('sector'), 'project_list': project_list,
+        'subactivity_id': subactivity_id
+        ,'prev_project_id' : project_id
+        ,'start_date' : start_date
+        ,'end_date' : end_date
+        ,'target' : target
+        ,'status' : status
+        ,'target_population': target_population
+        ,'camp' : camp
+        ,'union' : union
+        ,'upazila' : upazila
+        ,'border_transit_location' : border_transit_location
+        ,'set_upz':set_upz
+        ,'set_uni':set_uni
+        ,'set_camp':set_camp
+        ,'set_border':set_border
+        ,'id':id
+    }
+
+
+
+    return render(request, 'hcmp_report/edit_activity_map.html', data)
 
 def get_sub_activity_info(sub_activity_id):
     q = "select  id,sub_activity_name,(select activity_name from activity where id  = activity_id) activity, (select sector_name from sector where id = (select sector_id from activity where id = sub_activity.activity_id)) sector,(select id from sector where id = (select sector_id from activity where id = sub_activity.activity_id)) sector_id from sub_activity where id = "+str(sub_activity_id)
@@ -1312,6 +1414,22 @@ def get_report_shelter_nfi_daily_report(request):
     union = request.POST.get('union')
     camp = request.POST.get('camp')
     query = """select rserial_no,coalesce(ract_name,'') ract_name,coalesce(runit,'') runit,coalesce(rday_cnt,0) rday_cnt,coalesce(rmonth_cnt,0) rmonth_cnt,coalesce(rtotal,0) rtotal from get_rpt_shelter_nfi_day('""" +str(search_date)+ """', '"""+str(upazila)+"""','"""+str(union)+"""','"""+str(camp)+"""','"""+str(target_population)+"""')"""
+    print(query)
+    data = json.dumps(__db_fetch_values_dict(query))
+    return HttpResponse(data)
+
+
+def site_improvement_report(request):
+    from_date = datetime.datetime.today().date()
+    return render(request, 'hcmp_report/site_improvement_report.html',{'from_date':from_date})
+
+@csrf_exempt
+def get_site_improvement_report(request):
+    search_date = request.POST.get('search_date')
+    upazila = request.POST.get('upazila')
+    union = request.POST.get('union')
+    camp = request.POST.get('camp')
+    query = """  with filtered_site_improvement as( select * from vwactivity_progress_site_improvement where upazila like '"""+str(upazila)+"""' and union_name like '"""+str(union)+"""' and camp like '"""+str(camp)+"""' and act_date::date between '-infinity'::date and '""" +str(search_date)+ """'), am as ( select (select sub_activity_code from vw_all_map where sub_activity_id = am.sub_activity_id limit 1),(select project_code from vw_all_map where project_id = am.project_id limit 1),start_date::date,end_date::date,status,upazila,union_name,camp,sum(target) s_target from activity_mapping am where upazila like '"""+str(upazila)+"""' and union_name like '"""+str(union)+"""' and camp like '"""+str(camp)+"""' group by sub_activity_id,project_id,start_date::date,end_date::date,status,upazila,union_name,camp )select act_level,implement_partner,am.camp,activity,sub_activity,'Meter' unit,s_target::text,trunc(sum(number::float)::numeric,2)::text num,start_date::text,end_date::text,trunc(sum(length::float)::numeric,2)::text len,status,case when s_target::bigint != 0 then trunc((sum(length::float)*100.0/s_target)::numeric,2)::text else '0' end  progress from filtered_site_improvement st,am where am.sub_activity_code::bigint = st.sub_activity::bigint and am.project_code::bigint = st.project_name::bigint and am.upazila = st.upazila and am.union_name = st.union_name and am.camp = st.camp group by act_level,implement_partner,am.camp,activity,sub_activity,s_target,start_date,end_date,status """
     print(query)
     data = json.dumps(__db_fetch_values_dict(query))
     return HttpResponse(data)
@@ -1346,6 +1464,8 @@ def get_activity_csv(request,id_string):
         sector_id = 2
     if id_string == 'activity_progress_c4d':
         sector_id = 2
+    if id_string == 'activity_progress_site_improvement':
+        sector_id = 11
 
 
     #q = "with t1 as(SELECT id AS sub_activity_id, activity_id, sub_activity_name, code::text sub_activity_code FROM sub_activity WHERE activity_id =ANY (SELECT id FROM activity WHERE sector_id = "+str(sector_id)+")), t2 as (SELECT id , activity_name , code::text activity_code FROM activity WHERE sector_id = "+str(sector_id)+"), t3 as (SELECT * FROM t1 LEFT JOIN t2 ON t1.activity_id = t2.id), t4 as (SELECT sub_activity_id, (SELECT name FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_name, (SELECT id FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_code FROM activity_mapping) SELECT DISTINCT t4.donor_name donor_label, t4.donor_code::text donor, t3.activity_name activity_label, t4.donor_code ||t3.activity_code activity, t3.sub_activity_name subactivity_label, t4.donor_code||t3.activity_code||t3.sub_activity_code sub_activity FROM t3 LEFT JOIN t4 ON t3.sub_activity_id = t4.sub_activity_id"
@@ -1499,14 +1619,14 @@ def donor_Delete(request,donor_id):
 
 @csrf_exempt
 def getUpazilas(request):
-    query = "select id,name from upazila"
+    query = "select code id,name from upazila"
     data = json.dumps(__db_fetch_values_dict(query))
     return HttpResponse(data)
 
 @csrf_exempt
 def getUnions(request):
     upazila = request.POST.get('upz')
-    query = "select id,name from unions where upazila_id = "+str(upazila)
+    query = "select code id,name from unions where upazila_id = "+str(upazila)
     data = json.dumps(__db_fetch_values_dict(query))
     return HttpResponse(data)
 
@@ -1547,3 +1667,114 @@ def getActivityMapValidation(request):
         'stat':stat,'s_date':s_date,'e_date':e_date
     }
     return HttpResponse(json.dumps(data))
+
+
+
+
+def activity_progress_edit(request, id_string , instance_id):
+
+    #instance_id = 20165
+
+    if id_string == 'activity_progress_nfi':
+        sector_id = 1
+        title = 'Activity Progress - NFI'
+    if id_string == 'activity_progress_shelter':
+        sector_id = 2
+        title = 'Activity Progress-Shelter'
+    if id_string == 'activity_progress_c4d':
+        sector_id = 2
+
+
+    xform_id = __db_fetch_single_value("select id from logger_xform where id_string ='" + str(id_string) + "'")
+    form_uuid = __db_fetch_single_value("select uuid from logger_xform where id = " + str(xform_id))
+    xml_data = __db_fetch_single_value("select xml from logger_instance where id = " + str(instance_id))
+    #xml_data = str(xml_data).replace('\t', '').replace('\n', '').replace("'","\\'")
+    xml_data = smart_str(xml_data).replace('\t', '').replace('\n', '').replace("'", "\\'")
+
+    username = request.user.username
+
+    #
+    # if id_string == 'activity_progress_nfi':
+    #     sector_id = 1
+    # if id_string == 'activity_progress_shelter':
+    #     sector_id = 2
+    # if id_string == 'activity_progress_c4d':
+    #     sector_id = 2
+    #
+
+    #q = "with t1 as(SELECT id AS sub_activity_id, activity_id, sub_activity_name, code::text sub_activity_code FROM sub_activity WHERE activity_id =ANY (SELECT id FROM activity WHERE sector_id = "+str(sector_id)+")), t2 as (SELECT id , activity_name , code::text activity_code FROM activity WHERE sector_id = "+str(sector_id)+"), t3 as (SELECT * FROM t1 LEFT JOIN t2 ON t1.activity_id = t2.id), t4 as (SELECT sub_activity_id, (SELECT name FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_name, (SELECT id FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_code FROM activity_mapping) SELECT DISTINCT t4.donor_name donor_label, t4.donor_code::text donor, t3.activity_name activity_label, t4.donor_code ||t3.activity_code activity, t3.sub_activity_name subactivity_label, t4.donor_code||t3.activity_code||t3.sub_activity_code sub_activity FROM t3 LEFT JOIN t4 ON t3.sub_activity_id = t4.sub_activity_id"
+    #Previously Used
+    # q= "with t1 as(SELECT id AS sub_activity_id, activity_id, sub_activity_name, code::text sub_activity_code FROM sub_activity WHERE activity_id =ANY (SELECT id FROM activity WHERE sector_id = "+str(sector_id)+")), t2 AS (SELECT id , activity_name , code::text activity_code FROM activity WHERE sector_id = "+str(sector_id)+"), t3 AS (SELECT * FROM t1 LEFT JOIN t2 ON t1.activity_id = t2.id), t4 AS (SELECT sub_activity_id, (SELECT name FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_name, (select code from project where id = project_id limit 1) project_code, (SELECT id FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_code FROM activity_mapping) SELECT t4.donor_name donor_label, t4.donor_code::text donor, t3.activity_name activity_label, t4.donor_code ||t3.activity_code activity, t3.sub_activity_name subactivity_label, t4.donor_code||t3.activity_code||t3.sub_activity_code sub_activity,t4.donor_name||'-'||t4.project_code project_label,t4.donor_code||t3.activity_code||t3.sub_activity_code||t4.project_code project FROM t3 LEFT JOIN t4 ON t3.sub_activity_id = t4.sub_activity_id where t3.activity_code is not null and t4.sub_activity_id is not null "
+
+    activity_query = "with t1 as(SELECT id AS sub_activity_id, activity_id, sub_activity_name, code::text sub_activity_code FROM sub_activity WHERE activity_id =ANY (SELECT id FROM activity WHERE sector_id = "+str(sector_id)+")), t2 AS (SELECT id , activity_name , code::text activity_code FROM activity WHERE sector_id = "+str(sector_id)+"), t3 AS (SELECT * FROM t1 LEFT JOIN t2 ON t1.activity_id = t2.id), t4 AS (SELECT sub_activity_id, (SELECT name FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_name, (select code from project where id = project_id limit 1) project_code, (SELECT id FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_code FROM activity_mapping) SELECT  distinct(t4.donor_code ||t3.activity_code) activity , t3.activity_name activity_label FROM t3 LEFT JOIN t4 ON t3.sub_activity_id = t4.sub_activity_id where t3.activity_code is not null and t4.sub_activity_id is not null "
+    opt_activity_list =  json.dumps(__db_fetch_values_dict(activity_query))
+
+
+    sub_activity_query = "with t1 as(SELECT id AS sub_activity_id, activity_id, sub_activity_name, code::text sub_activity_code FROM sub_activity WHERE activity_id =ANY (SELECT id FROM activity WHERE sector_id = "+str(sector_id)+")), t2 AS (SELECT id , activity_name , code::text activity_code FROM activity WHERE sector_id = "+str(sector_id)+"), t3 AS (SELECT * FROM t1 LEFT JOIN t2 ON t1.activity_id = t2.id), t4 AS (SELECT sub_activity_id, (SELECT name FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_name, (select code from project where id = project_id limit 1) project_code, (SELECT id FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_code FROM activity_mapping) SELECT  distinct(t4.donor_code||t3.activity_code||t3.sub_activity_code) sub_activity, t3.sub_activity_name subactivity_label  FROM t3 LEFT JOIN t4 ON t3.sub_activity_id = t4.sub_activity_id where t3.activity_code is not null and t4.sub_activity_id is not null "
+    opt_sub_activity_list =  json.dumps(__db_fetch_values_dict(sub_activity_query))
+
+
+    project_query = "with t1 as(SELECT id AS sub_activity_id, activity_id, sub_activity_name, code::text sub_activity_code FROM sub_activity WHERE activity_id =ANY (SELECT id FROM activity WHERE sector_id = "+str(sector_id)+")), t2 AS (SELECT id , activity_name , code::text activity_code FROM activity WHERE sector_id = "+str(sector_id)+"), t3 AS (SELECT * FROM t1 LEFT JOIN t2 ON t1.activity_id = t2.id), t4 AS (SELECT sub_activity_id, (SELECT name FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_name, (select code from project where id = project_id limit 1) project_code, (SELECT id FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_code FROM activity_mapping) SELECT  distinct(t4.donor_code||t3.activity_code||t3.sub_activity_code||t4.project_code) project , t4.donor_name||'-'||t4.project_code project_label FROM t3 LEFT JOIN t4 ON t3.sub_activity_id = t4.sub_activity_id where t3.activity_code is not null and t4.sub_activity_id is not null "
+    opt_project_list =  json.dumps(__db_fetch_values_dict(project_query))
+
+
+    doner_query = "with t1 as(SELECT id AS sub_activity_id, activity_id, sub_activity_name, code::text sub_activity_code FROM sub_activity WHERE activity_id =ANY (SELECT id FROM activity WHERE sector_id = "+str(sector_id)+")), t2 AS (SELECT id , activity_name , code::text activity_code FROM activity WHERE sector_id = "+str(sector_id)+"), t3 AS (SELECT * FROM t1 LEFT JOIN t2 ON t1.activity_id = t2.id), t4 AS (SELECT sub_activity_id, (SELECT name FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_name, (select code from project where id = project_id limit 1) project_code, (SELECT id FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_code FROM activity_mapping) SELECT  distinct(t4.donor_code)::text donor , t4.donor_name donor_label FROM t3 LEFT JOIN t4 ON t3.sub_activity_id = t4.sub_activity_id where t3.activity_code is not null and t4.sub_activity_id is not null "
+    opt_donor_list =  json.dumps(__db_fetch_values_dict(doner_query))
+
+
+
+    return render(request, "hcmp_report/activity_progress_edit.html",
+                  {'id_string': id_string, 'xform_id': xform_id, 'username': username,
+                   'opt_donor_list': opt_donor_list, 'opt_activity_list': opt_activity_list, 'title':title ,
+                   'opt_sub_activity_list': opt_sub_activity_list, 'opt_project_list': opt_project_list,
+                   'form_uuid': form_uuid, 'xml_data': xml_data, 'instance_id': instance_id})
+
+@csrf_exempt
+def get_opt_activity_list(request , id_string  , donor):
+
+    if id_string == 'activity_progress_nfi':
+        sector_id = 1
+    if id_string == 'activity_progress_shelter':
+        sector_id = 2
+    if id_string == 'activity_progress_c4d':
+        sector_id = 2
+
+    activity_query = "with t1 as(SELECT id AS sub_activity_id, activity_id, sub_activity_name, code::text sub_activity_code FROM sub_activity WHERE activity_id =ANY (SELECT id FROM activity WHERE sector_id = "+str(sector_id)+")), t2 AS (SELECT id , activity_name , code::text activity_code FROM activity WHERE sector_id = "+str(sector_id)+"), t3 AS (SELECT * FROM t1 LEFT JOIN t2 ON t1.activity_id = t2.id), t4 AS (SELECT sub_activity_id, (SELECT name FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_name, (select code from project where id = project_id limit 1) project_code, (SELECT id FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_code FROM activity_mapping) SELECT  distinct(t4.donor_code ||t3.activity_code) activity , t3.activity_name activity_label FROM t3 LEFT JOIN t4 ON t3.sub_activity_id = t4.sub_activity_id where t3.activity_code is not null and t4.donor_code::text like '"+ str(donor) + "' and t4.sub_activity_id is not null "
+    opt_activity_list =  json.dumps(__db_fetch_values_dict(activity_query))
+
+    return HttpResponse(opt_activity_list)
+
+@csrf_exempt
+def get_opt_sub_activity_list(request , id_string  , donor , activity ):
+
+    if id_string == 'activity_progress_nfi':
+        sector_id = 1
+    if id_string == 'activity_progress_shelter':
+        sector_id = 2
+    if id_string == 'activity_progress_c4d':
+        sector_id = 2
+
+
+    sub_activity_query = "with t1 as(SELECT id AS sub_activity_id, activity_id, sub_activity_name, code::text sub_activity_code FROM sub_activity WHERE activity_id =ANY (SELECT id FROM activity WHERE sector_id = "+str(sector_id)+")), t2 AS (SELECT id , activity_name , code::text activity_code FROM activity WHERE sector_id = "+str(sector_id)+"), t3 AS (SELECT * FROM t1 LEFT JOIN t2 ON t1.activity_id = t2.id), t4 AS (SELECT sub_activity_id, (SELECT name FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_name, (select code from project where id = project_id limit 1) project_code, (SELECT id FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_code FROM activity_mapping) SELECT  distinct(t4.donor_code||t3.activity_code||t3.sub_activity_code) sub_activity, t3.sub_activity_name subactivity_label  FROM t3 LEFT JOIN t4 ON t3.sub_activity_id = t4.sub_activity_id where t3.activity_code is not null and t4.donor_code::text like '"+ str(donor) + "' and  t4.donor_code::text||t3.activity_code::text like '"+str(activity)+"' and  t4.sub_activity_id is not null "
+    opt_sub_activity_list =  json.dumps(__db_fetch_values_dict(sub_activity_query))
+
+
+    return HttpResponse(opt_sub_activity_list)
+
+
+@csrf_exempt
+def get_opt_project_list(request , id_string  , donor , activity , sub_activity  ):
+
+    if id_string == 'activity_progress_nfi':
+        sector_id = 1
+    if id_string == 'activity_progress_shelter':
+        sector_id = 2
+    if id_string == 'activity_progress_c4d':
+        sector_id = 2
+
+
+    project_query = "with t1 as(SELECT id AS sub_activity_id, activity_id, sub_activity_name, code::text sub_activity_code FROM sub_activity WHERE activity_id =ANY (SELECT id FROM activity WHERE sector_id = "+str(sector_id)+")), t2 AS (SELECT id , activity_name , code::text activity_code FROM activity WHERE sector_id = "+str(sector_id)+"), t3 AS (SELECT * FROM t1 LEFT JOIN t2 ON t1.activity_id = t2.id), t4 AS (SELECT sub_activity_id, (SELECT name FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_name, (select code from project where id = project_id limit 1) project_code, (SELECT id FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_code FROM activity_mapping) SELECT  distinct(t4.donor_code||t3.activity_code||t3.sub_activity_code||t4.project_code) project , t4.donor_name||'-'||t4.project_code project_label FROM t3 LEFT JOIN t4 ON t3.sub_activity_id = t4.sub_activity_id where t3.activity_code is not null and t4.donor_code::text like '"+ str(donor) + "' and  t4.donor_code::text||t3.activity_code::text like '"+str(activity)+"' and  t4.donor_code::text||t3.activity_code::text||t3.sub_activity_code::text  like '"+str(sub_activity)+"' and t4.sub_activity_id is not null "
+    opt_project_list =  json.dumps(__db_fetch_values_dict(project_query))
+
+
+    return HttpResponse(opt_project_list)

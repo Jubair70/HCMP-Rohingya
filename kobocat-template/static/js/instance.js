@@ -375,6 +375,8 @@ function deleteData(context, data_id, id_string, username) {
 
 function loadData(context, query, canEdit) {
 
+
+
     //TODO: show loader
     $.getJSON(mongoAPIUrl, {
             'query': query,
@@ -385,7 +387,12 @@ function loadData(context, query, canEdit) {
 
             //ADD EDIT AND BUTTON CHECK PERMISSION
             //updateButtons(data[0]);
-            updateButtons(instance_id);
+
+
+            if( _id_string == 'activity_progress_shelter' || _id_string == 'activity_progress_nfi')
+                updateButtons_test(_id_string , instance_id )
+            else
+                updateButtons(instance_id);
 
             //alert(data[0]['_id']);
             // check if we initialised the browsePos
@@ -425,13 +432,32 @@ function updatePosStatus() {
     $('.record-pos').html(posText);
 }
 
+
+function  updateButtons_test(_id_string , instance_id){
+
+    editButton = '' +
+        '' +
+        '<a style="margin-left : 15px"  class="btn btn-primary" href="/hcmp_report/activity_progress_edit/'+_id_string+'/'+instance_id+'/ ">Edit</a>' +
+        ''
+    $("#data").html(editButton)
+
+}
+
+
+
 function updateButtons(data_id) {
 	//console.log(data)
     //Make Edit Button visible and add link
 
-    var editbutton = $('a.bind-edit');
+
+
+    var editbutton = $('#data a.bind-edit');
+
     editbutton.removeClass('disabled');
     editbutton.attr('href', 'edit-data/' + data_id);
+
+    console.log("Here Edit Div ")
+    console.log(editbutton)
 
 
     //Make Delete Button visible and add link

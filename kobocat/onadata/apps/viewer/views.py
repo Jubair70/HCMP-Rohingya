@@ -1147,9 +1147,17 @@ def instance(request, username, id_string):
     
     form_title_query = "SELECT title FROM public.logger_xform where id_string = '" + id_string + "' LIMIT 1"
     form_title = __db_fetch_single_value(form_title_query)
-    form_data_query = "SELECT * from public.get_instance_extracted_temp(" + instance_id + ")"
-    print "#######################"
-    print form_data_query
+
+    #Previously Used
+    #form_data_query = "SELECT * from public.get_instance_extracted_temp(" + instance_id + ")"
+
+
+    form_data_query = "SELECT * from public.get_instance_extracted_test(" + instance_id + ")  order by  _re_sl,_sl_no"
+
+    print(form_data_query)
+
+
+
     form_data_matrix = json.dumps(__db_fetch_values_dict(form_data_query))
 
     form_owner_query = "select (select username from auth_user where id = user_id) as owner from logger_xform where id_string = '" + str(

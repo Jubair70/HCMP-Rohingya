@@ -288,6 +288,7 @@ function deleteData(context, data_id, redirect_route){
 function loadData(context, query, canEdit)
 {
 
+
     //TODO: show loader
     $.getJSON(mongoAPIUrl, {'query': query, 'limit':1})
             .success(function(data){

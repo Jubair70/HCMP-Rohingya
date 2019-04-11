@@ -151,14 +151,19 @@
                         }
 
                     }
-                    else if (form_data[i]._field_type == 'repeat') {
+                    else if(form_data[i]._field_type == 'repeat' ){
+
+
+
+
+
                         var tr = document.createElement('tr');
                         var table = document.createElement('table');
-                        {#                        tr.innerHTML = '<td colspan=2><table class = "table table-bordered table-striped" border=1 cellpadding=10 id ="'+mainField+'"></table> </td>';#}
-                        tr.innerHTML = '<td colspan=2><div style = "padding-left: 1cm;"class = "sample"><table class = "table table-bordered table-striped" style="width:100%;" border=1  id ="' + mainField + '"><tr><td colspan=2>' + getQuestionTitle(form_data[i], selected_lang) + '</td></tr></table></div> </td>';
-                        {#                        <td>'+getQuestionTitle(form_data[i], selected_lang)+'</td>#}
+{#                        tr.innerHTML = '<td colspan=2><table class = "table table-bordered table-striped" border=1 cellpadding=10 id ="'+mainField+'"></table> </td>';#}
+                        tr.innerHTML = '<td colspan=2><div style = "padding-left: 1cm;"class = "sample"><table class = "table table-bordered table-striped" style="width:100%;" border=1  id ="'+mainField+'"><tr><td colspan=2>'+getQuestionTitle(form_data[i], selected_lang)+'</td></tr></table></div> </td>';
+{#                        <td>'+getQuestionTitle(form_data[i], selected_lang)+'</td>#}
                         console.log(tr);
-                        $('#' + pField).append(tr);
+                        $('#'+pField).append(tr);
                     }
                     //t.append(tr)i
                 }
@@ -221,11 +226,18 @@
                     return '<a href="/media/' + _username + '/attachments/' + row_data._field_value + '" data-lightbox="image-1" data-title="' + row_data._field_value + '"><img src="/media/' + _username + '/attachments/' + row_data._field_value + '"></a>';
                 }
                 else {
+
                     return row_data._field_value;
                 }
             } else {
+
+
                 if (row_data._field_type == 'select one') {
+
                     if (row_data._a_title != null) {
+
+                        console.log(row_data._a_title)
+
                         if (row_data._a_title.startsWith('{')) {
                             return JSON.parse(row_data._a_title)[selected_lang];
                         } else {
@@ -452,19 +464,18 @@ function _attachment_url(name, size)
     return '{% url "onadata.apps.viewer.views.attachment_url" %}' + size + '?media_file=' + '{{ username }}/attachments/' + name;
 }
 
-    </script>
+</script>
 
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#loading')
-                    .ajaxStart(function () {
-                        $(this).show();
-                    })
-                    .ajaxStop(function () {
-                        $(this).hide();
-                    });
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#loading')
+        .ajaxStart(function() {
+            $(this).show();
+        })
+        .ajaxStop(function() {
+            $(this).hide();
         });
-    </script>
+});
+</script>
 {% endblock %}
-

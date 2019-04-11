@@ -151,6 +151,4 @@ url(r'^get_site_improvement_report/$', views.get_site_improvement_report, name="
                     url(r'^get_activity_csv/(?P<id_string>[^/]+)/$', views.get_activity_csv, name='get_activity_csv'),
 
 
-
-
-)
+                       )

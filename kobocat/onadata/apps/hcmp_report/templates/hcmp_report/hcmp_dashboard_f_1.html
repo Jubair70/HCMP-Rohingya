@@ -1,0 +1,108 @@
+{% extends "base_test.html" %}
+{% block additional-headers %}
+
+    <link href="/static/css/hcmp_dashboard.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="row_cls">
+            <div class="tiles_cls">
+                <div class="education_cls">
+                    <img src="/static/icons/education.png">
+                    <span class="span_cls one_liner_span">Education</span>
+                </div>
+            </div>
+            <div class="tiles_cls">
+                <div class="health_cls">
+                    <img src="/static/icons/Health, nutrition.png">
+                    <span class="span_cls three_liner_span">Health, nutrition,<br>communicable<br>diseases</span>
+                </div>
+            </div>
+            <div class="tiles_cls">
+                <div class="protection_cls">
+                    <img src="/static/icons/Shelter & NFI.png">
+                    <span class="span_cls one_liner_span">Protection</span>
+                </div>
+
+            </div>
+            <div class="tiles_cls">
+                <div class="education_cls">
+                    <img src="/static/icons/Child protection.png">
+                    <span class="span_cls two_liner_span">Child<br>protection</span>
+                </div>
+            </div>
+            <div class="tiles_cls">
+                <div class="wash_cls">
+                    <img src="/static/icons/WaSH.png">
+                    <span class="span_cls one_liner_span">Wash</span>
+                </div>
+            </div>
+            <a href="/hcmp_report/forms_configuation/1/" >
+            <div class="tiles_cls" >
+                <div class="protection_cls">
+                    <img src="/static/icons/Shelter & NFI-1.png">
+                    <span class="span_cls two_liner_span">Shelter &<br>NFI</span>
+                </div>
+
+            </div>
+                 </a>
+            <div class="tiles_cls">
+                <div class="education_cls">
+                    <img src="/static/icons/disaster risk reduction.png">
+                    <span class="span_cls two_liner_span">Disaster risk<br>reduction</span>
+                </div>
+            </div>
+            <div class="tiles_cls">
+                <div class="health_cls">
+                    <img src="/static/icons/Agriculture.png">
+                    <span class="span_cls two_liner_span">Agriculture &<br>environment</span>
+                </div>
+            </div>
+            <div class="tiles_cls">
+                <div class="protection_cls">
+                    <img src="/static/icons/Livelihood.png">
+                    <span class="span_cls one_liner_span">Livelihood</span>
+                </div>
+
+            </div>
+            <div class="tiles_cls">
+                <div class="education_cls">
+                    <img src="/static/icons/site management.png">
+                    <span class="span_cls two_liner_span">Site<br>management</span>
+                </div>
+            </div>
+            <div class="tiles_cls">
+                <div class="health_cls">
+                    <img src="/static/icons/communication.png">
+                    <span class="span_cls two_liner_span">Communication<br>for development</span>
+                </div>
+            </div>
+            <div class="tiles_cls">
+                <div class="protection_cls">
+                    <img src="/static/icons/cash.png">
+                    <span class="span_cls two_liner_span">Cash-based<br>interventions</span>
+                </div>
+
+            </div>
+
+            <div class="host_tile_cls">
+                <div class="host_cls ">
+                    <img src="/static/icons/host communities.png">
+                    <span class="span_cls one_liner_span host_span_cls">Host communities</span>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="graph_tiles_cls">
+            <div style="-webkit-border-radius: 2px;text-align: center">
+                <img src="/static/icons/rsz_graph.jpg" style="height: -webkit-fill-available;">
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block additional-javascript %}
+      <script type="text/javascript" src="/static/js/hcmp_dashboard.js"></script>
+{% endblock %}

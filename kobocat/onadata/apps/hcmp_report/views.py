@@ -1179,7 +1179,7 @@ def subactivity_list(request,activity_id):
     query = "select row_number() over (order by id) as serial_number,sub_activity_name,id,code from sub_activity where activity_id = " + str(
         activity_id)
     subactivity_list = json.dumps(__db_fetch_values_dict(query))
-    q = "select activity_name,(select sector_name from sector where id =sector_id) sector from activity"
+    q = "select activity_name,(select sector_name from sector where id =sector_id) sector from activity where id = "+str(activity_id)
     data = __db_fetch_values_dict(q)
     for temp in data:
         data_dict = {
@@ -1413,7 +1413,8 @@ def get_report_shelter_nfi_daily_report(request):
     upazila = request.POST.get('upazila')
     union = request.POST.get('union')
     camp = request.POST.get('camp')
-    query = """select rserial_no,coalesce(ract_name,'') ract_name,coalesce(runit,'') runit,coalesce(rday_cnt,0) rday_cnt,coalesce(rmonth_cnt,0) rmonth_cnt,coalesce(rtotal,0) rtotal from get_rpt_shelter_nfi_day('""" +str(search_date)+ """', '"""+str(upazila)+"""','"""+str(union)+"""','"""+str(camp)+"""','"""+str(target_population)+"""')"""
+    border_transit_location = request.POST.get('border_transit_location')
+    query = """select rserial_no,coalesce(ract_name,'') ract_name,coalesce(runit,'') runit,coalesce(rday_cnt,0) rday_cnt,coalesce(rmonth_cnt,0) rmonth_cnt,coalesce(rtotal,0) rtotal from get_rpt_shelter_nfi_day('""" +str(search_date)+ """', '"""+str(upazila)+"""','"""+str(union)+"""','"""+str(camp)+"""','"""+str(border_transit_location)+"""','"""+str(target_population)+"""')"""
     print(query)
     data = json.dumps(__db_fetch_values_dict(query))
     return HttpResponse(data)
@@ -1452,6 +1453,90 @@ def get_report_shelter_nfi_monthly_report(request):
     print(query)
     data = json.dumps(__db_fetch_values_dict(query))
     return HttpResponse(data)
+
+@login_required
+def hcmp_dashboard(request):
+    return render(request, 'hcmp_report/hcmp_dashboard_f_1.html')
+
+@login_required
+def forms_configuation(request,tiles_id):
+    username = request.user
+    query = "select * from tiles where id = "+str(tiles_id)
+    df = pandas.DataFrame()
+    df = pandas.read_sql(query,connection)
+    if not df.empty:
+        tiles_name = df.tiles_name.tolist()[0]
+        icon_path = df.icon_path.tolist()[0]
+        return render(request,'hcmp_report/hcmp_dashboard_f_2.html',{'tiles_id':tiles_id,'tiles_name':tiles_name,'icon_path':icon_path})
+    return render(request,'hcmp_report/hcmp_dashboard_f_2.html',{'tiles_id':'','tiles_name':'','icon_path':''})
+
+
+@csrf_exempt
+def get_forms_list(request):
+    username = request.user
+    user_id = request.user.id
+    tiles_id = request.POST.get('tiles_id')
+    query = """ select '<div class="col-md-6"><div class="portlet solid" style="background-color: ghostwhite"> <div class="portlet-title"> <div class="caption"> <i class="fa fa-forumbee"></i>'|| (select title from logger_xform where id = form_id::int limit 1) ||'</div> </div> <div class="portlet-body"> <div class="actions"> <a href="/usermodule/brac_admin/projects-views/' || (select id_string from logger_xform where id = form_id::int limit 1) || '/" class="btn red btn-md" style="margin-right: 3px;"> <i class="fa fa-briefcase" aria-hidden="true"></i> Details </a>' || case when (select user_id from logger_xform where id = form_id::int limit 1) = """+str(user_id)+""" then '<a href="/""" + str(username) + """/forms/' || (select id_string from logger_xform where id = form_id::int limit 1) || '/settings" class="btn red btn-md"> <i class="fa fa-cogs" aria-hidden="true"></i> Settings </a> <a href="/usermodule/""" + str(username) + """/forms/' || (select id_string from logger_xform where id = form_id::int limit 1) || '/role_form_map" class="btn red btn-md"> <i class="fa fa-users" aria-hidden="true"></i> Permissions </a>' else ''  end  || ' </div> </div> </div> </div>' as html from tiles_sector_form_map where tiles_id::int = """+str(tiles_id)
+    df = pandas.read_sql(query,connection)
+    main_str = ""
+    for each in df['html']:
+        main_str += str(each)
+    main_str = json.dumps({'main_str':main_str})
+    return HttpResponse(main_str)
+
+@csrf_exempt
+def get_settings(request):
+    tiles_id = request.POST.get('tiles_id')
+    # href = ""
+    # onclick = "delete_entity(this,' || sector_id ||')"
+    # href="#" data-href="/hcmp_report/delete_sector/'|| sector_id ||'/"""+str(tiles_id)+""""
+    query = """ SELECT '<div class="col-md-6"> <div class="portlet box" style="background-color: deeppink"> <div class="portlet-title"> <div class="caption" ><i class="fa fa-paper-plane" style="color: ghostwhite"></i>' ||( SELECT sector_name FROM sector WHERE id = sector_id::int limit 1) ||' </div> <div class="actions"><a href="/hcmp_report/project/' || sector_id ||'" class="btn red btn-md settings_btn"> Donor </a> <a href="/hcmp_report/activity-list/' || sector_id ||'" class="btn red btn-md settings_btn"> Activity </a> <a  href="/hcmp_report/edit_sector/'|| sector_id ||'/""" +str(tiles_id)+ """" class="btn red btn-md settings_btn">Edit </a> <a  class="btn red btn-md settings_btn delete-item" data-toggle="modal" data-target="#confirm-delete" data-original-title="Delete" onclick = "delete_entity(this,' || sector_id ||')"  >Delete </a></div> </div> <div class="portlet-body"> <ul class="list-group" style="text-align: left"> <li class="list-group-item"><span class="focal_span">Contact Focal Point:</span><span>' || ( SELECT contact_focal_point FROM sector WHERE id = sector_id::int limit 1) || '</span></li> <li class="list-group-item"><span class="phone_span">Phone No:</span><span>' || ( SELECT phone_no FROM sector WHERE id = sector_id::int limit 1) || '</span></li> <li class="list-group-item"><span class="email_span">Email:</span><span>' || ( SELECT email FROM sector WHERE id = sector_id::int limit 1) || '</span></li> </ul> </div> </div> </div>' AS html FROM tiles_sector_form_map WHERE tiles_id::int = """ + str(tiles_id)
+    df = pandas.read_sql(query, connection)
+    main_str = ""
+    for each in df['html']:
+        main_str += str(each)
+    main_str = json.dumps({'main_str': main_str})
+    return HttpResponse(main_str)
+
+@login_required
+def edit_sector(request,sector_id,tiles_id):
+    if request.POST:
+        tiles_id = request.POST.get('tiles_id')
+        sector_id = request.POST.get('sector_id')
+        sector_name = request.POST.get('sector_name')
+        contact_focal_point = request.POST.get('contact_focal_point')
+        email = request.POST.get('email')
+        phone_no = request.POST.get('phone_no')
+        update_qry = "update sector set sector_name = '"+str(sector_name)+"',contact_focal_point = '"+str(contact_focal_point)+"', email = '"+str(email)+"', phone_no='"+str(phone_no)+"' where id = "+str(sector_id)
+        __db_commit_query(update_qry)
+        return HttpResponseRedirect('/hcmp_report/forms_configuation/'+str(tiles_id)+'/')
+    qry = "select * from sector where id = "+str(sector_id)
+    df = pandas.DataFrame()
+    df = pandas.read_sql(qry,connection)
+    sector_name = df.sector_name.tolist()[0]
+    contact_focal_point = df.contact_focal_point.tolist()[0]
+    email = df.email.tolist()[0]
+    phone_no = df.phone_no.tolist()[0]
+    return render(request,'hcmp_report/edit_sector.html',{
+        'tiles_id':tiles_id,
+        'sector_id':sector_id,
+        'sector_name':sector_name,
+        'contact_focal_point':contact_focal_point,
+        'email':email,
+        'phone_no':phone_no
+    })
+
+
+def delete_sector(request,sector_id,tiles_id):
+    del_qry = "delete from sector where id = "+str(sector_id)
+    __db_commit_query(del_qry)
+    del_qry = "delete from tiles_sector_form_map where sector_id::int = " + str(sector_id) +" and tiles_id::int = "+str(tiles_id)
+    __db_commit_query(del_qry)
+    return HttpResponseRedirect('/hcmp_report/forms_configuation/' + str(tiles_id) + '/')
+
+
+
+
 
 """
     API

@@ -1,0 +1,81 @@
+{% extends 'base_test.html' %}
+{% load i18n %}
+{% block additional-headers %}
+    <link href="/static/css/bootstrap-datepicker.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+
+    <div class="portlet box red">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-reorder"></i> Edit Sector
+            </div>
+        </div>
+
+        <div class="portlet-body">
+            <form class="horizontal-form" id="" method="post" action="" id="form"
+                  enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="sector_id" value="{{ sector_id | safe }}">
+                <input type="hidden" name="tiles_id" value="{{ tiles_id | safe }}">
+                <div class="form-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label>Sector Name:</label>
+                                <input type="text" class="form-control" name="sector_name" id="sector_name" value="{{ sector_name | safe }}" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label>Contact Focal Point:</label>
+                                <input type="text" class="form-control" name="contact_focal_point" id="contact_focal_point" value="{{ contact_focal_point | safe }}" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label>Phone No (e.g: 01xxxxxxxxx):</label>
+                                <input type="text" class="form-control" pattern="^(?:\+88|01)?(?:\d{11}|\d{13})$" name="phone_no" id="phone_no" value="{{ phone_no | safe }}" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label>Email:</label>
+                                <input type="text" class="form-control" name="email" id="email" value="{{ email | safe }}" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-danger pull-left" id="submit" name="submit" type="submit"
+                                    data-original-title=""
+                                    title="">Update
+                            </button>
+                            <button onclick="history.go(-1);" style="margin-left:10px;" type="button"
+                                    class="btn btn-info pull-left" data-original-title="" title="">Cancel
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block additional-javascript %}
+    <script type="text/javascript" src="/static/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript">
+
+    </script>
+
+{% endblock %}

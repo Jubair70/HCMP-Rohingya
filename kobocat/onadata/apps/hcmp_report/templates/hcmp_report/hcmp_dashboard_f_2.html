@@ -1,0 +1,488 @@
+{% extends "base_test.html" %}
+{% block additional-headers %}
+    {#    <link href="/static/css/components.min.css" rel="stylesheet" type="text/css" >#}
+    <style>
+        .page-content {
+            background-color: #E5E5E5 !important;
+        }
+
+        .portlet.solid {
+            padding: 0 10px 10px;
+            border: 0;
+            -webkit-border-radius: 2px !important;
+        }
+
+        .portlet.box {
+
+            -webkit-border-radius: 2px !important;
+        }
+
+        .portlet.box > .portlet-title {
+
+            -webkit-border-radius: 2px !important;
+        }
+
+        .portlet.box > .portlet-body {
+
+            -webkit-border-radius: 2px !important;
+        }
+
+        .portlet.solid > .portlet-title > .caption {
+            padding: 16px 0 2px;
+        }
+
+        .portlet.solid > .portlet-title {
+            margin-bottom: 25px;
+        }
+
+        .span_cls {
+            white-space: nowrap;
+            font-size: 13px;
+            text-align: left;
+            color: rgba(99, 102, 106, 1);
+            font-style: normal;
+            font-weight: normal;
+            position: relative;
+        }
+
+        .img_cls {
+            opacity: 0.8;
+            zoom: 52%;
+        }
+
+        .one_liner_span {
+            padding-top: 25px;
+        }
+
+        .nav_cls {
+            padding-top: 8px;
+            font-size: 13px;
+            color: rgba(99, 102, 106, 1);
+
+        }
+
+        .link:hover {
+            color: deeppink;
+            cursor: pointer;
+
+        }
+
+        .link.selected {
+            color: deeppink;
+        }
+
+        .form_btn {
+            color: deeppink;
+            text-shadow: none;
+            background-color: ghostwhite;
+            border-width: thin;
+            border-color: deeppink;
+            border-radius: 2px !important;
+        }
+
+        .spinner {
+            margin: 100px auto 0;
+            width: 70px;
+            text-align: center;
+
+        }
+
+        .spinner > div {
+            width: 18px;
+            height: 18px;
+            background-color: deeppink;
+
+            border-radius: 100% !important;
+            display: inline-block;
+            -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+            animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+        }
+
+        .spinner .bounce1 {
+            -webkit-animation-delay: -0.32s;
+            animation-delay: -0.32s;
+        }
+
+        .spinner .bounce2 {
+            -webkit-animation-delay: -0.16s;
+            animation-delay: -0.16s;
+        }
+
+        @-webkit-keyframes sk-bouncedelay {
+            0%, 80%, 100% {
+                -webkit-transform: scale(0)
+            }
+            40% {
+                -webkit-transform: scale(1.0)
+            }
+        }
+
+        @keyframes sk-bouncedelay {
+            0%, 80%, 100% {
+                -webkit-transform: scale(0);
+                transform: scale(0);
+            }
+            40% {
+                -webkit-transform: scale(1.0);
+                transform: scale(1.0);
+            }
+        }
+
+        .settings_btn {
+            border: 1px solid transparent;
+            border-color: ghostwhite;
+            border-radius: 2px !important;
+            background-color: transparent !important;
+        }
+
+        .focal_span
+        {
+            padding-right: 29px;
+        }
+        .phone_span
+        {
+            padding-right: 87px;
+        }
+        .email_span
+        {
+            padding-right: 112px;
+        }
+
+        @media (min-width: 0px) and (max-width: 374px) {
+            .navbar-brand {
+                margin-left: 73px;
+            }
+
+            .nav.navbar-nav {
+                text-align: center;
+                float: none !important;
+            }
+
+            .navbar-header {
+                float: none !important;
+            }
+
+            .btn-md {
+                width: 49%;
+                margin-top: 2%;
+            }
+
+            .portlet.solid {
+                text-align: center;
+            }
+
+            .settings_btn {
+                width: 100% !important;
+                margin-top: 2% !important;
+                margin-left: -4% !important;
+                margin-bottom: 2% !important;
+            }
+
+            .email_span {
+                padding-right: 87px;
+            }
+
+            .phone_span {
+                padding-right: 62px;
+            }
+
+            .focal_span {
+                padding-right: 5px;
+            }
+
+        }
+
+    @media (min-width: 375px) and (max-width: 424px)
+    {
+        .navbar-brand {
+                    margin-left: 101px;
+            }
+
+            .nav.navbar-nav {
+                text-align: center;
+                float: none !important;
+            }
+
+            .navbar-header {
+                float: none !important;
+            }
+
+
+    }
+
+    @media (min-width: 425px) and (max-width: 767px)
+    {
+        .navbar-brand {
+            margin-left: 126px;
+        }
+
+        .nav.navbar-nav {
+            text-align: center;
+            float: none !important;
+        }
+
+        .navbar-header {
+            float: none !important;
+        }
+
+
+    }
+
+
+
+
+    </style>
+
+
+{% endblock %}
+
+
+{% block content %}
+
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <nav class="navbar navbar-default ">
+                <div class="container-fluid">
+                    <div class="navbar-header pull-left">
+                        <a class="navbar-brand" href="#"><img class="img_cls" src="{{ icon_path }}">
+                            <span class="span_cls one_liner_span">{{ tiles_name }}</span></a>
+                    </div>
+                    <ul class="nav navbar-nav pull-right nav_cls">
+                        <li><a><span class="link">Forms</span></a></li>
+                        <li><a><span class="link">Settings</span></a></li>
+{#                        <li><a><span class="link">Report</span></a></li>#}
+                        <li><a href="/audit/mainview/"><span class="link">Edit Log</span></a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <div id="ajx_cng_div"></div>
+
+        <div class="spinner" id="loading" hidden>
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+
+    </div>
+
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+                </div>
+
+                <div class="modal-body">
+                    <p>You are about to delete a sector, this procedure is irreversible.</p>
+                    <p>Do you want to proceed?</p>
+                    <p class="debug-url"></p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <a href="#" class="btn btn-danger btn-ok">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block additional-javascript %}
+    <script type="text/javascript" src="/static/js/jquery.blockui.min.js"></script>
+
+    <script>
+    console.log();
+        var tiles_id = {{ tiles_id | safe }};
+        console.log(document.cookie)
+        load_init_function();
+
+
+        $('.link').on('click', function () {
+            $('.link').removeClass('selected');
+            $(this).addClass('selected');
+
+            textContent = this.textContent;
+            if (textContent == 'Forms')
+            {
+                document.cookie = "tab=Forms";
+                load_forms_list();
+            }
+
+            else if (textContent == 'Settings')
+            {
+                document.cookie = "tab=Settings";
+                load_settings()
+            }
+            else if (textContent == 'Report')
+            {
+                document.cookie = "tab=Report";
+            }
+            else if (textContent == 'Edit Log')
+            {
+                $.blockUI({
+                        css: {
+                            border: 'none',
+                            padding: '15px',
+                            backgroundColor: 'rgba(255, 255, 255, 0)',
+                            '-webkit-border-radius': '10px',
+                            '-moz-border-radius': '10px',
+                            opacity: 1
+                        },
+                        target: $('#ajx_cng_div'),
+                        message: $('#loading')
+                    });
+                document.cookie = "tab=Forms";
+            }
+
+
+
+        });
+
+        function load_settings() {
+             $.ajax({
+                url: '/hcmp_report/get_settings/',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    'tiles_id': tiles_id
+                },
+                beforeSend: function () {
+                    $.blockUI({
+                        css: {
+                            border: 'none',
+                            padding: '15px',
+                            backgroundColor: 'rgba(255, 255, 255, 0)',
+                            '-webkit-border-radius': '10px',
+                            '-moz-border-radius': '10px',
+                            opacity: 1
+                        },
+                        target: $('#ajx_cng_div'),
+                        message: $('#loading')
+                    });
+
+
+                },
+                success: function (result) {
+                    setTimeout(function () {
+                        $.unblockUI();
+                        $('#ajx_cng_div').html(result['main_str'])
+                    }, 500);
+
+
+                }
+            });
+        }
+
+        function load_forms_list() {
+            $.ajax({
+                url: '/hcmp_report/get_forms_list/',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    'tiles_id': tiles_id
+                },
+                beforeSend: function () {
+                    $.blockUI({
+                        css: {
+                            border: 'none',
+                            padding: '15px',
+                            backgroundColor: 'rgba(255, 255, 255, 0)',
+                            '-webkit-border-radius': '10px',
+                            '-moz-border-radius': '10px',
+                            opacity: 1
+                        },
+                        target: $('#ajx_cng_div'),
+                        message: $('#loading')
+                    });
+
+
+                },
+                success: function (result) {
+
+                     setTimeout(function () {
+                        $.unblockUI();
+                        $('#ajx_cng_div').html(result['main_str'])
+                    }, 500);
+
+                }
+            });
+        }
+
+        function accessCookie(cookieName)
+        {
+          var name = cookieName + "=";
+          var allCookieArray = document.cookie.split(';');
+          for(var i=0; i<allCookieArray.length; i++)
+          {
+            var temp = allCookieArray[i].trim();
+            if (temp.indexOf(name)==0)
+            return temp.substring(name.length,temp.length);
+       	  }
+        	return "";
+        }
+
+
+        function load_init_function() {
+
+            var tab = accessCookie("tab");
+            if(tab == "Forms")
+            {
+            $('.link').eq(0).addClass('selected');
+            document.cookie = "tab=Forms";
+            load_forms_list();
+            }
+            else  if(tab == "Settings")
+            {
+
+                $('.link').eq(1).addClass('selected');
+            document.cookie = "tab=Settings";
+            load_settings();
+            }
+            else  if(tab == "Report")
+            {
+
+                $('.link').eq(2).addClass('selected');
+            document.cookie = "tab=Report";
+            }
+            else  if(tab == "Edit_Log")
+            {
+
+                $('.link').eq(3).addClass('selected');
+                document.cookie = "tab=Edit_Log";
+            }
+
+
+        }
+
+        function delete_entity(obj,id) {
+{#            var criteria_id = $(obj).attr("data-href");#}
+{#            console.log(criteria_id);#}
+            $('.btn-ok').attr("href", "/hcmp_report/delete_sector/" + id+"/"+tiles_id+"/");
+{#        if (confirm("Are you sure you want to delete this?")) {#}
+{#            $(obj).attr("href", "/hcmp_report/delete_sector/" + id+"/"+tiles_id);#}
+{#        } else {#}
+{#            return false;#}
+{#        }#}
+    }
+
+
+
+    $('.delete-item').on('click', function (e) {
+            var criteria_id = $(this).attr("data-href");
+            console.log(criteria_id);
+            $('.btn-ok').attr("href", criteria_id);
+        });
+
+
+    </script>
+
+{% endblock %}

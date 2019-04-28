@@ -1234,7 +1234,7 @@ def check_duplicate_sub_activity_code(request):
 @csrf_exempt
 @login_required
 def activity_map_list(request,subactivity_id):
-    query = "select id,row_number() over (order by id) as serial_number,((select name from donor where id = (select donor_id from project where id = project_id) )||'-' ||((select code from project where id = project_id))) project,id,Date(start_date) start_date,Date(end_date) end_date, target from activity_mapping where sub_activity_id = " + str(
+    query = "select id,row_number() over (order by id) as serial_number,((select name from donor where id = (select donor_id from project where id = project_id) )||'-' ||((select code from project where id = project_id))) project,id,Date(start_date) start_date,Date(end_date) end_date, target,status from activity_mapping where sub_activity_id = " + str(
         subactivity_id)
     mapping_list = json.dumps(__db_fetch_values_dict(query), default=decimal_date_default)
     data_dict = get_sub_activity_info(subactivity_id)
@@ -1414,7 +1414,8 @@ def get_report_shelter_nfi_daily_report(request):
     union = request.POST.get('union')
     camp = request.POST.get('camp')
     border_transit_location = request.POST.get('border_transit_location')
-    query = """select rserial_no,coalesce(ract_name,'') ract_name,coalesce(runit,'') runit,coalesce(rday_cnt,0) rday_cnt,coalesce(rmonth_cnt,0) rmonth_cnt,coalesce(rtotal,0) rtotal from get_rpt_shelter_nfi_day('""" +str(search_date)+ """', '"""+str(upazila)+"""','"""+str(union)+"""','"""+str(camp)+"""','"""+str(border_transit_location)+"""','"""+str(target_population)+"""')"""
+    section = request.POST.get('section')
+    query = """select rserial_no,coalesce(ract_name,'') ract_name,coalesce(runit,'') runit,coalesce(rday_cnt,0) rday_cnt,coalesce(rmonth_cnt,0) rmonth_cnt,coalesce(rtotal,0) rtotal from get_rpt_shelter_nfi_day('""" +str(search_date)+ """', '"""+str(upazila)+"""','"""+str(union)+"""','"""+str(camp)+"""','"""+str(border_transit_location)+"""','"""+str(target_population)+"""','"""+str(section)+"""')"""
     print(query)
     data = json.dumps(__db_fetch_values_dict(query))
     return HttpResponse(data)
@@ -1449,7 +1450,8 @@ def shelter_nfi_monthly_report(request):
 def get_report_shelter_nfi_monthly_report(request):
     search_date = request.POST.get('search_date')
     donor = request.POST.get('donor')
-    query = """ select rserial_no,coalesce(ract_name,'') ract_name,coalesce(runit,'') runit,coalesce(rcur_mon_cnt,0)::text rcur_mon_cnt,coalesce(rupto_last_month_cnt,0)::text rupto_last_month_cnt,coalesce(rtotal,0)::text rtotal,coalesce(rtarget::text,'') rtarget,case when rtarget is null then '-1' when rtarget::int = 0 then '0' else trunc((rtotal::numeric/rtarget::numeric)*100,2)::text end || ' %' as percentage  from get_rpt_shelter_nfi_month('"""+str(search_date)+"""', '"""+str(donor)+"""') """
+    section = request.POST.get('section')
+    query = """ select rserial_no,coalesce(ract_name,'') ract_name,coalesce(runit,'') runit,coalesce(rcur_mon_cnt,0)::text rcur_mon_cnt,coalesce(rupto_last_month_cnt,0)::text rupto_last_month_cnt,coalesce(rtotal,0)::text rtotal,coalesce(rtarget::text,'') rtarget,case when rtarget is null then '-1' when rtarget::int = 0 then '0' else trunc((rtotal::numeric/rtarget::numeric)*100,2)::text end || ' %' as percentage  from get_rpt_shelter_nfi_month('"""+str(search_date)+"""', '"""+str(donor)+"""','"""+str(section)+"""') """
     print(query)
     data = json.dumps(__db_fetch_values_dict(query))
     return HttpResponse(data)

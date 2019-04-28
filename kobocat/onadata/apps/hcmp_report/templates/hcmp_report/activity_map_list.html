@@ -31,6 +31,7 @@
                     <th>Start Date</th>
                     <th>End Date</th>
                     <th>Target</th>
+                    <th>Status</th>
                     <th class="td-center"></th>
                 </tr>
                 </thead>
@@ -93,7 +94,7 @@ var table;
         var mapping_list = {{ mapping_list|safe }};
         console.log(mapping_list)
         for (var idx in mapping_list) {
-            tbody += '<tr><td>' + mapping_list[idx].project + '</td><td>' + mapping_list[idx].start_date + '</td><td>' + mapping_list[idx].end_date + '</td><td>' + mapping_list[idx].target +'</td><td class="td-center"><a style="margin-left: 5px;" class="btn btn-success" href="/hcmp_report/edit-activity-map/'+ {{ subactivity_id }} +'/'+ mapping_list[idx].id +'/">Edit</a><a style="margin-left: 5px;" class="btn btn-danger" onclick ="delete_entity('+ mapping_list[idx].id +')" href="#">Delete</a></td></tr>';
+            tbody += '<tr><td>' + mapping_list[idx].project + '</td><td>' + mapping_list[idx].start_date + '</td><td>' + mapping_list[idx].end_date + '</td><td>' + mapping_list[idx].target +'</td><td>' + mapping_list[idx].status +'</td><td class="td-center"><a style="margin-left: 5px;" class="btn btn-success" href="/hcmp_report/edit-activity-map/'+ {{ subactivity_id }} +'/'+ mapping_list[idx].id +'/">Edit</a><a style="margin-left: 5px;" class="btn btn-danger" onclick ="delete_entity('+ mapping_list[idx].id +')" href="#">Delete</a></td></tr>';
         }
 
         $("#activity_map_table").find('tbody').html(tbody);

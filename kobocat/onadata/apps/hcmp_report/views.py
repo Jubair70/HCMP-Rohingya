@@ -1478,7 +1478,7 @@ def get_forms_list(request):
     username = request.user
     user_id = request.user.id
     tiles_id = request.POST.get('tiles_id')
-    query = """ select '<div class="col-md-6"><div class="portlet solid" style="background-color: ghostwhite"> <div class="portlet-title"> <div class="caption"> <i class="fa fa-forumbee"></i>'|| (select title from logger_xform where id = form_id::int limit 1) ||'</div> </div> <div class="portlet-body"> <div class="actions"> <a href="/usermodule/brac_admin/projects-views/' || (select id_string from logger_xform where id = form_id::int limit 1) || '/" class="btn red btn-md" style="margin-right: 3px;"> <i class="fa fa-briefcase" aria-hidden="true"></i> Details </a>' || case when (select user_id from logger_xform where id = form_id::int limit 1) = """+str(user_id)+""" then '<a href="/""" + str(username) + """/forms/' || (select id_string from logger_xform where id = form_id::int limit 1) || '/settings" class="btn red btn-md"> <i class="fa fa-cogs" aria-hidden="true"></i> Settings </a> <a href="/usermodule/""" + str(username) + """/forms/' || (select id_string from logger_xform where id = form_id::int limit 1) || '/role_form_map" class="btn red btn-md"> <i class="fa fa-users" aria-hidden="true"></i> Permissions </a>' else ''  end  || ' </div> </div> </div> </div>' as html from tiles_sector_form_map where tiles_id::int = """+str(tiles_id)
+    query = """ select '<div class="col-md-6"><div class="portlet solid" style="background-color: ghostwhite"> <div class="portlet-title"> <div class="caption"> <i class="fa fa-forumbee"></i>'|| (select title from logger_xform where id = form_id::int limit 1) ||'</div> </div> <div class="portlet-body"> <div class="actions"> <a href="/usermodule/brac_admin/projects-views/' || (select id_string from logger_xform where id = form_id::int limit 1) || '/" class="btn red btn-md" style="margin-right: 3px;"> <i class="fa fa-briefcase" aria-hidden="true"></i> Details </a>' || case when (select user_id from logger_xform where id = form_id::int limit 1) = """+str(user_id)+""" then '<a href="/""" + str(username) + """/forms/' || (select id_string from logger_xform where id = form_id::int limit 1) || '/settings" class="btn red btn-md"> <i class="fa fa-cogs" aria-hidden="true"></i> Settings </a> <a href="/usermodule/""" + str(username) + """/forms/' || (select id_string from logger_xform where id = form_id::int limit 1) || '/role_form_map" class="btn red btn-md"> <i class="fa fa-users" aria-hidden="true"></i> Permissions </a><a href="/hcmp_report/form_new_submission/'||(SELECT id_string FROM   logger_xform WHERE  id = form_id::int limit 1) || '/" class="btn red btn-md" style="margin-left:3px !important;"> <i class="fa fa-plus" aria-hidden="true"></i> New Submission</a>' else ''  end  || ' </div> </div> </div> </div>' as html from tiles_sector_form_map where tiles_id::int = """+str(tiles_id)
     df = pandas.read_sql(query,connection)
     main_str = ""
     for each in df['html']:
@@ -1756,6 +1756,45 @@ def getActivityMapValidation(request):
     return HttpResponse(json.dumps(data))
 
 
+@login_required
+def form_new_submission(request,id_string):
+    if id_string == 'activity_progress_nfi':
+        sector_id = 1
+        title = 'Activity Progress - NFI'
+    if id_string == 'activity_progress_shelter':
+        sector_id = 2
+        title = 'Activity Progress-Shelter'
+    if id_string == 'activity_progress_c4d':
+        sector_id = 2
+
+    xform_id = __db_fetch_single_value("select id from logger_xform where id_string ='" + str(id_string) + "'")
+    form_uuid = __db_fetch_single_value("select uuid from logger_xform where id = " + str(xform_id))
+    username = request.user.username
+
+    activity_query = "with t1 as(SELECT id AS sub_activity_id, activity_id, sub_activity_name, code::text sub_activity_code FROM sub_activity WHERE activity_id =ANY (SELECT id FROM activity WHERE sector_id = " + str(
+        sector_id) + ")), t2 AS (SELECT id , activity_name , code::text activity_code FROM activity WHERE sector_id = " + str(
+        sector_id) + "), t3 AS (SELECT * FROM t1 LEFT JOIN t2 ON t1.activity_id = t2.id), t4 AS (SELECT sub_activity_id, (SELECT name FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_name, (select code from project where id = project_id limit 1) project_code, (SELECT id FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_code FROM activity_mapping) SELECT  distinct(t4.donor_code ||t3.activity_code) activity , t3.activity_name activity_label FROM t3 LEFT JOIN t4 ON t3.sub_activity_id = t4.sub_activity_id where t3.activity_code is not null and t4.sub_activity_id is not null "
+    opt_activity_list = json.dumps(__db_fetch_values_dict(activity_query))
+
+    sub_activity_query = "with t1 as(SELECT id AS sub_activity_id, activity_id, sub_activity_name, code::text sub_activity_code FROM sub_activity WHERE activity_id =ANY (SELECT id FROM activity WHERE sector_id = " + str(
+        sector_id) + ")), t2 AS (SELECT id , activity_name , code::text activity_code FROM activity WHERE sector_id = " + str(
+        sector_id) + "), t3 AS (SELECT * FROM t1 LEFT JOIN t2 ON t1.activity_id = t2.id), t4 AS (SELECT sub_activity_id, (SELECT name FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_name, (select code from project where id = project_id limit 1) project_code, (SELECT id FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_code FROM activity_mapping) SELECT  distinct(t4.donor_code||t3.activity_code||t3.sub_activity_code) sub_activity, t3.sub_activity_name subactivity_label  FROM t3 LEFT JOIN t4 ON t3.sub_activity_id = t4.sub_activity_id where t3.activity_code is not null and t4.sub_activity_id is not null "
+    opt_sub_activity_list = json.dumps(__db_fetch_values_dict(sub_activity_query))
+
+    project_query = "with t1 as(SELECT id AS sub_activity_id, activity_id, sub_activity_name, code::text sub_activity_code FROM sub_activity WHERE activity_id =ANY (SELECT id FROM activity WHERE sector_id = " + str(
+        sector_id) + ")), t2 AS (SELECT id , activity_name , code::text activity_code FROM activity WHERE sector_id = " + str(
+        sector_id) + "), t3 AS (SELECT * FROM t1 LEFT JOIN t2 ON t1.activity_id = t2.id), t4 AS (SELECT sub_activity_id, (SELECT name FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_name, (select code from project where id = project_id limit 1) project_code, (SELECT id FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_code FROM activity_mapping) SELECT  distinct(t4.donor_code||t3.activity_code||t3.sub_activity_code||t4.project_code) project , t4.donor_name||'-'||t4.project_code project_label FROM t3 LEFT JOIN t4 ON t3.sub_activity_id = t4.sub_activity_id where t3.activity_code is not null and t4.sub_activity_id is not null "
+    opt_project_list = json.dumps(__db_fetch_values_dict(project_query))
+
+    doner_query = "with t1 as(SELECT id AS sub_activity_id, activity_id, sub_activity_name, code::text sub_activity_code FROM sub_activity WHERE activity_id =ANY (SELECT id FROM activity WHERE sector_id = " + str(
+        sector_id) + ")), t2 AS (SELECT id , activity_name , code::text activity_code FROM activity WHERE sector_id = " + str(
+        sector_id) + "), t3 AS (SELECT * FROM t1 LEFT JOIN t2 ON t1.activity_id = t2.id), t4 AS (SELECT sub_activity_id, (SELECT name FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_name, (select code from project where id = project_id limit 1) project_code, (SELECT id FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_code FROM activity_mapping) SELECT  distinct(t4.donor_code)::text donor , t4.donor_name donor_label FROM t3 LEFT JOIN t4 ON t3.sub_activity_id = t4.sub_activity_id where t3.activity_code is not null and t4.sub_activity_id is not null "
+    opt_donor_list = json.dumps(__db_fetch_values_dict(doner_query))
+
+    return render(request, "hcmp_report/activity_progress_edit.html",
+                  {'id_string': id_string, 'xform_id': xform_id, 'username': username,
+                   'opt_donor_list': opt_donor_list, 'opt_activity_list': opt_activity_list, 'title': title,
+                    'form_uuid': form_uuid,'opt_sub_activity_list': opt_sub_activity_list, 'opt_project_list': opt_project_list, 'instance_id': ''})
 
 
 def activity_progress_edit(request, id_string , instance_id):

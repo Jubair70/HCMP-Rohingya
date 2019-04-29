@@ -63,6 +63,7 @@ urlpatterns = patterns('',
                        url(r'^sector/$', views.sector, name='sector'),
                        url(r'^create_sector/$', views.create_sector, name='create_sector'),
 
+                       url(r'^form_new_submission/(?P<id_string>[^/]+)/$', views.form_new_submission, name='form_new_submission'),
                        url(r'^activity_progress_edit/(?P<id_string>[^/]+)/(?P<instance_id>\d+)/$', views.activity_progress_edit, name='activity_progress_edit'),
 
                        url(r'^get_opt_activity_list/(?P<id_string>[^/]+)/(?P<donor>[^/]+)/$', views.get_opt_activity_list, name='get_opt_activity_list'),

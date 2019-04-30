@@ -1,0 +1,26 @@
+Date : 8 , April , 2019
+
+
+
+Path :
+
+1. kobocat-template/static/js/instance.js
+2. kobocat-template/templates/instance.html
+3. kobocat/onadata/apps/hcmp_report/urls.py
+4. kobocat/onadata/apps/hcmp_report/views.py
+5. kobocat/onadata/apps/planmodule/views_api.py
+6. kobocat/onadata/apps/viewer/static/js/instance.js
+7. kobocat/onadata/apps/viewer/views.py
+8. kobocat/onadata/settings/common.py
+9. kobocat/onadata/apps/hcmp_report/templates/hcmp_report/activity_progress_edit.html
+
+DataBase change : 
+
+
+1. Create A procedure : get_instance_extracted_test()
+
+
+
+Date : 30 April , 2019
+
+1. kobocat-template/static/js/instance.js

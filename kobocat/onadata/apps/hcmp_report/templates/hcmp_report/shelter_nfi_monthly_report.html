@@ -20,13 +20,13 @@
 
 {% block content %}
 
-    <div class="portlet box blue">
+    <div class="portlet box red">
         <div class="portlet-title">
             <div class="caption"><i class="fa fa-adn"></i>Monthly Update</div>
         </div>
         <div class="portlet-body">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label> Date: </label>
                     <div class="ui calendar" id="search_date">
@@ -35,8 +35,19 @@
                     </div>
 
                 </div>
+            <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="form-group"><label class="control-label">Section/Module</label><br>
+                                <select class="form-control" id="section" name="section">
+                                    <option value="%">Select Any</option>
+                                    <option value="1">NFI</option>
+                                    <option value="2">Shelter</option>
+                                </select>
+                            </div>
+                    </div>
+                </div>
 
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <div class="form-group"><label class="control-label">Donor</label><br>
                                 <select class="form-control" id="donor" name="donor"  required>
@@ -52,7 +63,7 @@
 
                 <div class="col-md-2">
                     <div class="form-group">
-                        <button class="btn btn-info pull-left padding_x" id="generate_report" name="generate_report"
+                        <button class="btn red pull-left padding_x" id="generate_report" name="generate_report"
                                 data-original-title=""
                                 title="">Generate Report
                         </button>
@@ -221,6 +232,7 @@
                 var search_date = getFormattedDate($('#search_date').calendar('get date'));
                 console.log(search_date);
                 var donor = $('#donor').val();
+                var section = $('#section').val();
 
                 $.ajax({
                     url: '/hcmp_report/get_report_shelter_nfi_monthly_report/',
@@ -229,6 +241,7 @@
                     data: {
                         'search_date': search_date
                         , 'donor': donor
+                        ,'section':section
                     },
                     beforeSend: function () {
                         $('#container').show();

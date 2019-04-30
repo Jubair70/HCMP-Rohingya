@@ -1,0 +1,521 @@
+{% extends 'base_test.html' %}
+{% load i18n %}
+{% block additional-headers %}
+    <link href="/static/css/bootstrap-datepicker.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+
+    <div class="portlet box red">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-reorder"></i> <a style="color: #fff;" href="/hcmp_report/sector_list/">{{ sector }}</a>
+                > {{ activity }} ><a style="color: #fff;" onclick="history.go(-1);" href="#"> {{ sub_activity }}</a>
+            </div>
+        </div>
+
+        <div class="portlet-body form">
+            <form class="horizontal-form" id="" method="post"
+                  action="/hcmp_report/edit-activity-map/{{ subactivity_id }}/{{ id }}/"
+                  enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ id }}">
+                <div class="form-body">
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group"><label class="control-label">Donor </label><br>
+                                <select class="form-control" id="donor" name="project_id" onclick="load_date(this)"
+                                        required>
+                                    <option value="">Select Any</option>
+                                    {% for project_id,donor_name in project_list %}
+                                        <option value="{{ project_id }}" >{{ donor_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" id="date_div">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label> Start Date : </label>
+                                <input type="text" class="form-control datepicker" name="start_date" id="start_date"
+                                        autocomplete="off" required>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label> End Date : </label>
+                                <input type="text" class="form-control datepicker" name="end_date" id="end_date"
+                                       class="readonly" autocomplete="off" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label> Target: </label>
+                                <input type="number" class="form-control" name="target" id="target" required>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label> Status: </label>
+                                <select class="form-control" id="status" name="status" required>
+                                    <option value="">Select Any</option>
+                                    <option value="ongoing">On Going</option>
+                                    <option value="completed">Completed</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group"><label class="control-label">Target Population</label><br>
+                                <select class="form-control" id="target_population" name="target_population"
+                                        onclick="load_upazila(this)" required>
+                                    <option value="">Select Any</option>
+                                    <option value="10">Refugee in Camps</option>
+                                    <option value="11">Refugee in Host Communities</option>
+                                    <option value="12">Bangladeshi in Host Communities</option>
+                                    <option value="13">Border/Transit Point</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" id="type_div" hidden>
+
+                        <div class="col-md-4">
+                            <div class="form-group"><label class="control-label">Upazila</label><br>
+                                <select class="form-control" id="upazila" name="upazila" onclick="load_union(this)">
+                                    <option value="">Select Any</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4" id="union_div" hidden>
+                            <div class="form-group"><label class="control-label">Union</label><br>
+                                <select class="form-control" id="union" name="union" onclick="load_camp(this)">
+                                    <option value="">Select Any</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4" id="camp_div" hidden>
+                            <div class="form-group"><label class="control-label">Camp</label><br>
+                                <select class="form-control" id="camp" name="camp">
+                                    <option value="">Select Any</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4" id="border_div" hidden>
+                            <div class="form-group"><label class="control-label">Border/Transit Point</label><br>
+                                <select class="form-control" id="border_transit_location"
+                                        name="border_transit_location">
+                                    <option value="">Select Any</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-danger pull-left" id="submit" name="submit" type="submit"
+                                    data-original-title=""
+                                    title="">Submit
+                            </button>
+                            <button id="cancel" onclick="history.go(-1);" style="margin-left:10px;" type="button"
+                                    class="btn btn-info pull-left" data-original-title="" title="">Cancel
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+            <input type="hidden" id="stat">
+        </div>
+    </div>
+{% endblock %}
+
+{% block additional-javascript %}
+
+    <script type="text/javascript" src="/static/js/bootstrap-datepicker.js"></script>
+    <script>
+     $(".datepicker").on('keydown', function(e){
+        e.preventDefault();
+    });
+        $(document).ready(function () {
+            $(".datepicker").each(function () {
+                $(this).datepicker({format: "yyyy-mm-dd", autoclose: true, orientation: "bottom"});
+            });
+
+            ih = 1;
+            j = 0;
+            k = 0;
+
+            validate_dict = {{ validate_dict | safe }};
+            console.log(validate_dict);
+
+            $('#donor').val({{ prev_project_id }});
+            $('#start_date').val('{{ start_date | safe }}');
+            $('#end_date').val('{{ end_date | safe }}');
+            $('#target').val({{ target | safe }});
+            $('#status').val('{{ status  }}');
+            $('#target_population').val('{{ target_population | safe }}');
+            {#    $('#target_population').trigger('click');#}
+
+            target_population =
+            {{ target_population | safe }}
+            if (target_population == 10 || target_population == 11 || target_population == 12 || target_population == 13) {
+                $('#upazila').html("<option value=\"\">Select Any</option>");
+                $('#union').html("<option value=\"\">Select Any</option>");
+                $('#camp').html("<option value=\"\">Select Any</option>");
+                $('#border_transit_location').html("<option value=\"\">Select Any</option>");
+                $('#type_div').show();
+            }
+            else {
+                $('#upazila').html("<option value=\"\">Select Any</option>");
+                $('#union').html("<option value=\"\">Select Any</option>");
+                $('#camp').html("<option value=\"\">Select Any</option>");
+                $('#border_transit_location').html("<option value=\"\">Select Any</option>");
+                $('#type_div').hide();
+
+            }
+
+
+            if (target_population == 10) {
+                $('#camp_div').show();
+            }
+            else $('#camp_div').hide();
+
+            if (target_population == 13) {
+                $('#type_div').show();
+                $('#border_div').show();
+                $('#union_div').hide();
+            }
+            else {
+                $('#union_div').show();
+                $('#border_div').hide();
+            }
+
+
+            console.log({{ set_uni | safe}})
+
+
+            if (target_population == 10) {
+                upz_list = {{ set_upz | safe }};
+                console.log(upz_list);
+                var html_code = "<option value=\"\">Select Any</option>";
+                for (i = 0; i < upz_list.length; i++) {
+                    if (upz_list[i].id == '{{ upazila | safe }}')
+                        html_code += "<option value=\"" + upz_list[i].id + "\" selected> " + upz_list[i].name + "</option>";
+                    else html_code += "<option value=\"" + upz_list[i].id + "\" > " + upz_list[i].name + "</option>";
+                }
+                $('#upazila').html(html_code);
+
+                upz_list = {{ set_uni | safe }};
+                console.log(upz_list);
+                var html_code = "<option value=\"\">Select Any</option>";
+                for (i = 0; i < upz_list.length; i++) {
+                    if (upz_list[i].id == '{{ union | safe  }}')
+                        html_code += "<option value=\"" + upz_list[i].id + "\" selected> " + upz_list[i].name + "</option>";
+                    else
+                        html_code += "<option value=\"" + upz_list[i].id + "\" > " + upz_list[i].name + "</option>";
+                }
+                $('#union').html(html_code);
+
+                upz_list = {{ set_camp | safe}};
+                console.log(upz_list)
+                var html_code = "<option value=\"\">Select Any</option>";
+                for (i = 0; i < upz_list.length; i++) {
+                    if (upz_list[i].id == '{{ camp | safe  }}')
+                        html_code += "<option value=\"" + upz_list[i].id + "\" selected> " + upz_list[i].name + "</option>";
+                    else
+                        html_code += "<option value=\"" + upz_list[i].id + "\" > " + upz_list[i].name + "</option>";
+                }
+                $('#camp').html(html_code);
+            }
+            else if (target_population == 11 || target_population == 12) {
+                upz_list = {{ set_upz | safe}};
+                console.log(upz_list)
+                var html_code = "<option value=\"\">Select Any</option>";
+                for (i = 0; i < upz_list.length; i++) {
+                    if (upz_list[i].id == '{{ upazila | safe  }}')
+                        html_code += "<option value=\"" + upz_list[i].id + "\" selected> " + upz_list[i].name + "</option>";
+                    else
+                        html_code += "<option value=\"" + upz_list[i].id + "\" > " + upz_list[i].name + "</option>";
+                }
+                $('#upazila').html(html_code);
+
+                upz_list = {{ set_uni | safe}};
+                console.log(upz_list)
+                var html_code = "<option value=\"\">Select Any</option>";
+                for (i = 0; i < upz_list.length; i++) {
+                    if (upz_list[i].id == '{{ union | safe  }}')
+                        html_code += "<option value=\"" + upz_list[i].id + "\" selected> " + upz_list[i].name + "</option>";
+                    else
+                        html_code += "<option value=\"" + upz_list[i].id + "\" > " + upz_list[i].name + "</option>";
+                }
+                $('#union').html(html_code);
+            }
+            else {
+                upz_list = {{ set_upz | safe}};
+                console.log(upz_list)
+                var html_code = "<option value=\"\">Select Any</option>";
+                for (i = 0; i < upz_list.length; i++) {
+                    if (upz_list[i].id == '{{ upazila | safe  }}')
+                        html_code += "<option value=\"" + upz_list[i].id + "\" selected> " + upz_list[i].name + "</option>";
+                    else
+                        html_code += "<option value=\"" + upz_list[i].id + "\" > " + upz_list[i].name + "</option>";
+                }
+                $('#upazila').html(html_code);
+
+                upz_list = {{ set_border | safe }};
+                console.log(upz_list)
+                var html_code = "<option value=\"\">Select Any</option>";
+                for (i = 0; i < upz_list.length; i++) {
+                    if (upz_list[i].id == '{{ border_transit_location | safe }}')
+                        html_code += "<option value=\"" + upz_list[i].id + "\" selected> " + upz_list[i].name + "</option>";
+                    else
+                        html_code += "<option value=\"" + upz_list[i].id + "\" > " + upz_list[i].name + "</option>";
+                }
+                $('#border_transit_location').html(html_code);
+            }
+        });
+
+
+        function load_upazila(object) {
+
+            obj = object.value;
+            if (obj == 10 || obj == 11 || obj == 12 || obj == 13) {
+                $('#upazila').html("<option value=\"\">Select Any</option>");
+                $('#union').html("<option value=\"\">Select Any</option>");
+                $('#camp').html("<option value=\"\">Select Any</option>");
+                $('#border_transit_location').html("<option value=\"\">Select Any</option>");
+                $('#type_div').show();
+            }
+            else {
+                $('#upazila').html("<option value=\"\">Select Any</option>");
+                $('#union').html("<option value=\"\">Select Any</option>");
+                $('#camp').html("<option value=\"\">Select Any</option>");
+                $('#border_transit_location').html("<option value=\"\">Select Any</option>");
+                $('#type_div').hide();
+                return;
+            }
+
+            if (obj == 10) {
+                $('#camp_div').show();
+            }
+            else $('#camp_div').hide();
+
+            if (obj == 13) {
+                $('#type_div').show();
+                $('#border_div').show();
+                $('#union_div').hide();
+            }
+            else {
+                $('#union_div').show();
+                $('#border_div').hide();
+            }
+
+
+            $.ajax({
+                url: '/hcmp_report/getUpazilas/',
+                type: 'POST',
+                dataType: 'json',
+                data: {'obj': obj},
+                beforeSend: function () {
+                },
+                success: function (result) {
+                    var html_code = "<option value=\"\">Select Any</option>";
+                    for (i = 0; i < result.length; i++) {
+                        {#                            if(result[i].id == {{ upazila }})#}
+                        html_code += "<option value=\"" + result[i].id + "\"> " + result[i].name + "</option>";
+                        {#                            else#}
+                        {#                                html_code += "<option value=\"" + result[i].id + "\" > " + result[i].name + "</option>";#}
+                    }
+                    $('#upazila').html(html_code);
+                }
+            });
+
+
+            ih--;
+        }
+
+
+        function load_union(upz_object) {
+            console.log("dasf");
+            upz = parseInt(upz_object.value);
+            target_population = $('#target_population').val();
+            console.log(upz);
+            if (isNaN(parseFloat(upz))) {
+                $('#union').html("<option value=\"\">Select Any</option>");
+                $('#camp').html("<option value=\"\">Select Any</option>");
+                $('#border_transit_location').html("<option value=\"\">Select Any</option>");
+            }
+            else {
+                if (target_population == 13) {
+                    $.ajax({
+                        url: '/hcmp_report/get_border_transit_location/',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {'upz': upz},
+                        success: function (result) {
+                            var html_code = "<option value=\"\">Select Any</option>";
+                            for (i = 0; i < result.length; i++) {
+                                html_code += "<option value=\"" + result[i].id + "\"> " + result[i].name + "</option>";
+                            }
+                            $('#border_transit_location').html(html_code);
+                        }
+                    });
+                }
+                else {
+                    $.ajax({
+                        url: '/hcmp_report/getUnions/',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {'upz': upz},
+                        success: function (result) {
+                            var html_code = "<option value=\"\">Select Any</option>";
+                            for (i = 0; i < result.length; i++) {
+                                html_code += "<option value=\"" + result[i].id + "\"> " + result[i].name + "</option>";
+                            }
+                            $('#union').html(html_code);
+                        }
+                    });
+
+                }
+            }
+
+        }
+
+
+        function load_camp(obj) {
+            obj = parseInt(obj.value);
+            console.log(obj);
+            if (isNaN(parseFloat(obj))) {
+                $('#camp').html("<option value=\"\">Select Any</option>");
+            }
+            else {
+
+                $.ajax({
+                    url: '/hcmp_report/getCamp/',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {'camp': obj},
+                    success: function (result) {
+                        var html_code = "<option value=\"\">Select Any</option>";
+                        for (i = 0; i < result.length; i++) {
+                            html_code += "<option value=\"" + result[i].id + "\"> " + result[i].name + "</option>";
+                        }
+                        $('#camp').html(html_code);
+                    }
+                });
+            }
+        }
+
+
+        function load_date(obj) {
+
+            project_id = $('#donor').val();
+            subactivity_id = {{ subactivity_id | safe }};
+            console.log(validate_dict[project_id]);
+            if (validate_dict[project_id]) {
+                $('#start_date').val(validate_dict[project_id].start_date);
+                $('#end_date').val(validate_dict[project_id].end_date);
+            }
+            else {
+                $('#start_date').val('');
+                $('#end_date').val('');
+            }
+            {#            if (isNaN(parseFloat(obj))) {#}
+            {#                $('#camp').html("<option value=\"\">Select Any</option>");#}
+            {#            }#}
+            {#            else {#}
+            {##}
+            {#                $.ajax({#}
+            {#                    url: '/hcmp_report/getActivityMapValidation/',#}
+            {#                    type: 'POST',#}
+            {#                    dataType: 'json',#}
+            {#                    data: {'project_id': project_id,'subactivity_id':subactivity_id},#}
+            {#                    success: function (result) {#}
+            {#                        if(result.stat == 1)#}
+            {#                        {#}
+            {#                            $('#start_date').val(result.s_date);#}
+            {#                            $('#end_date').val(result.e_date);#}
+            {#                        }#}
+            {#                        else {#}
+            {#                            $('#start_date').val("");#}
+            {#                            $('#end_date').val('');#}
+            {#                        }#}
+            {#                    }#}
+            {#                });#}
+            {#            }#}
+
+            console.log($('#start_date').val(), $('#end_date').val())
+        }
+
+
+
+        $('#submit').on('click', function (e) {
+            target_population = $('#target_population').val();
+            upazila = parseInt($('#upazila').val());
+            union = parseInt($('#union').val());
+            camp = $('#camp').val();
+            border_transit_location = parseInt($('#border_transit_location').val());
+            start_date = $('#start_date').val();
+            end_date = $('#end_date').val();
+            project_id = $('#donor').val();
+
+
+            if(start_date > end_date)
+            {
+                alert('Start Date should be greater than End Date');
+                return false;
+            }
+
+            if (target_population == 10) {
+                if (camp == '' && !( union && upazila)) {
+
+                    alert('Select Upazila, Union and Camp when Target Population is Refugee in Camps');
+                    return false;
+                }
+
+
+            }
+            else if (target_population == 11 || target_population == 12) {
+                if (!(union && upazila)) {
+                    alert('Select Upazila and Union when Target Population is Refugee in Host Communities/Bangladeshi in Host Communities');
+                    return false;
+                }
+
+            }
+            else if (target_population == 13) {
+                if (!(border_transit_location && upazila)) {
+                    alert('Select Upazila and Border/Transit Point when Target Population is Border/Transit Point');
+                    return false;
+                }
+            }
+
+
+
+
+            if (validate_dict[project_id]) {
+
+
+                if (start_date != validate_dict[project_id].start_date || end_date != validate_dict[project_id].end_date) {
+                    alert("Do not change start date or end date if previously existed")
+                    return false;
+                }
+            }
+
+
+        });
+
+    </script>
+
+{% endblock %}

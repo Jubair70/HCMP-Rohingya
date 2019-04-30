@@ -63,7 +63,7 @@
     <div class="header-inner">
         <!-- BEGIN LOGO -->
         <a class="navbar-brand" href="/">
-            <img alt="" src="{{ STATIC_URL }}images/login_box_logo.png" width="auto" height="29"/>
+            <img alt="" src="{{ STATIC_URL }}assets/img/brac/admin-logo.png" width="auto" height="29"/>
         </a>
         <!-- END LOGO -->
         <!-- BEGIN RESPONSIVE MENU TOGGLER -->
@@ -102,28 +102,44 @@
     <!-- END SIDEBAR -->
     <!-- BEGIN PAGE -->
     <div class="page-content">
-        <h3 class="form-label">{{ title  }}</h3>
+        <h3 class="form-label">{{ title }}</h3>
         <div class="input_fields_wrap" style="display: flex;">
             <div style="display:none;" id="loading"><img src="{{ STATIC_URL }}images/Spinner.gif"></div>
             <form name="dynamic_form" id="dynamic_form" method="post" class="" novalidate>
                 <input type="hidden" id="edit_instance_id" value=""/>
                 <div id="mainDiv" ng-controller="myCtrl as vms">
 
-                                    <div class="row">
+                    <div class="row">
                         <div class="col-lg-3">
                             <div class="form-group"><label>Activity Date</label>
+                                {#                                <div class="input-group"><input ng-model="vms.model.act_date" validation=""#}
+                                {#                                                                name="act_date" is-open="vms.isDatePickerOpen_act_date"#}
+                                {#                                                                class="datepicker form-control"#}
+                                {#                                                                uib-datepicker-popup="yyyy/MM/dd" max-date="vms.maxDate"#}
+                                {#                                                                readonly="None" min-date="vms.minDate"#}
+                                {#                                                                ng-change="parseCustomConstraints(vms.model.act_date,'.<=today()', 'root', -1, 'act_date','Please enter a valid value')"#}
+                                {#                                                                datepicker-options="vms.dateOptions"#}
+                                {#                                                                validation-error-to="act_date_error" type="text"#}
+                                {#                                                                datepicker-mode="day"/><span class="input-group-btn"> <button#}
+                                {#                                        data-ng-click="vms.openDatePicker($event,'isDatePickerOpen_act_date')"#}
+                                {#                                        type="button" class="btn btn-default"> <i#}
+                                {#                                        class="glyphicon glyphicon-calendar"></i></button></span></div>#}
                                 <div class="input-group"><input ng-model="vms.model.act_date" validation=""
                                                                 name="act_date" is-open="vms.isDatePickerOpen_act_date"
                                                                 class="datepicker form-control"
                                                                 uib-datepicker-popup="yyyy/MM/dd" max-date="vms.maxDate"
-                                                                readonly="None" min-date="vms.minDate"
+                                                                min-date="vms.minDate"
                                                                 ng-change="parseCustomConstraints(vms.model.act_date,'.<=today()', 'root', -1, 'act_date','Please enter a valid value')"
                                                                 datepicker-options="vms.dateOptions"
-                                                                validation-error-to="act_date_error" type="text"
-                                                                datepicker-mode="day"/><span class="input-group-btn"> <button
-                                        data-ng-click="vms.openDatePicker($event,'isDatePickerOpen_act_date')"
-                                        type="button" class="btn btn-default"> <i
-                                        class="glyphicon glyphicon-calendar"></i></button></span></div>
+                                                                validation-error-to="act_date_error" type="date"
+                                                                datepicker-mode="day"/><span class="input-group-btn">
+{#                                    <button#}
+{#                                        data-ng-click="vms.openDatePicker($event,'isDatePickerOpen_act_date')"#}
+{#                                        type="button" class="btn btn-default"> <i#}
+{#                                        class="glyphicon glyphicon-calendar"></i></button>#}
+                                </span></div>
+
+
                                 <span id="act_date_error" class="field_error"></span></div>
                         </div>
                         <div class="col-lg-3">
@@ -214,7 +230,7 @@
                                 <label>Union</label><select
                                     validation-error-to="union_name_error" class="form-control"
                                     ng-required="(vms.model.target_population != '13' && vms.model.upazila !='')"
-                                    name="union_name" ng-model="vms.model.union_name" >
+                                    name="union_name" ng-model="vms.model.union_name">
                                 <option value="">-- Select --</option>
                                 <option ng-show="vms.model.upazila=='202290'" value="20229015">Baharchhara
                                 </option>
@@ -230,7 +246,7 @@
                         <div class="col-lg-3">
                             <div class="form-group"
                                  ng-show=" (vms.model.target_population==10 && vms.model.upazila !='') "
-                                  >
+                            >
                                 <label>Camp</label><select
                                     validation-error-to="camp_error" class="form-control"
                                     ng-required="(vms.model.target_population==10 && vms.model.upazila !='') "
@@ -791,7 +807,8 @@
                         </div>
                         <div class="col-lg-3">
                             <div class="form-group" ng-show="1==0"><label>Activity Details/Indicator</label><input
-                                    ng-model="vms.model.act__activity_details[$index]" name="act__activity_details__{$$index$}"
+                                    ng-model="vms.model.act__activity_details[$index]"
+                                    name="act__activity_details__{$$index$}"
                                     id="act__activity_details__{$$index$}"
                                     validation-error-to="act__activity_details_error" validation="" type="text"
                                     class="form-control"/><span id="act__activity_details__{$$index$}_error"
@@ -809,7 +826,8 @@
                         </div>
                         <div class="col-lg-3">
                             <div class="form-group"><label>Reached Total Household</label><input
-                                    ng-model="vms.model.act__reached_total_hh[$index]" name="act__reached_total_hh__{$$index$}"
+                                    ng-model="vms.model.act__reached_total_hh[$index]"
+                                    name="act__reached_total_hh__{$$index$}"
                                     id="act__reached_total_hh__{$$index$}"
                                     ng-change="parseCustomConstraints(vms.model.act__reached_total_hh[$index],'.>=0', 'act', -1, 'act__reached_total_hh','Please enter a valid value')"
                                     validation-error-to="act__reached_total_hh_error" validation="" type="number"
@@ -839,7 +857,6 @@
                         </div>
 
 
-
                         <span style="top: 35px;position: relative; left: 16px" ng-click="addRow($index)"
                               ng-show="$last"><i
                                 class="fa fa-2x fa-plus-circle"
@@ -848,11 +865,6 @@
                                                                     ng-show="$index != 0"><i
                             class="fa fa-2x fa-minus-circle"
                             aria-hidden="true"></i></span>
-
-
-
-
-
 
 
                     </div>
@@ -867,7 +879,7 @@
                                    ng-click="uploadPic(vms.model);"
                                    value="Submit"/>
 
-                            <input type="button" class="btn btn-danger" ng-click= " back_to_view_page()" value="Cancel" />
+                            <input type="button" class="btn btn-danger" ng-click=" back_to_view_page()" value="Cancel"/>
                         </div>
 
                     </div>
@@ -909,40 +921,40 @@
 <script type="text/javascript">
     var sid = 0;
     var id_string = '{{ id_string }}';
-    var instance_id = {{ instance_id |safe }}
+    var instance_id = '{{ instance_id |safe }}'
 
 
 
-    function generateXML(inputObj, instance_id) {
-        var xw = new XMLWriter('UTF-8');
-        xw.writeStartDocument();
-        xw.writeStartElement(id_string);
-        xw.writeAttributeString('id', id_string);
-        xw.writeStartElement('formhub');
-        xw.writeStartElement('uuid');
-        xw.writeString('{{ form_uuid }}');
-        xw.writeEndElement();
-        xw.writeEndElement();
-        for (var ppx in inputObj) {
-            xmlrecursive(xw, ppx, inputObj[ppx]);
-        }
-        xw.writeStartElement('meta');
-        xw.writeStartElement('instanceID');
-        xw.writeString('uuid:' + guid());
-        xw.writeEndElement();
-        if (instance_id != '') {
-            var uuid = jsonObj[id_string].meta.instanceID.split(':')[1];
-            xw.writeStartElement('deprecatedID');
-            xw.writeString('uuid:' + uuid);
+        function generateXML(inputObj, instance_id) {
+            var xw = new XMLWriter('UTF-8');
+            xw.writeStartDocument();
+            xw.writeStartElement(id_string);
+            xw.writeAttributeString('id', id_string);
+            xw.writeStartElement('formhub');
+            xw.writeStartElement('uuid');
+            xw.writeString('{{ form_uuid }}');
             xw.writeEndElement();
+            xw.writeEndElement();
+            for (var ppx in inputObj) {
+                xmlrecursive(xw, ppx, inputObj[ppx]);
+            }
+            xw.writeStartElement('meta');
+            xw.writeStartElement('instanceID');
+            xw.writeString('uuid:' + guid());
+            xw.writeEndElement();
+            if (instance_id != '') {
+                var uuid = jsonObj[id_string].meta.instanceID.split(':')[1];
+                xw.writeStartElement('deprecatedID');
+                xw.writeString('uuid:' + uuid);
+                xw.writeEndElement();
+            }
+            xw.writeEndElement();
+            xw.writeEndElement();
+            xw.writeEndDocument();
+            var xml = xw.flush();
+            xw = undefined;
+            return xml;
         }
-        xw.writeEndElement();
-        xw.writeEndElement();
-        xw.writeEndDocument();
-        var xml = xw.flush();
-        xw = undefined;
-        return xml;
-    }
 
     function xmlrecursive(xml, key, value) {
         if (typeof value !== "undefined") {
@@ -1047,7 +1059,6 @@
         vms.model.language = 'English';
 
 
-
         $scope.data = {
             names: [{name: ""}]
         };
@@ -1059,15 +1070,14 @@
         $scope.addRow = function (index) {
             var name = {name: ""};
             if ($scope.data.names.length <= index + 1) {
-{#                $scope.data.names.push($scope.)#}
-{#                    $scope.data.names.push(name);#}
+                {#                $scope.data.names.push($scope.)#}
+                {#                    $scope.data.names.push(name);#}
                 $scope.data.names.splice(index + 1, 0, name)
                 ;
             }
 
 
         };
-
 
 
         $scope.deleteRow = function ($event, name) {
@@ -1077,10 +1087,9 @@
         }
 
 
-        $scope.areEqual = function(field1, field2) {
-                  return angular.equals(field1, field2);
-                }
-
+        $scope.areEqual = function (field1, field2) {
+            return angular.equals(field1, field2);
+        }
 
 
         function replaceAll(str, mapObj) {
@@ -1091,9 +1100,9 @@
         }
 
 
-        $scope.back_to_view_page = function(){
+        $scope.back_to_view_page = function () {
 
-            window.location.href = '/'+$scope.username+'/forms/'+id_string+'/instance/?s_id='+instance_id +'#/'+ instance_id
+            window.location.href = '/' + $scope.username + '/forms/' + id_string + '/instance/?s_id=' + instance_id + '#/' + instance_id
 
         }
 
@@ -1141,7 +1150,7 @@
             "act__reached_total_beneficiaries": "act",
             "act": "root",
             "act_date": "root"
-        } ;
+        };
 
 
         var inputStore = {};
@@ -1204,7 +1213,6 @@
             xmltext = $scope.save();
 
 
-
             if (req.upload_product) {
                 file = req.upload_product;
 
@@ -1242,7 +1250,12 @@
                     }
                 }).success(function (data) {
 
-                   window.location.href = '/'+$scope.username+'/forms/'+id_string+'/instance/?s_id='+instance_id +'#/'+ instance_id
+                    if(instance_id.length == 0) {
+                        window.location.href = '/usermodule/brac_admin/projects-views/' + id_string + '/'
+
+                    }
+                    else
+                        window.location.href = '/' + $scope.username + '/forms/' + id_string + '/instance/?s_id=' + instance_id + '#/' + instance_id
 
                 });
             }
@@ -1258,34 +1271,32 @@
 
 
         $scope.opt_donor_list = {{ opt_donor_list | safe }}
-{#            $scope.opt_activity_list0 = {{ opt_activity_list | safe }}#}
-{#                $scope.opt_sub_activity_list0 = {{ opt_sub_activity_list | safe }}#}
-{#                    $scope.opt_project_list0 = {{ opt_project_list | safe }}#}
+            {#            $scope.opt_activity_list0 = {{ opt_activity_list | safe }}#}
+            {#                $scope.opt_sub_activity_list0 = {{ opt_sub_activity_list | safe }}#}
+            {#                    $scope.opt_project_list0 = {{ opt_project_list | safe }}#}
 
 
             //console.log(vms.model.donor[0])
 
 
+            $scope.getExternalOptions = function (url, value, container) {
 
-
-        $scope.getExternalOptions = function (url, value , container) {
-
-            if (typeof value != 'undefined' && value != '' && value != null) {
-                $http({
-                    method: 'POST',
-                    url: url,
-                    data: {'serach_key': value},
-                    dataType: 'json',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                }).success(function (data) {
-                    $scope[container] = data;
-                });
-            } else {
-                $scope[container] = [];
+                if (typeof value != 'undefined' && value != '' && value != null) {
+                    $http({
+                        method: 'POST',
+                        url: url,
+                        data: {'serach_key': value},
+                        dataType: 'json',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    }).success(function (data) {
+                        $scope[container] = data;
+                    });
+                } else {
+                    $scope[container] = [];
+                }
             }
-        }
 
 
         function lookup_v2(key, loop_element_name, index) {
@@ -1293,22 +1304,19 @@
             value = jsonObj[id_string][key];
 
 
-
-
             if (typeof value == 'undefined') {
 
-                if(loop_element_name != "" && jsonObj[id_string][loop_element_name] != (undefined || ' ')){
+                if (loop_element_name != "" && jsonObj[id_string][loop_element_name] != (undefined || ' ')) {
 
 
-                    if (typeof jsonObj[id_string][loop_element_name][index] !='undefined'  && key in jsonObj[id_string][loop_element_name][index]) {
+                    if (typeof jsonObj[id_string][loop_element_name][index] != 'undefined' && key in jsonObj[id_string][loop_element_name][index]) {
 
                         return jsonObj[id_string][loop_element_name][index][key]
                     }
-                    else if (key in jsonObj[id_string][loop_element_name])
-                    {
+                    else if (key in jsonObj[id_string][loop_element_name]) {
 
                         return jsonObj[id_string][loop_element_name][key]
-                    }else if(typeof jsonObj[id_string][loop_element_name] =='undefined'){
+                    } else if (typeof jsonObj[id_string][loop_element_name] == 'undefined') {
 
                         return ''
                     }
@@ -1319,7 +1327,6 @@
             }
 
 
-
             return value
 
         }
@@ -1328,12 +1335,12 @@
         $scope.fillForm = function () {
 
 
-            if (jsonObj[id_string]['act'] != undefined){
+            if (jsonObj[id_string]['act'] != undefined) {
 
-            for(i=0;i<jsonObj[id_string]['act'].length-1;i++)
-                $scope.addRow(i);
+                for (i = 0; i < jsonObj[id_string]['act'].length - 1; i++)
+                    $scope.addRow(i);
 
-            $scope.$apply();
+                $scope.$apply();
 
             }
 
@@ -1342,29 +1349,26 @@
             angular.forEach($scope.dynamic_form, function (element, name) {
 
 
-
                 if (!name.startsWith('$')) {
-                     var loop_element_name=""
+                    var loop_element_name = ""
                     var index = 0;
 
                     if (name.indexOf('__') > 0) {
                         var array_of_element = name.split('__')
-                         loop_element_name = array_of_element[0];
+                        loop_element_name = array_of_element[0];
                         var element_name = array_of_element[1];
-                         index = array_of_element[2];
-
+                        index = array_of_element[2];
 
 
                     }
                     else {
 
 
-
                         var element_name = name;
                     }
 
 
-                    element_arr = lookup_v2(element_name,loop_element_name,index);
+                    element_arr = lookup_v2(element_name, loop_element_name, index);
 
 
                     if (element_arr != null) {
@@ -1373,9 +1377,6 @@
                     }
                 }
             });
-
-
-
 
 
         }
@@ -1411,14 +1412,14 @@
                 //runResponsiveHandlers();
             });
 
-{#            $scope.addRow(0);#}
+            {#            $scope.addRow(0);#}
             if (typeof jsonObj !== "undefined" && jsonObj !== null) {
 
                 $scope.fillForm();
 
-                $scope.getExternalOptions('/hcmp_report/get_opt_activity_list/'+id_string+'/'+vms.model.act__donor[0]+'/', 'N/A',  'opt_activity_list'+0);
-                $scope.getExternalOptions('/hcmp_report/get_opt_sub_activity_list/'+id_string+'/'+vms.model.act__donor[0]+'/'+vms.model.act__activity[0]+'/', 'N/A',  'opt_sub_activity_list'+0);
-                $scope.getExternalOptions('/hcmp_report/get_opt_project_list/'+id_string+'/'+vms.model.act__donor[0]+'/'+vms.model.act__activity[0]+'/'+vms.model.act__sub_activity[0]+'/', 'N/A',  'opt_project_list'+0);
+                $scope.getExternalOptions('/hcmp_report/get_opt_activity_list/' + id_string + '/' + vms.model.act__donor[0] + '/', 'N/A', 'opt_activity_list' + 0);
+                $scope.getExternalOptions('/hcmp_report/get_opt_sub_activity_list/' + id_string + '/' + vms.model.act__donor[0] + '/' + vms.model.act__activity[0] + '/', 'N/A', 'opt_sub_activity_list' + 0);
+                $scope.getExternalOptions('/hcmp_report/get_opt_project_list/' + id_string + '/' + vms.model.act__donor[0] + '/' + vms.model.act__activity[0] + '/' + vms.model.act__sub_activity[0] + '/', 'N/A', 'opt_project_list' + 0);
 
 
             }
@@ -1451,7 +1452,6 @@
         $scope.$watch('vms.model.union_name', function (newValues, oldValues) {
 
 
-
             if (newValues == '') {
 
                 vms.model.camp = '';
@@ -1473,8 +1473,6 @@
         });
 
 
-
-
         $scope.$watch('vms.model.act__donor', function (newValues, oldValues) {
 
             len = Object.keys(newValues).length
@@ -1483,16 +1481,14 @@
 
                 if (newValues[i] != oldValues[i]) {
 
-                    $scope.getExternalOptions('/hcmp_report/get_opt_activity_list/'+id_string+'/'+newValues[i]+'/', 'N/A',  'opt_activity_list'+i);
+                    $scope.getExternalOptions('/hcmp_report/get_opt_activity_list/' + id_string + '/' + newValues[i] + '/', 'N/A', 'opt_activity_list' + i);
 
 
                 }
             }
 
 
-
-
-        } , true );
+        }, true);
 
         $scope.$watch('vms.model.act__activity', function (newValues, oldValues) {
 
@@ -1505,13 +1501,13 @@
 
                     var donor = vms.model.act__donor[i]
 
-                    $scope.getExternalOptions('/hcmp_report/get_opt_sub_activity_list/'+id_string+'/'+donor+'/'+newValues[i]+'/', 'N/A',  'opt_sub_activity_list'+i);
+                    $scope.getExternalOptions('/hcmp_report/get_opt_sub_activity_list/' + id_string + '/' + donor + '/' + newValues[i] + '/', 'N/A', 'opt_sub_activity_list' + i);
 
 
                 }
             }
 
-        } , true);
+        }, true);
 
         $scope.$watch('vms.model.act__sub_activity', function (newValues, oldValues) {
 
@@ -1524,15 +1520,13 @@
                     var donor = vms.model.act__donor[i]
                     var activity = vms.model.act__activity[i]
 
-                    $scope.getExternalOptions('/hcmp_report/get_opt_project_list/'+id_string+'/'+donor+'/'+activity+'/'+newValues[i]+'/', 'N/A',  'opt_project_list'+i);
+                    $scope.getExternalOptions('/hcmp_report/get_opt_project_list/' + id_string + '/' + donor + '/' + activity + '/' + newValues[i] + '/', 'N/A', 'opt_project_list' + i);
 
 
                 }
             }
 
-        } , true );
-
-
+        }, true);
 
 
         $scope.$watch('vms.model.target_population', function (newValues, oldValues) {
@@ -1545,13 +1539,13 @@
 
             }
 
-            if(newValues == '13'){
+            if (newValues == '13') {
                 vms.model.union_name = '';
                 vms.model.camp = '';
                 vms.model.zone = '';
             }
 
-            if( newValues != '13'){
+            if (newValues != '13') {
 
                 vms.model.border_transit_location = ''
             }
@@ -1559,19 +1553,15 @@
         });
 
 
-
-
-
-{#        $scope.$watch('opt_upazila', function (newValue, oldValue) {#}
-{#            if (!newValue || newValue === oldValue) return;#}
-{#            angular.forEach($scope.dynamic_form, function (element, name) {#}
-{#                if (name.startsWith('upazila')) {#}
-{#                    element.$setViewValue(parseInt(vms.model.upazila));#}
-{#                    element.$render();#}
-{#                }#}
-{#            });#}
-{#        });#}
-
+        {#        $scope.$watch('opt_upazila', function (newValue, oldValue) {#}
+        {#            if (!newValue || newValue === oldValue) return;#}
+        {#            angular.forEach($scope.dynamic_form, function (element, name) {#}
+        {#                if (name.startsWith('upazila')) {#}
+        {#                    element.$setViewValue(parseInt(vms.model.upazila));#}
+        {#                    element.$render();#}
+        {#                }#}
+        {#            });#}
+        {#        });#}
 
 
     }]);
@@ -1579,13 +1569,12 @@
 
     function guid() {
         return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-                s4() + '-' + s4() + s4() + s4();
+            s4() + '-' + s4() + s4() + s4();
     }
 
     function s4() {
         return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
     }
-
 
 
     function lookup(obj, k) {
@@ -1604,8 +1593,8 @@
 
                 // for..in doesn't work the way you want on arrays in some browsers
                 //
-{#                console.log("Array :");#}
-{#                console.log(value,k);#}
+                {#                console.log("Array :");#}
+                {#                console.log(value,k);#}
                 for (var i = 0; i < value.length; ++i) {
 
                     var x = lookup(value[i], k);
@@ -1645,31 +1634,26 @@
     var jsonObj = x2js.xml_str2json(xml_string);
 
 
-
-
-
-
-
 </script>
 <script src="{{ STATIC_URL }}assets/scripts/app.js"></script>
 <script>
     jQuery(document).ready(function () {
         $("ul").each(
-                function () {
-                    var elem = $(this);
-                    if (elem.children().length == 0) {
-                        elem.remove();
-                    }
+            function () {
+                var elem = $(this);
+                if (elem.children().length == 0) {
+                    elem.remove();
                 }
+            }
         );
 
         $(".sub-menu").each(
-                function () {
-                    var elem = $(this);
-                    if (elem.children().length >= 1) {
-                        elem.prev('a').append('<span class="arrow open"></span>')
-                    }
+            function () {
+                var elem = $(this);
+                if (elem.children().length >= 1) {
+                    elem.prev('a').append('<span class="arrow open"></span>')
                 }
+            }
         );
 
         if ($('.sub-menu-li').hasClass('active')) {

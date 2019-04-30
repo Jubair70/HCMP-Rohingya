@@ -24,3 +24,6 @@ DataBase change :
 Date : 30 April , 2019
 
 1. kobocat-template/static/js/instance.js
+2. kobocat/onadata/apps/hcmp_report/templates/hcmp_report/activity_progress_edit.html
+3. kobocat/onadata/apps/hcmp_report/templates/hcmp_report/activity_progress_site_imporovement_edit.html
+4. kobocat/onadata/apps/hcmp_report/views.py

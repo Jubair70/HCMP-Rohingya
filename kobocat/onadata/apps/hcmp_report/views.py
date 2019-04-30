@@ -1766,6 +1766,9 @@ def form_new_submission(request,id_string):
         title = 'Activity Progress-Shelter'
     if id_string == 'activity_progress_c4d':
         sector_id = 2
+    if id_string == 'activity_progress_site_improvement':
+        title = 'Activity Progress-Site Improvement'
+        sector_id = 11
 
     xform_id = __db_fetch_single_value("select id from logger_xform where id_string ='" + str(id_string) + "'")
     form_uuid = __db_fetch_single_value("select uuid from logger_xform where id = " + str(xform_id))
@@ -1791,7 +1794,14 @@ def form_new_submission(request,id_string):
         sector_id) + "), t3 AS (SELECT * FROM t1 LEFT JOIN t2 ON t1.activity_id = t2.id), t4 AS (SELECT sub_activity_id, (SELECT name FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_name, (select code from project where id = project_id limit 1) project_code, (SELECT id FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_code FROM activity_mapping) SELECT  distinct(t4.donor_code)::text donor , t4.donor_name donor_label FROM t3 LEFT JOIN t4 ON t3.sub_activity_id = t4.sub_activity_id where t3.activity_code is not null and t4.sub_activity_id is not null "
     opt_donor_list = json.dumps(__db_fetch_values_dict(doner_query))
 
-    return render(request, "hcmp_report/activity_progress_edit.html",
+    if id_string == 'activity_progress_site_improvement':
+        return render(request, "hcmp_report/activity_progress_site_imporovement_edit.html",
+                      {'id_string': id_string, 'xform_id': xform_id, 'username': username, 'title':title ,
+                       'opt_donor_list': opt_donor_list,'opt_activity_list': opt_activity_list,
+                       'opt_sub_activity_list': opt_sub_activity_list, 'opt_project_list': opt_project_list,
+                       'form_uuid': form_uuid})
+    else:
+        return render(request, "hcmp_report/activity_progress_edit.html",
                   {'id_string': id_string, 'xform_id': xform_id, 'username': username,
                    'opt_donor_list': opt_donor_list, 'opt_activity_list': opt_activity_list, 'title': title,
                     'form_uuid': form_uuid,'opt_sub_activity_list': opt_sub_activity_list, 'opt_project_list': opt_project_list, 'instance_id': ''})

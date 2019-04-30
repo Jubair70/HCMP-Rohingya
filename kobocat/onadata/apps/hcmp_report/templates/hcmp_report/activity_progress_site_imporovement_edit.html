@@ -56,6 +56,8 @@
         }
     </style>
 </head>
+
+
 <body class="page-header-fixed page-footer-fixed">
 <!-- BEGIN HEADER -->
 <div class="header navbar navbar-inverse navbar-fixed-top">
@@ -63,7 +65,7 @@
     <div class="header-inner">
         <!-- BEGIN LOGO -->
         <a class="navbar-brand" href="/">
-            <img alt="" src="{{ STATIC_URL }}images/login_box_logo.png" width="auto" height="29"/>
+            <img alt="" src="{{ STATIC_URL }}assets/img/brac/admin-logo.png" width="auto" height="29"/>
         </a>
         <!-- END LOGO -->
         <!-- BEGIN RESPONSIVE MENU TOGGLER -->
@@ -111,20 +113,40 @@
 
                     <div class="row">
                         <div class="col-lg-3">
+{#                            <div class="form-group"><label>Activity Date</label>#}
+{#                                <div class="input-group"><input ng-model="vms.model.act_date" validation=""#}
+{#                                                                name="act_date" is-open="vms.isDatePickerOpen_act_date"#}
+{#                                                                class="datepicker form-control"#}
+{#                                                                uib-datepicker-popup="yyyy/MM/dd" max-date="vms.maxDate"#}
+{#                                                                readonly="None" min-date="vms.minDate"#}
+{#                                                                ng-change="parseCustomConstraints(vms.model.act_date,'.<=today()', 'root', -1, 'act_date','Please enter a valid value')"#}
+{#                                                                datepicker-options="vms.dateOptions"#}
+{#                                                                validation-error-to="act_date_error" type="text"#}
+{#                                                                datepicker-mode="day"/><span class="input-group-btn"> <button#}
+{#                                        data-ng-click="vms.openDatePicker($event,'isDatePickerOpen_act_date')"#}
+{#                                        type="button" class="btn btn-default"> <i#}
+{#                                        class="glyphicon glyphicon-calendar"></i></button></span></div>#}
+{#                                <span id="act_date_error" class="field_error"></span></div>#}
                             <div class="form-group"><label>Activity Date</label>
                                 <div class="input-group"><input ng-model="vms.model.act_date" validation=""
                                                                 name="act_date" is-open="vms.isDatePickerOpen_act_date"
                                                                 class="datepicker form-control"
                                                                 uib-datepicker-popup="yyyy/MM/dd" max-date="vms.maxDate"
-                                                                readonly="None" min-date="vms.minDate"
+                                                                min-date="vms.minDate"
                                                                 ng-change="parseCustomConstraints(vms.model.act_date,'.<=today()', 'root', -1, 'act_date','Please enter a valid value')"
                                                                 datepicker-options="vms.dateOptions"
-                                                                validation-error-to="act_date_error" type="text"
-                                                                datepicker-mode="day"/><span class="input-group-btn"> <button
-                                        data-ng-click="vms.openDatePicker($event,'isDatePickerOpen_act_date')"
-                                        type="button" class="btn btn-default"> <i
-                                        class="glyphicon glyphicon-calendar"></i></button></span></div>
+                                                                validation-error-to="act_date_error" type="date"
+                                                                datepicker-mode="day"/><span class="input-group-btn">
+{#                                    <button#}
+{#                                        data-ng-click="vms.openDatePicker($event,'isDatePickerOpen_act_date')"#}
+{#                                        type="button" class="btn btn-default"> <i#}
+{#                                        class="glyphicon glyphicon-calendar"></i></button>#}
+                                </span></div>
                                 <span id="act_date_error" class="field_error"></span></div>
+
+
+
+
                         </div>
                         <div class="col-lg-3">
                             <div class="form-group"><label>Implementing Partner</label><select
@@ -964,40 +986,40 @@
 <script type="text/javascript">
     var sid = 0;
     var id_string = '{{ id_string }}';
-    var instance_id = {{ instance_id |safe }}
+    var instance_id = '{{ instance_id |safe }}'
 
 
+    function generateXML(inputObj, instance_id) {
 
-        function generateXML(inputObj, instance_id) {
-            var xw = new XMLWriter('UTF-8');
-            xw.writeStartDocument();
-            xw.writeStartElement(id_string);
-            xw.writeAttributeString('id', id_string);
-            xw.writeStartElement('formhub');
-            xw.writeStartElement('uuid');
-            xw.writeString('{{ form_uuid }}');
-            xw.writeEndElement();
-            xw.writeEndElement();
-            for (var ppx in inputObj) {
-                xmlrecursive(xw, ppx, inputObj[ppx]);
-            }
-            xw.writeStartElement('meta');
-            xw.writeStartElement('instanceID');
-            xw.writeString('uuid:' + guid());
-            xw.writeEndElement();
-            if (instance_id != '') {
-                var uuid = jsonObj[id_string].meta.instanceID.split(':')[1];
-                xw.writeStartElement('deprecatedID');
-                xw.writeString('uuid:' + uuid);
-                xw.writeEndElement();
-            }
-            xw.writeEndElement();
-            xw.writeEndElement();
-            xw.writeEndDocument();
-            var xml = xw.flush();
-            xw = undefined;
-            return xml;
+        var xw = new XMLWriter('UTF-8');
+        xw.writeStartDocument();
+        xw.writeStartElement(id_string);
+        xw.writeAttributeString('id', id_string);
+        xw.writeStartElement('formhub');
+        xw.writeStartElement('uuid');
+        xw.writeString('{{ form_uuid }}');
+        xw.writeEndElement();
+        xw.writeEndElement();
+        for (var ppx in inputObj) {
+            xmlrecursive(xw, ppx, inputObj[ppx]);
         }
+        xw.writeStartElement('meta');
+        xw.writeStartElement('instanceID');
+        xw.writeString('uuid:' + guid());
+        xw.writeEndElement();
+        if (instance_id != '') {
+            var uuid = jsonObj[id_string].meta.instanceID.split(':')[1];
+            xw.writeStartElement('deprecatedID');
+            xw.writeString('uuid:' + uuid);
+            xw.writeEndElement();
+        }
+        xw.writeEndElement();
+        xw.writeEndElement();
+        xw.writeEndDocument();
+        var xml = xw.flush();
+        xw = undefined;
+        return xml;
+    }
 
     function xmlrecursive(xml, key, value) {
         if (typeof value !== "undefined") {
@@ -1059,29 +1081,31 @@
         var vs = new ValidationService({controllerAs: vms});
 
 
-        /*
-         vms.datePickerFormat = 'dd/MM/yyyy';
-         vms.dateOptions = {formatYear: 'yy'};
+{##}
+{#         vms.datePickerFormat = 'dd/MM/yyyy';#}
+{#         vms.dateOptions = {formatYear: 'yy'};#}
+{##}
+{#         vms.isDatePickerOpen_phase__cover_period_to_date = {};#}
+{#         vms.isDatePickerOpen_phase__cover_period_from_date = {}#}
+{##}
+{#         vms.minDate = new Date(); // 10 years ago#}
+{#         vms.minDate.setHours(0, 0, 0, 0);#}
+{#         vms.minDate.setMonth(vms.minDate.getMonth() - 12 * 10);#}
+{#         vms.maxDate = new Date(); // now#}
+{#         vms.maxDate.setHours(0, 0, 0, 0);#}
+{##}
+{#         this.openDatePicker1 = function ($event, idx) {#}
+{#         $event.preventDefault();#}
+{#         $event.stopPropagation();#}
+{#         vms.isDatePickerOpen_phase__cover_period_from_date['idx' + idx] = true;#}
+{#         };#}
 
-         vms.isDatePickerOpen_phase__cover_period_to_date = {};
-         vms.isDatePickerOpen_phase__cover_period_from_date = {}
-
-         vms.minDate = new Date(); // 10 years ago
-         vms.minDate.setHours(0, 0, 0, 0);
-         vms.minDate.setMonth(vms.minDate.getMonth() - 12 * 10);
-         vms.maxDate = new Date(); // now
-         vms.maxDate.setHours(0, 0, 0, 0);
-
-         this.openDatePicker1 = function ($event, idx) {
-         $event.preventDefault();
-         $event.stopPropagation();
-         vms.isDatePickerOpen_phase__cover_period_from_date['idx' + idx] = true;
-         };
-         */
 
 
-        vms.isChangeDatePickerOpen1 = false;
-        vms.isChangeDatePickerOpen2 = false;
+{#        vms.isChangeDatePickerOpen1 = false;#}
+{#        vms.isChangeDatePickerOpen2 = false;#}
+
+        vms.isDatePickerOpen_act_date = false ;
         vms.datePickerFormat = 'dd/MM/yyyy';
         vms.dateOptions = {formatYear: 'yy'};
 
@@ -1095,6 +1119,7 @@
             $event.preventDefault();
             $event.stopPropagation();
             vms[identifier] = true;
+
         };
 
 
@@ -1237,16 +1262,16 @@
             });
             var generatedXML = generateXML(inputStore, edit_instance_id);
 
-
             return generatedXML
         };
 
 
+
         $scope.uploadPic = function (req) {
+
             $("#loading").show();
             $("#dynamic_form").css('opacity', '0.4');
             xmltext = $scope.save();
-
 
             if (req.upload_product) {
                 file = req.upload_product;
@@ -1275,6 +1300,7 @@
                 });
             } else {
 
+
                 $http({
                     method: 'POST',
                     url: '/planmodule/submit-xml-data/',
@@ -1285,7 +1311,13 @@
                     }
                 }).success(function (data) {
 
-                    window.location.href = '/' + $scope.username + '/forms/' + id_string + '/instance/?s_id=' + instance_id + '#/' + instance_id
+                    if(instance_id.length == 0) {
+                        window.location.href = '/usermodule/brac_admin/projects-views/' + id_string + '/'
+
+                    }
+                    else
+                       window.location.href = '/' + $scope.username + '/forms/' + id_string + '/instance/?s_id=' + instance_id + '#/' + instance_id
+
 
                 });
             }

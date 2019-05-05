@@ -914,7 +914,7 @@
                                                                                 name="length" step="0.01"
                                                                                 ng-change="parseCustomConstraints(vms.model.length,'.>=0', 'root', -1, 'length','Please enter a valid value')"
                                                                                 validation-error-to="length_error"
-                                                                                validation="" type="number"
+                                                                                validation="required" type="number"
                                                                                 class="form-control"/><span
                                     id="length_error" class="field_error"></span></div>
                         </div>
@@ -923,14 +923,19 @@
                                                                                 name="number"
                                                                                 ng-change="parseCustomConstraints(vms.model.number,'.>=0', 'root', -1, 'number','Please enter a valid value')"
                                                                                 validation-error-to="number_error"
-                                                                                validation="" type="number"
+                                                                                validation="required" type="number"
                                                                                 class="form-control"/><span
                                     id="number_error" class="field_error"></span></div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-3">
-                            <div class="form-group"><label>GPS</label></div>
+                        <div class="col-lg-6">
+                            <div class="form-group"><label>GPS</label><input ng-model="vms.model.gps"
+                                                                                name="gps"
+                                                                                validation-error-to="gps_error"
+                                                                                validation="required" type="text"
+                                                                                class="form-control"/><span
+                                    id="gps_error" class="field_error"></span></div>
                         </div>
                     </div>
 
@@ -1079,8 +1084,6 @@
         vms.model = {};
         // use the ValidationService only to declare the controllerAs syntax
         var vs = new ValidationService({controllerAs: vms});
-
-
 {##}
 {#         vms.datePickerFormat = 'dd/MM/yyyy';#}
 {#         vms.dateOptions = {formatYear: 'yy'};#}
@@ -1104,6 +1107,29 @@
 
 {#        vms.isChangeDatePickerOpen1 = false;#}
 {#        vms.isChangeDatePickerOpen2 = false;#}
+
+        var mysrclat = 0;
+        var mysrclong = 0;
+        $scope.mysrclat =''
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+            mysrclat = position.coords.latitude;
+            mysrclong = position.coords.longitude;
+            vms.model.gps = mysrclat + ' '+mysrclong
+                
+            });
+        }
+
+
+
+
+
+
+
+
+
+
+
 
         vms.isDatePickerOpen_act_date = false ;
         vms.datePickerFormat = 'dd/MM/yyyy';
@@ -1432,7 +1458,6 @@
 
                     element_arr = lookup_v2(element_name, loop_element_name, index);
 
-
                     if (element_arr != null) {
                         element.$setViewValue(element_arr);
                         element.$render();
@@ -1485,6 +1510,7 @@
 
 
             }
+
         });
 
 
@@ -1573,6 +1599,17 @@
 
 
         }, true);
+
+
+        $scope.$watch('vms.model.gps', function (newValues, oldValues) {
+
+                    vms.gps =  mysrclat
+                    console.log("mysrclat")
+                    console.log(mysrclat)
+
+
+        }, true);
+
 
 
         {#        $scope.$watch('opt_upazila', function (newValue, oldValue) {#}

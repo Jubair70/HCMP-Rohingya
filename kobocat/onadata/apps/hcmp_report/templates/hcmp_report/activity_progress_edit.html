@@ -751,6 +751,9 @@
                         </div>
                     </div>
                     <div ng-repeat="name in data.names track by $index" id="rpt_act" class="iterator_fields row">
+
+
+
                         <div class="col-lg-3">
                             <div class="form-group"><label>Donor</label><select validation-error-to="act__donor_error"
                                                                                 class="form-control"
@@ -794,6 +797,12 @@
                                 <option value="">-- Select --</option>
                             </select><span id="act__project_name__{$$index$}_error" class="field_error"></span></div>
                         </div>
+
+
+
+
+
+
                         <div class="col-lg-3">
                             <div class="form-group"><label>Cash/ In kind</label><select
                                     validation-error-to="act__cash_or_in_kind_error" class="form-control"
@@ -805,22 +814,22 @@
                                 <option value="11">In kind</option>
                             </select><span id="act__cash_or_in_kind__{$$index$}_error" class="field_error"></span></div>
                         </div>
-                        <div class="col-lg-3">
-                            <div class="form-group" ng-show="1==0"><label>Activity Details/Indicator</label><input
-                                    ng-model="vms.model.act__activity_details[$index]"
-                                    name="act__activity_details__{$$index$}"
-                                    id="act__activity_details__{$$index$}"
-                                    validation-error-to="act__activity_details_error" validation="" type="text"
-                                    class="form-control"/><span id="act__activity_details__{$$index$}_error"
-                                                                class="field_error"></span>
-                            </div>
-                        </div>
+{#                        <div class="col-lg-3">#}
+{#                            <div class="form-group" ng-show="1==0"><label>Activity Details/Indicator</label><input#}
+{#                                    ng-model="vms.model.act__activity_details[$index]"#}
+{#                                    name="act__activity_details__{$$index$}"#}
+{#                                    id="act__activity_details__{$$index$}"#}
+{#                                    validation-error-to="act__activity_details_error" validation="" type="text"#}
+{#                                    class="form-control"/><span id="act__activity_details__{$$index$}_error"#}
+{#                                                                class="field_error"></span>#}
+{#                            </div>#}
+{#                        </div>#}
                         <div class="col-lg-3">
                             <div class="form-group"><label>Unit Per HH</label><input
                                     ng-model="vms.model.act__unit_per_hh[$index]" name="act__unit_per_hh__{$$index$}"
                                     id="act__unit_per_hh__{$$index$}"
                                     ng-change="parseCustomConstraints(vms.model.act__unit_per_hh[$index],'.>=0', 'act', -1, 'act__unit_per_hh','Please enter a valid value')"
-                                    validation-error-to="act__unit_per_hh__{$$index$}_error" validation="" type="number"
+                                    validation-error-to="act__unit_per_hh__{$$index$}_error" validation="required" type="number"
                                     class="form-control"/><span id="act__unit_per_hh_error" class="field_error"></span>
                             </div>
                         </div>
@@ -830,7 +839,7 @@
                                     name="act__reached_total_hh__{$$index$}"
                                     id="act__reached_total_hh__{$$index$}"
                                     ng-change="parseCustomConstraints(vms.model.act__reached_total_hh[$index],'.>=0', 'act', -1, 'act__reached_total_hh','Please enter a valid value')"
-                                    validation-error-to="act__reached_total_hh_error" validation="" type="number"
+                                    validation-error-to="act__reached_total_hh_error" validation="required" type="number"
                                     class="form-control"/><span id="act__reached_total_hh__{$$index$}_error"
                                                                 class="field_error"></span>
                             </div>
@@ -841,7 +850,7 @@
                                     name="act__reached_total_beneficiaries__{$$index$}"
                                     id="act__reached_total_beneficiaries__{$$index$}"
                                     ng-change="parseCustomConstraints(vms.model.act__reached_total_beneficiaries[$index],'.>=0', 'act', -1, 'act__reached_total_beneficiaries','Please enter a valid value')"
-                                    validation-error-to="act__reached_total_beneficiaries_error" validation=""
+                                    validation-error-to="act__reached_total_beneficiaries_error" validation="required"
                                     type="number"
                                     class="form-control"/><span id="act__reached_total_beneficiaries__{$$index$}_error"
                                                                 class="field_error"></span></div>

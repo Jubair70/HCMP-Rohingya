@@ -27,3 +27,9 @@ Date : 30 April , 2019
 2. kobocat/onadata/apps/hcmp_report/templates/hcmp_report/activity_progress_edit.html
 3. kobocat/onadata/apps/hcmp_report/templates/hcmp_report/activity_progress_site_imporovement_edit.html
 4. kobocat/onadata/apps/hcmp_report/views.py
+
+Date : 5 May , 2019
+
+1. kobocat/onadata/apps/hcmp_report/templates/hcmp_report/activity_progress_edit.html
+2. kobocat/onadata/apps/hcmp_report/templates/hcmp_report/activity_progress_site_imporovement_edit.html
+

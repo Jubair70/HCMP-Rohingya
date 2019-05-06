@@ -1082,6 +1082,9 @@
 
         var vms = this;
         vms.model = {};
+
+
+
         // use the ValidationService only to declare the controllerAs syntax
         var vs = new ValidationService({controllerAs: vms});
 {##}
@@ -1108,28 +1111,21 @@
 {#        vms.isChangeDatePickerOpen1 = false;#}
 {#        vms.isChangeDatePickerOpen2 = false;#}
 
-        var mysrclat = 0;
-        var mysrclong = 0;
+
+
+        $scope.mysrclat = 0;
+        $scope.mysrclong = 0;
         $scope.mysrclat =''
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
-            mysrclat = position.coords.latitude;
-            mysrclong = position.coords.longitude;
-            vms.model.gps = mysrclat + ' '+mysrclong
-                
+            if (location.href.indexOf('reload')==-1) location.replace(location.href+'?reload')
+
+            $scope.mysrclat  = position.coords.latitude;
+            $scope.mysrclong  = position.coords.longitude;
+            vms.model.gps = $scope.mysrclat + ' ' +$scope.mysrclong
+
             });
         }
-
-
-
-
-
-
-
-
-
-
-
 
         vms.isDatePickerOpen_act_date = false ;
         vms.datePickerFormat = 'dd/MM/yyyy';
@@ -1599,17 +1595,6 @@
 
 
         }, true);
-
-
-        $scope.$watch('vms.model.gps', function (newValues, oldValues) {
-
-                    vms.gps =  mysrclat
-                    console.log("mysrclat")
-                    console.log(mysrclat)
-
-
-        }, true);
-
 
 
         {#        $scope.$watch('opt_upazila', function (newValue, oldValue) {#}

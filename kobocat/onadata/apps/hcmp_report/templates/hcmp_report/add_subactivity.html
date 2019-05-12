@@ -9,7 +9,7 @@
     <div class="portlet box red">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-reorder"></i><a style = "color: #fff;" href = "/hcmp_report/sector_list/">{{ sector_name }}</a> ><a style="color: #fff;" onclick="history.go(-1);"  href = "#">{{ activity_name }}</a>
+                <i class="fa fa-reorder"></i><a style = "color: #fff;" href = "/">{{ sector_name }}</a> ><a style="color: #fff;" onclick="history.go(-1);"  href = "#">{{ activity_name }}</a>
             </div>
         </div>
 
@@ -76,6 +76,7 @@
 
     <script type="text/javascript" src="/static/js/bootstrap-datepicker.js"></script>
     <script>
+    $('.caption a').attr("href",'/hcmp_report/forms_configuation/'+accessCookie("tile")+'/');
     var activity_id = '{{ activity_id }}';
     function check_duplicate_sub_activity_code(code){
         $.ajax({

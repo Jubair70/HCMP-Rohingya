@@ -9,7 +9,7 @@
     <div class="portlet box red">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-reorder"></i> <a style = "color: #fff;" href = "/hcmp_report/sector_list/">{{ sector }}</a> > {{ activity }} ><a style="color: #fff;" onclick="history.go(-1);"  href = "#"> {{ sub_activity }}</a>
+                <i class="fa fa-reorder"></i> <a style = "color: #fff;" href = "/">{{ sector }}</a> > {{ activity }} ><a style="color: #fff;" onclick="history.go(-1);"  href = "#"> {{ sub_activity }}</a>
             </div>
         </div>
 
@@ -136,6 +136,7 @@
 
     <script type="text/javascript" src="/static/js/bootstrap-datepicker.js"></script>
     <script>
+    $('.caption a').attr("href",'/hcmp_report/forms_configuation/'+accessCookie("tile")+'/');
      $(".datepicker").on('keydown', function(e){
         e.preventDefault();
     });

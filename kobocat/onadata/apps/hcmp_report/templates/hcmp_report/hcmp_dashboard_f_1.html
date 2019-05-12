@@ -31,7 +31,7 @@
                     <span class="span_cls two_liner_span">Child<br>protection</span>
                 </div>
             </div>
-            <a href="/hcmp_report/forms_configuation/2/" >
+            <a href="/hcmp_report/forms_configuation/2/" onclick="track_tiles(2)">
             <div class="tiles_cls">
                 <div class="wash_cls">
                     <img src="/static/icons/WaSH.png">
@@ -39,7 +39,7 @@
                 </div>
             </div>
                 </a>
-            <a href="/hcmp_report/forms_configuation/1/" >
+            <a href="/hcmp_report/forms_configuation/1/" onclick="track_tiles(1)">
             <div class="tiles_cls" >
                 <div class="protection_cls">
                     <img src="/static/icons/Shelter & NFI-1.png">
@@ -107,4 +107,11 @@
 
 {% block additional-javascript %}
       <script type="text/javascript" src="/static/js/hcmp_dashboard.js"></script>
+    <script>
+    function track_tiles(tile) {
+        sd = "tile="+tile;
+        document.cookie = sd;
+
+    }
+    </script>
 {% endblock %}

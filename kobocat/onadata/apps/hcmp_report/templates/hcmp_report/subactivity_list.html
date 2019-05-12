@@ -11,7 +11,7 @@
 
     <div class="portlet box red">
         <div class="portlet-title">
-            <div class="caption"><i class="fa fa-adn"></i><a style = "color: #fff;" href = "/hcmp_report/sector_list/">{{ sector }}</a> > <a style="color: #fff;" onclick="history.go(-1);"  href = "#">{{ activity_name }}</a></div>
+            <div class="caption"><i class="fa fa-adn"></i><a style = "color: #fff;" href = "/">{{ sector }}</a> > <a style="color: #fff;" onclick="history.go(-1);"  href = "#">{{ activity_name }}</a></div>
         </div>
         <div class="portlet-body">
             <div class="row">
@@ -79,7 +79,7 @@
     <script>
 var table;
     $(document).ready(function () {
-
+        $('.caption a').attr("href",'/hcmp_report/forms_configuation/'+accessCookie("tile")+'/');
  table = $('#subactivity_table').DataTable({
             "scrollX": true, "ordering": false,
             deferRender: true

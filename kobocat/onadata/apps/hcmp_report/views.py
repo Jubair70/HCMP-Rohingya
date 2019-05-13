@@ -1553,6 +1553,14 @@ def get_activity_csv(request,id_string):
         sector_id = 2
     if id_string == 'activity_progress_site_improvement':
         sector_id = 11
+    if id_string == 'activity_progress_wash_hygiene':
+        sector_id = 6
+    if id_string == 'activity_progress_wash_sanitation':
+        sector_id = 12
+    if id_string == 'activity_progress_wash_solid_waste':
+        sector_id = 13
+    if id_string == 'activity_progress_wash_water':
+        sector_id = 14
 
 
     #q = "with t1 as(SELECT id AS sub_activity_id, activity_id, sub_activity_name, code::text sub_activity_code FROM sub_activity WHERE activity_id =ANY (SELECT id FROM activity WHERE sector_id = "+str(sector_id)+")), t2 as (SELECT id , activity_name , code::text activity_code FROM activity WHERE sector_id = "+str(sector_id)+"), t3 as (SELECT * FROM t1 LEFT JOIN t2 ON t1.activity_id = t2.id), t4 as (SELECT sub_activity_id, (SELECT name FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_name, (SELECT id FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_code FROM activity_mapping) SELECT DISTINCT t4.donor_name donor_label, t4.donor_code::text donor, t3.activity_name activity_label, t4.donor_code ||t3.activity_code activity, t3.sub_activity_name subactivity_label, t4.donor_code||t3.activity_code||t3.sub_activity_code sub_activity FROM t3 LEFT JOIN t4 ON t3.sub_activity_id = t4.sub_activity_id"

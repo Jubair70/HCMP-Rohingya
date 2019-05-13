@@ -1546,21 +1546,45 @@ def delete_sector(request,sector_id,tiles_id):
 
 def get_activity_csv(request,id_string):
     if id_string == 'activity_progress_nfi':
-        sector_id = 1
+        query_get_sector_id = __db_fetch_single_value(
+            "	select sector_id from tiles_sector_form_map where form_id::int = any(select id from logger_xform where id_string = '" + str(
+                id_string) + "')")
+        sector_id = query_get_sector_id[0]
     if id_string == 'activity_progress_shelter':
-        sector_id = 2
+        query_get_sector_id = __db_fetch_single_value(
+            "	select sector_id from tiles_sector_form_map where form_id::int = any(select id from logger_xform where id_string = '" + str(
+                id_string) + "')")
+        sector_id = query_get_sector_id[0]
     if id_string == 'activity_progress_c4d':
-        sector_id = 2
+        query_get_sector_id = __db_fetch_single_value(
+            "	select sector_id from tiles_sector_form_map where form_id::int = any(select id from logger_xform where id_string = '" + str(
+                id_string) + "')")
+        sector_id = query_get_sector_id[0]
     if id_string == 'activity_progress_site_improvement':
-        sector_id = 11
+        query_get_sector_id = __db_fetch_single_value(
+            "	select sector_id from tiles_sector_form_map where form_id::int = any(select id from logger_xform where id_string = '" + str(
+                id_string) + "')")
+        sector_id = query_get_sector_id[0]
     if id_string == 'activity_progress_wash_hygiene':
-        sector_id = 6
+        query_get_sector_id = __db_fetch_single_value(
+            "	select sector_id from tiles_sector_form_map where form_id::int = any(select id from logger_xform where id_string = '" + str(
+                id_string) + "')")
+        sector_id = query_get_sector_id[0]
     if id_string == 'activity_progress_wash_sanitation':
-        sector_id = 12
+        query_get_sector_id = __db_fetch_single_value(
+            "	select sector_id from tiles_sector_form_map where form_id::int = any(select id from logger_xform where id_string = '" + str(
+                id_string) + "')")
+        sector_id = query_get_sector_id[0]
     if id_string == 'activity_progress_wash_solid_waste':
-        sector_id = 13
+        query_get_sector_id = __db_fetch_single_value(
+            "	select sector_id from tiles_sector_form_map where form_id::int = any(select id from logger_xform where id_string = '" + str(
+                id_string) + "')")
+        sector_id = query_get_sector_id[0]
     if id_string == 'activity_progress_wash_water':
-        sector_id = 14
+        query_get_sector_id = __db_fetch_single_value(
+            "	select sector_id from tiles_sector_form_map where form_id::int = any(select id from logger_xform where id_string = '" + str(
+                id_string) + "')")
+        sector_id = query_get_sector_id[0]
 
 
     #q = "with t1 as(SELECT id AS sub_activity_id, activity_id, sub_activity_name, code::text sub_activity_code FROM sub_activity WHERE activity_id =ANY (SELECT id FROM activity WHERE sector_id = "+str(sector_id)+")), t2 as (SELECT id , activity_name , code::text activity_code FROM activity WHERE sector_id = "+str(sector_id)+"), t3 as (SELECT * FROM t1 LEFT JOIN t2 ON t1.activity_id = t2.id), t4 as (SELECT sub_activity_id, (SELECT name FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_name, (SELECT id FROM donor WHERE id = (SELECT donor_id FROM project WHERE id = project_id)) donor_code FROM activity_mapping) SELECT DISTINCT t4.donor_name donor_label, t4.donor_code::text donor, t3.activity_name activity_label, t4.donor_code ||t3.activity_code activity, t3.sub_activity_name subactivity_label, t4.donor_code||t3.activity_code||t3.sub_activity_code sub_activity FROM t3 LEFT JOIN t4 ON t3.sub_activity_id = t4.sub_activity_id"
@@ -1814,13 +1838,7 @@ def form_new_submission(request,id_string):
                        'opt_donor_list': opt_donor_list,'opt_activity_list': opt_activity_list,
                        'opt_sub_activity_list': opt_sub_activity_list, 'opt_project_list': opt_project_list,
                        'form_uuid': form_uuid})
-    elif id_string == 'activity_progress_wash_hygiene' :
-        return render(request, "hcmp_report/activity_progress_wash_edit.html",
-                      {'id_string': id_string, 'xform_id': xform_id, 'username': username, 'title': title,
-                       'opt_donor_list': opt_donor_list, 'opt_activity_list': opt_activity_list,
-                       'opt_sub_activity_list': opt_sub_activity_list, 'opt_project_list': opt_project_list,
-                       'form_uuid': form_uuid, 'instance_id': ''})
-    elif id_string == 'activity_progress_wash_solid_waste' :
+    elif id_string == 'activity_progress_wash_hygiene' or id_string == 'activity_progress_wash_sanitation' or id_string == 'activity_progress_wash_water' or id_string == 'activity_progress_wash_solid_waste':
         return render(request, "hcmp_report/activity_progress_wash_edit.html",
                       {'id_string': id_string, 'xform_id': xform_id, 'username': username, 'title': title,
                        'opt_donor_list': opt_donor_list, 'opt_activity_list': opt_activity_list,
@@ -1832,7 +1850,6 @@ def form_new_submission(request,id_string):
                    'opt_donor_list': opt_donor_list, 'opt_activity_list': opt_activity_list, 'title': title,
                     'form_uuid': form_uuid,'opt_sub_activity_list': opt_sub_activity_list, 'opt_project_list': opt_project_list, 'instance_id': ''})
 
-    #or id_string == 'activity_progress_wash_sanitation' or id_string == 'activity_progress_wash_water' or id_string == 'activity_progress_wash_solid_waste'
 
 
 def activity_progress_edit(request, id_string , instance_id):
@@ -1888,19 +1905,12 @@ def activity_progress_edit(request, id_string , instance_id):
                        'opt_donor_list': opt_donor_list,'opt_activity_list': opt_activity_list,
                        'opt_sub_activity_list': opt_sub_activity_list, 'opt_project_list': opt_project_list,
                        'form_uuid': form_uuid, 'xml_data': xml_data, 'instance_id': instance_id})
-    elif id_string == 'activity_progress_wash_hygiene' :
+    elif id_string == 'activity_progress_wash_hygiene' or id_string == 'activity_progress_wash_sanitation' or id_string == 'activity_progress_wash_water' or id_string == 'activity_progress_wash_solid_waste':
         return render(request, "hcmp_report/activity_progress_wash_edit.html",
                       {'id_string': id_string, 'xform_id': xform_id, 'username': username, 'title':title ,
                        'opt_donor_list': opt_donor_list,'opt_activity_list': opt_activity_list,
                        'opt_sub_activity_list': opt_sub_activity_list, 'opt_project_list': opt_project_list,
                        'form_uuid': form_uuid, 'xml_data': xml_data, 'instance_id': instance_id})
-    elif id_string == 'activity_progress_wash_solid_waste' :
-        return render(request, "hcmp_report/activity_progress_wash_edit.html",
-                      {'id_string': id_string, 'xform_id': xform_id, 'username': username, 'title':title ,
-                       'opt_donor_list': opt_donor_list,'opt_activity_list': opt_activity_list,
-                       'opt_sub_activity_list': opt_sub_activity_list, 'opt_project_list': opt_project_list,
-                       'form_uuid': form_uuid, 'xml_data': xml_data, 'instance_id': instance_id})
-
     else:
         return render(request, "hcmp_report/activity_progress_edit.html",
                           {'id_string': id_string, 'xform_id': xform_id, 'username': username,

@@ -389,7 +389,7 @@ function loadData(context, query, canEdit) {
             //updateButtons(data[0]);
 
 
-            if( _id_string == 'activity_progress_shelter' || _id_string == 'activity_progress_nfi' || _id_string == 'activity_progress_site_improvement' )
+            if( _id_string == 'activity_progress_shelter' || _id_string == 'activity_progress_nfi' || _id_string == 'activity_progress_site_improvement' || _id_string == 'activity_progress_wash_hygiene' || _id_string == 'activity_progress_wash_sanitation' || _id_string == 'activity_progress_wash_solid_waste' || _id_string == 'activity_progress_wash_water' )
                 updateButtons_test(_id_string , instance_id )
             else
                 updateButtons(instance_id);

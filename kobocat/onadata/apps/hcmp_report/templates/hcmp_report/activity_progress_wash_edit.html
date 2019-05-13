@@ -160,19 +160,6 @@
                             </select><span id="implement_partner_error" class="field_error"></span></div>
                         </div>
                         <div class="col-lg-3">
-                            <div class="form-group"><label>Response</label><select validation-error-to="response_error"
-                                                                                   class="form-control"
-                                                                                   validation="required" name="response"
-                                                                                   ng-model="vms.model.response">
-                                <option value="">-- Select --</option>
-                                <option value="10">Regular Program</option>
-                                <option value="11">Natural Disasters-2018</option>
-                            </select><span id="response_error" class="field_error"></span></div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-3">
                             <div class="form-group"><label>Target Population</label><select
                                     validation-error-to="target_population_error" class="form-control"
                                     validation="required"
@@ -206,26 +193,11 @@
                         </div>
 
 
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-3">
-                            <div class="form-group"
-                                 ng-show="vms.model.target_population =='13' && vms.model.upazila == '202294' "
-                            ><label>Border/Transit
-                                Point</label><select validation-error-to="border_transit_location_error"
-                                                     class="form-control"
-                                                     name="border_transit_location"
-                                                     ng-required="vms.model.target_population =='13' && vms.model.upazila == '202294'"
-                                                     ng-model="vms.model.border_transit_location">
-                                <option value="">-- Select --</option>
-                                <option value="1">Anjumapara</option>
-                                <option value="2">Rahmater Bil</option>
-                            </select><span id="border_transit_location_error" class="field_error"></span></div>
-                        </div>
+
                         <div class="col-lg-3">
                             {#                            <div class="form-group" ng-show="(vms.model.border_transit_location == null && vms.model.border_transit_location == '' )  ">#}
                             <div class="form-group"
-                                 ng-show="(vms.model.target_population != '13' && vms.model.upazila !='')  ">
+                                 ng-show="(vms.model.upazila !='')  ">
 
                                 <label>Union</label><select
                                     validation-error-to="union_name_error" class="form-control"
@@ -245,8 +217,7 @@
                         </div>
                         <div class="col-lg-3">
                             <div class="form-group"
-                                 ng-show=" (vms.model.target_population==10 && vms.model.upazila !='') "
-                            >
+                                 ng-show=" (vms.model.target_population==10 && vms.model.upazila !='') ">
                                 <label>Camp</label><select
                                     validation-error-to="camp_error" class="form-control"
                                     ng-required="(vms.model.target_population==10 && vms.model.upazila !='') "
@@ -350,405 +321,6 @@
                                 </option>
                             </select><span id="camp_error" class="field_error"></span></div>
                         </div>
-
-                        <div class="col-lg-3">
-                            <div class="form-group"
-                                 ng-show=" (vms.model.target_population==10 && vms.model.upazila !='') "><label>Zone/Reference
-                                Zone</label><select validation-error-to="zone_error" class="form-control" validation=""
-                                                    name="zone" ng-model="vms.model.zone">
-                                <option value="">-- Select --</option>
-                                <option ng-show="vms.model.camp=='CXB-032'" value="CXB-032-23-1">Camp 23-Shamlapur
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-233'" value="CXB-233-24-1">Camp 24-Chona Para
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-233'" value="CXB-233-24-2">Camp 24-Puchinga
-                                    Para
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-233'" value="CXB-233-24-3">Camp 24-Lama Para
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-233'" value="CXB-233-24-4">Camp 24-Madrasa
-                                    Para
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-233'" value="CXB-233-24-5">Camp 24-Moulovi
-                                    Para
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-233'" value="CXB-233-24-6">Camp 24-Poschim Leda
-                                    (West Leda)
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-233'" value="CXB-233-24-7">Camp 24-Leda MS
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-233'" value="CXB-233-24-8">Camp 24-Purbo Leda
-                                    (East Leda)
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-017'" value="CXB-017-25-1">Camp 25-Fishery
-                                    Para
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-017'" value="CXB-017-25-2">Camp 25-Dokkhin
-                                    Alikhali
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-017'" value="CXB-017-25-3">Camp 25-Tula Bagan
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-017'" value="CXB-017-25-4">Camp 25-RongiKhali
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-017'" value="CXB-017-25-5">Camp 25-Uttor
-                                    Alikhali
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-025'" value="CXB-025-26-1">Camp 26-Noor Ali
-                                    Para
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-025'" value="CXB-025-26-2">Camp 26-Nuruzzamaner
-                                    Bari
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-025'" value="CXB-025-26-3">Camp 26-Soyed Ali
-                                    Para
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-025'" value="CXB-025-26-4">Camp 26-Kubaairza
-                                    Para
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-025'" value="CXB-025-26-5">Camp 26-Sheylla
-                                    Ghuna
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-025'" value="CXB-025-26-6">Camp 26-Jagirer
-                                    Deil
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-025'" value="CXB-025-26-7">Camp 26-West side of
-                                    H Block
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-025'" value="CXB-025-26-8">Camp 26-Dokkhin Leda
-                                    (South Leda)
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-025'" value="CXB-025-26-9">Camp 26-Sheylla
-                                    Ghuna P block
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-025'" value="CXB-025-26-10">Camp 26-Mochoni
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-025'" value="CXB-025-26-11">Camp 26-Mojar
-                                    Company er Bagan
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-025'" value="CXB-025-26-12">Camp 26-Mochoni
-                                    Lobon Maath
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-025'" value="CXB-025-26-13">Camp 26-Nayapara
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-025'" value="CXB-025-26-14">Camp 26-Sultan
-                                    Garden
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-025'" value="CXB-025-26-15">Camp 26-Shafi
-                                    Alomer Pahar
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-025'" value="CXB-025-26-16">Camp 26-Gura Miar
-                                    Vita
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-025'" value="CXB-025-26-17">Camp
-                                    26-Nosuruzzaman er Ghuna
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-025'" value="CXB-025-26-18">Camp 26-Hazi Jahed
-                                    Hossen er Vita
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-025'" value="CXB-025-26-19">Camp 26-Islamabad
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-025'" value="CXB-025-26-20">Camp 26-Jaliar
-                                    Ghat
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-025'" value="CXB-025-26-21">Camp 26-Hosen
-                                    Garden
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-025'" value="CXB-025-26-22">Camp 26-Paschim
-                                    Nayapara
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-025'" value="CXB-025-26-23">Camp 26-Shal
-                                    Bagan
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-037'" value="CXB-037-27-1">Camp 27-Moddum
-                                    Domdumia
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-037'" value="CXB-037-27-2">Camp 27-Nature Park
-                                    Check Post
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-037'" value="CXB-037-27-3">Camp 27-Nature
-                                    Park
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-037'" value="CXB-037-27-4">Camp 27-Omar Khaler
-                                    Bridge
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-037'" value="CXB-037-27-5">Camp 27-Jadimura
-                                    Iter Vata
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-037'" value="CXB-037-27-6">Camp 27-Hindupara
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-037'" value="CXB-037-27-7">Camp 27-Jadimura
-                                    School Site
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-037'" value="CXB-037-27-8">Camp 27-Zumma Para
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-037'" value="CXB-037-27-9">Camp 27-Munaf
-                                    Garden
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-037'" value="CXB-037-27-10">Camp 27-Paschim
-                                    Ghunar Para
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-037'" value="CXB-037-27-11">Camp 27-Zinzira
-                                    Para
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-037'" value="CXB-037-27-12">Camp 27-Jadimura
-                                    British Para
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-089'" value="CXB-089-NRC-I">Nayapara
-                                    RC-Nayapara RC - I block
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-089'" value="CXB-089-NRC-H">Nayapara
-                                    RC-Nayapara RC - H block
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-089'" value="CXB-089-NRC-0">Nayapara
-                                    RC-Nayapara RC
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-108'" value="CXB-108-21-1">Camp 21-Chakmarkul
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-085'" value="CXB-085-22-1">Camp 22-Unchiprang
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-214'" value="CXB-214-10-1">Camp 10-Balukhali
-                                    MS
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-214'" value="CXB-214-10-2">Camp 10-Zone JJ
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-214'" value="CXB-214-10-3">Camp 10-Zone MM
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-214'" value="CXB-214-10-4">Camp 10-Zone NN
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-214'" value="CXB-214-10-5">Camp 10-Zone RR
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-214'" value="CXB-214-10-6">Camp 10-Zone SS
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-217'" value="CXB-217-11-1">Camp 11-No Zone
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-217'" value="CXB-217-11-2">Camp 11-Zone MM
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-217'" value="CXB-217-11-3">Camp 11-Zone NN
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-217'" value="CXB-217-11-4">Camp 11-Zone SS
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-217'" value="CXB-217-11-5">Camp 11-Zone TT
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-218'" value="CXB-218-12-1">Camp 12-No Zone
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-218'" value="CXB-218-12-2">Camp 12-Zone SS
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-218'" value="CXB-218-12-3">Camp 12-Zone TT
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-218'" value="CXB-218-12-4">Camp 12-Zone XX
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-218'" value="CXB-218-12-5">Camp 12-Zone YY
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-220'" value="CXB-220-13-1">Camp 13-Thangkhali
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-220'" value="CXB-220-13-2">Camp 13-Zone ZA
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-222'" value="CXB-222-14-1">Camp 14-Hakimpara
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-222'" value="CXB-222-14-2">Camp 14-Jamtoli
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-222'" value="CXB-222-14-3">Camp 14-No Zone
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-223'" value="CXB-223-15-1">Camp 15-Jamtoli
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-223'" value="CXB-223-15-2">Camp
-                                    15-Moynarghona
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-224'" value="CXB-224-16-1">Camp 16-Jamtoli
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-224'" value="CXB-224-16-2">Camp
-                                    16-Moynarghona
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-224'" value="CXB-224-16-3">Camp 16-No Zone
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-212'" value="CXB-212-17-1">Camp 17-Zone PP
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-212'" value="CXB-212-17-2">Camp 17-Zone QQ
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-212'" value="CXB-212-17-3">Camp 17-Zone RR
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-212'" value="CXB-212-17-4">Camp 17-Zone UU
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-212'" value="CXB-212-17-5">Camp 17-Zone VV
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-212'" value="CXB-212-17-6">Camp 17-Zone WW
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-212'" value="CXB-212-17-7">Camp 17-Zone XX
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-215'" value="CXB-215-18-1">Camp 18-Zone RR
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-215'" value="CXB-215-18-2">Camp 18-Zone SS
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-215'" value="CXB-215-18-3">Camp 18-Zone TT
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-215'" value="CXB-215-18-4">Camp 18-Zone WW
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-215'" value="CXB-215-18-5">Camp 18-Zone XX
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-215'" value="CXB-215-18-6">Camp 18-Zone YY
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-215'" value="CXB-215-18-7">Camp 18-Zone ZA
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-219'" value="CXB-219-19-1">Camp 19-No Zone
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-219'" value="CXB-219-19-2">Camp 19-Thangkhali
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-219'" value="CXB-219-19-3">Camp 19-Zone XX
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-219'" value="CXB-219-19-4">Camp 19-Zone YY
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-219'" value="CXB-219-19-5">Camp 19-Zone ZA
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-201'" value="CXB-201-1E-1">Camp 1E-Kutupalong
-                                    MS
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-201'" value="CXB-201-1E-2">Camp 1E-No Zone
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-201'" value="CXB-201-1E-3">Camp 1E-Zone BB
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-201'" value="CXB-201-1E-4">Camp 1E-Zone CC
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-202'" value="CXB-202-1W-1">Camp 1W-Kutupalong
-                                    MS
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-202'" value="CXB-202-1W-2">Camp 1W-No Zone
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-202'" value="CXB-202-1W-3">Camp 1W-Zone BB
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-202'" value="CXB-202-1W-4">Camp 1W-Zone CC
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-216'" value="CXB-216-20-1">Camp 20-Zone ZA
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-216'" value="CXB-216-20-2">Camp 20-Zone ZZ
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-234'" value="CXB-234-20-3">Camp 20 Extension
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-203'" value="CXB-203-2E-1">Camp 2E-Kutupalong
-                                    MS
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-203'" value="CXB-203-2E-2">Camp 2E-Kutupalong
-                                    RC
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-203'" value="CXB-203-2E-3">Camp 2E-No Zone
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-203'" value="CXB-203-2E-4">Camp 2E-Zone GG
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-204'" value="CXB-204-2W-1">Camp 2W-Kutupalong
-                                    MS
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-204'" value="CXB-204-2W-2">Camp 2W-No Zone
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-204'" value="CXB-204-2W-3">Camp 2W-Zone BB
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-204'" value="CXB-204-2W-4">Camp 2W-Zone CC
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-204'" value="CXB-204-2W-5">Camp 2W-Zone FF
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-205'" value="CXB-205-3-1">Camp 3-No Zone
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-205'" value="CXB-205-3-2">Camp 3-Zone AA
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-205'" value="CXB-205-3-3">Camp 3-Zone BB
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-205'" value="CXB-205-3-4">Camp 3-Zone DD
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-205'" value="CXB-205-3-5">Camp 3-Zone EE
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-205'" value="CXB-205-3-6">Camp 3-Zone FF
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-206'" value="CXB-206-4-1">Camp 4-No Zone
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-206'" value="CXB-206-4-2">Camp 4-Zone AA
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-206'" value="CXB-206-4-3">Camp 4-Zone DD
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-206'" value="CXB-206-4-4">Camp 4-Zone EE
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-206'" value="CXB-206-4-5">Camp 4-Zone OO
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-206'" value="CXB-206-4-6">Camp 4-Zone PP
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-206'" value="CXB-206-4-7">Camp 4-Zone QQ
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-206'" value="CXB-206-4-8">Camp 4-Zone UU
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-232'" value="CXB-232-4-9">Camp 4 Extension
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-209'" value="CXB-209-5-1">Camp 5-Zone DD
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-209'" value="CXB-209-5-2">Camp 5-Zone EE
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-209'" value="CXB-209-5-3">Camp 5-Zone FF
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-209'" value="CXB-209-5-4">Camp 5-Zone HH
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-209'" value="CXB-209-5-5">Camp 5-Zone PP
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-209'" value="CXB-209-5-6">Camp 5-Zone QQ
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-208'" value="CXB-208-6-1">Camp 6-Kutupalong
-                                    MS
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-208'" value="CXB-208-6-2">Camp 6-Zone EE
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-208'" value="CXB-208-6-3">Camp 6-Zone FF
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-208'" value="CXB-208-6-4">Camp 6-Zone HH
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-207'" value="CXB-207-7-1">Camp 7-Kutupalong
-                                    MS
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-207'" value="CXB-207-7-2">Camp 7-No Zone
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-207'" value="CXB-207-7-3">Camp 7-Zone FF
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-207'" value="CXB-207-7-4">Camp 7-Zone GG
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-207'" value="CXB-207-7-5">Camp 7-Zone HH
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-207'" value="CXB-207-7-6">Camp 7-Zone II
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-210'" value="CXB-210-8E-1">Camp 8E-Balukhali
-                                    MS
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-210'" value="CXB-210-8E-2">Camp 8E-No Zone
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-210'" value="CXB-210-8E-3">Camp 8E-Zone FF
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-210'" value="CXB-210-8E-4">Camp 8E-Zone HH
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-210'" value="CXB-210-8E-5">Camp 8E-Zone II
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-210'" value="CXB-210-8E-6">Camp 8E-Zone KK
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-211'" value="CXB-211-8W-1">Camp 8W-Zone HH
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-211'" value="CXB-211-8W-2">Camp 8W-Zone JJ
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-211'" value="CXB-211-8W-3">Camp 8W-Zone KK
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-211'" value="CXB-211-8W-4">Camp 8W-Zone QQ
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-211'" value="CXB-211-8W-5">Camp 8W-Zone RR
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-211'" value="CXB-211-8W-6">Camp 8W-Zone SS
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-213'" value="CXB-213-9-1">Camp 9-Balukhali MS
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-213'" value="CXB-213-9-2">Camp 9-Zone JJ
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-213'" value="CXB-213-9-3">Camp 9-Zone KK
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-213'" value="CXB-213-9-4">Camp 9-Zone LL
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-213'" value="CXB-213-9-5">Camp 9-Zone MM
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-213'" value="CXB-213-9-6">Camp 9-Zone NN
-                                </option>
-                                <option ng-show="vms.model.camp=='CXB-221'" value="CXB-221-KRC">Kutupalong RC
-                                </option>
-                            </select><span id="zone_error" class="field_error"></span></div>
-                        </div>
                     </div>
                     <div ng-repeat="name in data.names track by $index" id="rpt_act" class="iterator_fields row">
                         <div class="col-lg-3">
@@ -801,65 +373,69 @@
 
 
                         <div class="col-lg-3">
-                            <div class="form-group"><label>Cash/ In kind</label><select
-                                    validation-error-to="act__cash_or_in_kind_error" class="form-control"
-                                    validation="required" name="act__cash_or_in_kind__{$$index$}"
-                                    id="act__cash_or_in_kind__{$$index$}"
-                                    ng-model="vms.model.act__cash_or_in_kind[$index]">
-                                <option value="">-- Select --</option>
-                                <option value="10">Cash</option>
-                                <option value="11">In kind</option>
-                            </select><span id="act__cash_or_in_kind__{$$index$}_error" class="field_error"></span></div>
-                        </div>
-{#                        <div class="col-lg-3">#}
-{#                            <div class="form-group" ng-show="1==0"><label>Activity Details/Indicator</label><input#}
-{#                                    ng-model="vms.model.act__activity_details[$index]"#}
-{#                                    name="act__activity_details__{$$index$}"#}
-{#                                    id="act__activity_details__{$$index$}"#}
-{#                                    validation-error-to="act__activity_details_error" validation="" type="text"#}
-{#                                    class="form-control"/><span id="act__activity_details__{$$index$}_error"#}
-{#                                                                class="field_error"></span>#}
-{#                            </div>#}
-{#                        </div>#}
-                        <div class="col-lg-3">
-                            <div class="form-group"><label>Unit Per HH</label><input
-                                    ng-model="vms.model.act__unit_per_hh[$index]" name="act__unit_per_hh__{$$index$}"
-                                    id="act__unit_per_hh__{$$index$}"
-                                    ng-change="parseCustomConstraints(vms.model.act__unit_per_hh[$index],'.>=0', 'act', -1, 'act__unit_per_hh','Please enter a valid value')"
-                                    validation-error-to="act__unit_per_hh__{$$index$}_error" validation="required" type="number"
-                                    class="form-control"/><span id="act__unit_per_hh_error" class="field_error"></span>
-                            </div>
+                            <div class="form-group"><label>Reached Total Beneficiaries (Families)</label><input
+                                    ng-model="vms.model.act__reached_total_beneficiary[$index]"
+                                    name="act__reached_total_beneficiary__{$$index$}"
+                                    validation-error-to="act__reached_total_beneficiary_error" validation="required"
+                                    type="number" class="form-control"/><span
+                                    id="act__reached_total_beneficiary__{$$index$}_error"
+                                    class="field_error"></span></div>
                         </div>
                         <div class="col-lg-3">
-                            <div class="form-group"><label>Reached Total Household</label><input
-                                    ng-model="vms.model.act__reached_total_hh[$index]"
-                                    name="act__reached_total_hh__{$$index$}"
-                                    id="act__reached_total_hh__{$$index$}"
-                                    ng-change="parseCustomConstraints(vms.model.act__reached_total_hh[$index],'.>=0', 'act', -1, 'act__reached_total_hh','Please enter a valid value')"
-                                    validation-error-to="act__reached_total_hh_error" validation="required" type="number"
-                                    class="form-control"/><span id="act__reached_total_hh__{$$index$}_error"
-                                                                class="field_error"></span>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="form-group"><label>Reached Individual</label><input
-                                    ng-model="vms.model.act__reached_total_beneficiaries[$index]"
-                                    name="act__reached_total_beneficiaries__{$$index$}"
-                                    id="act__reached_total_beneficiaries__{$$index$}"
-                                    ng-change="parseCustomConstraints(vms.model.act__reached_total_beneficiaries[$index],'.>=0', 'act', -1, 'act__reached_total_beneficiaries','Please enter a valid value')"
-                                    validation-error-to="act__reached_total_beneficiaries_error" validation="required"
-                                    type="number"
-                                    class="form-control"/><span id="act__reached_total_beneficiaries__{$$index$}_error"
+                            <div class="form-group"><label>Total Adult Females (> =18) Beneficiaries</label><input
+                                    ng-model="vms.model.act__reached_adult_female[$index]"
+                                    name="act__reached_adult_female__{$$index$}"
+                                    ng-change="parseCustomConstraints(vms.model.act__reached_adult_female[$index],'.>=0', 'act', -1, 'act__reached_adult_female','Please enter a valid value')"
+                                    validation-error-to="act__reached_adult_female_error" validation="required" type="number"
+                                    class="form-control"/><span id="act__reached_adult_female__{$$index$}_error"
                                                                 class="field_error"></span></div>
                         </div>
                         <div class="col-lg-3">
-                            <div class="form-group"><label>Comments</label><input
-                                    ng-model="vms.model.act__remarks[$index]"
-                                    class="form-control" type="text"
-                                    name="act__remarks__{$$index$}"
-                                    id="act__remarks__{$$index$}"
-                                    validation-error-to="act__remarks_error"/><span
-                                    id="act__remarks__{$$index$}_error" class="field_error"></span></div>
+                            <div class="form-group"><label>Total Adult Male (>=18) Beneficiaries</label><input
+                                    ng-model="vms.model.act__reached_adult_male[$index]"
+                                    name="act__reached_adult_male__{$$index$}"
+                                    ng-change="parseCustomConstraints(vms.model.act__reached_adult_male[$index],'.>=0', 'act', -1, 'act__reached_adult_male','Please enter a valid value')"
+                                    validation-error-to="act__reached_adult_male_error" validation="required" type="number"
+                                    class="form-control"/><span id="act__reached_adult_male__{$$index$}_error"
+                                                                class="field_error"></span></div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group"><label>Total Child Female (<= 17) Beneficiaries</label><input
+                                    ng-model="vms.model.act__reached_child_female[$index]"
+                                    name="act__reached_child_female__{$$index$}"
+                                    ng-change="parseCustomConstraints(vms.model.act__reached_child_female[$index],'.>=0', 'act', -1, 'act__reached_child_female','Please enter a valid value')"
+                                    validation-error-to="act__reached_child_female_error" validation="required" type="number"
+                                    class="form-control"/><span id="act__reached_child_female__{$$index$}_error"
+                                                                class="field_error"></span></div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group"><label>Total Child Male (<= 17) Beneficiaries</label><input
+                                    ng-model="vms.model.act__reached_child_male[$index]"
+                                    name="act__reached_child_male__{$$index$}"
+                                    ng-change="parseCustomConstraints(vms.model.act__reached_child_male[$index],'.>=0', 'act', -1, 'act__reached_child_male','Please enter a valid value')"
+                                    validation-error-to="act__reached_child_male_error" validation="required" type="number"
+                                    class="form-control"/><span id="act__reached_child_male__{$$index$}_error"
+                                                                class="field_error"></span></div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group"><label>Total Quantity Achieved</label><input
+                                    style="margin-top: 20px"
+                                    ng-model="vms.model.act__total_quantity_achieved[$index]"
+                                    name="act__total_quantity_achieved__{$$index$}"
+                                    ng-change="parseCustomConstraints(vms.model.act__total_quantity_achieved[$index],'.>=0', 'act', -1, 'act__total_quantity_achieved','Please enter a valid value')"
+                                    validation-error-to="act__total_quantity_achieved_error" validation="required" type="number"
+                                    class="form-control"/><span id="act__total_quantity_achieved__{$$index$}_error"
+                                                                class="field_error"></span></div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group"><label>Total Beneficiaries with Unknown Sex and Age</label><input
+                                    ng-model="vms.model.act__beneficiary_without_known_sex_age[$index]"
+                                    name="act__beneficiary_without_known_sex_age__{$$index$}"
+                                    ng-change="parseCustomConstraints(vms.model.act__beneficiary_without_known_sex_age[$index],'.>=0', 'act', -1, 'act__beneficiary_without_known_sex_age','Please enter a valid value')"
+                                    validation-error-to="act__beneficiary_without_known_sex_age_error" validation="required"
+                                    type="number" class="form-control"/><span
+                                    id="act__beneficiary_without_known_sex_age__{$$index$}_error"
+                                    class="field_error"></span></div>
                         </div>
 
 
@@ -930,37 +506,36 @@
     var instance_id = '{{ instance_id |safe }}'
 
 
-
-        function generateXML(inputObj, instance_id) {
-            var xw = new XMLWriter('UTF-8');
-            xw.writeStartDocument();
-            xw.writeStartElement(id_string);
-            xw.writeAttributeString('id', id_string);
-            xw.writeStartElement('formhub');
-            xw.writeStartElement('uuid');
-            xw.writeString('{{ form_uuid }}');
-            xw.writeEndElement();
-            xw.writeEndElement();
-            for (var ppx in inputObj) {
-                xmlrecursive(xw, ppx, inputObj[ppx]);
-            }
-            xw.writeStartElement('meta');
-            xw.writeStartElement('instanceID');
-            xw.writeString('uuid:' + guid());
-            xw.writeEndElement();
-            if (instance_id != '') {
-                var uuid = jsonObj[id_string].meta.instanceID.split(':')[1];
-                xw.writeStartElement('deprecatedID');
-                xw.writeString('uuid:' + uuid);
-                xw.writeEndElement();
-            }
-            xw.writeEndElement();
-            xw.writeEndElement();
-            xw.writeEndDocument();
-            var xml = xw.flush();
-            xw = undefined;
-            return xml;
+    function generateXML(inputObj, instance_id) {
+        var xw = new XMLWriter('UTF-8');
+        xw.writeStartDocument();
+        xw.writeStartElement(id_string);
+        xw.writeAttributeString('id', id_string);
+        xw.writeStartElement('formhub');
+        xw.writeStartElement('uuid');
+        xw.writeString('{{ form_uuid }}');
+        xw.writeEndElement();
+        xw.writeEndElement();
+        for (var ppx in inputObj) {
+            xmlrecursive(xw, ppx, inputObj[ppx]);
         }
+        xw.writeStartElement('meta');
+        xw.writeStartElement('instanceID');
+        xw.writeString('uuid:' + guid());
+        xw.writeEndElement();
+        if (instance_id != '') {
+            var uuid = jsonObj[id_string].meta.instanceID.split(':')[1];
+            xw.writeStartElement('deprecatedID');
+            xw.writeString('uuid:' + uuid);
+            xw.writeEndElement();
+        }
+        xw.writeEndElement();
+        xw.writeEndElement();
+        xw.writeEndDocument();
+        var xml = xw.flush();
+        xw = undefined;
+        return xml;
+    }
 
     function xmlrecursive(xml, key, value) {
         if (typeof value !== "undefined") {
@@ -1131,32 +706,29 @@
         };
 
         var domTree = {
-
+            "act__reached_child_male": "act",
+            "act__beneficiary_without_known_sex_age": "act",
             "act__activity": "act",
-            "act__cash_or_in_kind": "act",
-            "act__reached_total_hh": "act",
             "program_partner": "root",
+            "act__reached_adult_male": "act",
             "end": "root",
-            "zone": "root",
-            "act__activity_details": "act",
-            "act__sub_activity": "act",
+            "district": "root",
             "start": "root",
             "act__donor": "act",
-            "act__remarks": "act",
+            "act__reached_adult_female": "act",
             "implement_partner": "root",
-            "act__unit_per_hh": "act",
-            "border_transit_location": "root",
+            "act__reached_total_beneficiary": "act",
             "union_name": "root",
             "act__project_name": "act",
             "upazila": "root",
-            "response": "root",
+            "act__sub_activity": "act",
             "target_population": "root",
-            "district": "root",
+            "act__reached_child_female": "act",
             "camp": "root",
-            "act__reached_total_beneficiaries": "act",
+            "act__total_quantity_achieved": "act",
             "act": "root",
             "act_date": "root"
-        };
+        }
 
 
         var inputStore = {};
@@ -1437,42 +1009,21 @@
 
         $scope.$watch('vms.model.upazila', function (newValues, oldValues) {
 
-            if (newValues == '') {
+           // if (newValues == '') {
 
                 vms.model.union_name = '';
                 vms.model.camp = '';
-                vms.model.zone = '';
 
-            }
-
-            if (newValues != '202294') {
-
-                vms.model.border_transit_location = '';
-
-
-            }
+        //    }
 
 
         });
 
         $scope.$watch('vms.model.union_name', function (newValues, oldValues) {
 
-
             if (newValues == '') {
 
                 vms.model.camp = '';
-                vms.model.zone = '';
-
-            }
-
-        });
-
-        $scope.$watch('vms.model.camp', function (newValues, oldValues) {
-
-
-            if (newValues == '') {
-
-                vms.model.zone = '';
 
             }
 
@@ -1481,16 +1032,16 @@
 
         $scope.$watch('vms.model.act__donor', function (newValues, oldValues) {
 
-
-            console.log("Enter Here Doner ")
-            console.log(newValues)
-            console.log(oldValues)
-
             len = Object.keys(newValues).length
+
+            console.log(len)
 
             for (var i = 0; i < len; i++) {
 
                // if (newValues[i] != oldValues[i]) {
+
+
+                    console.log("Enter Here ")
 
                     $scope.getExternalOptions('/hcmp_report/get_opt_activity_list/' + id_string + '/' + newValues[i] + '/', 'N/A', 'opt_activity_list' + i);
 
@@ -1508,7 +1059,7 @@
 
             for (var i = 0; i < len; i++) {
 
-                //if (newValues[i] != oldValues[i]) {
+              //  if (newValues[i] != oldValues[i]) {
 
                     var donor = vms.model.act__donor[i]
 
@@ -1526,7 +1077,7 @@
 
             for (var i = 0; i < len; i++) {
 
-               // if (newValues[i] != oldValues[i]) {
+              //  if (newValues[i] != oldValues[i]) {
 
                     var donor = vms.model.act__donor[i]
                     var activity = vms.model.act__activity[i]
@@ -1534,7 +1085,7 @@
                     $scope.getExternalOptions('/hcmp_report/get_opt_project_list/' + id_string + '/' + donor + '/' + activity + '/' + newValues[i] + '/', 'N/A', 'opt_project_list' + i);
 
 
-               // }
+              //  }
             }
 
         }, true);
@@ -1542,23 +1093,9 @@
 
         $scope.$watch('vms.model.target_population', function (newValues, oldValues) {
 
-            if (newValues == '11' || newValues == '12') {
+            if (newValues !== '10') {
 
                 vms.model.camp = '';
-                vms.model.zone = '';
-
-
-            }
-
-            if (newValues == '13') {
-                vms.model.union_name = '';
-                vms.model.camp = '';
-                vms.model.zone = '';
-            }
-
-            if (newValues != '13') {
-
-                vms.model.border_transit_location = ''
             }
 
         });

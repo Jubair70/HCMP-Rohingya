@@ -830,7 +830,7 @@ def custom_data_view(request, username, id_string):
         column_query = db_test_column_query
         ACTIVATE_CUSTOM_VIEW_QUERY = True
 
-    submission_instance_query = "SELECT " + column_query + " FROM vwlogger_instance LEFT JOIN approval_instanceapproval app_inst ON app_inst.instance_id = vwlogger_instance.id WHERE xform_id = " + str(xform.id) + str(sub_query_user) + str(sub_query_date_range) + str(sub_query_status)
+    submission_instance_query = "SELECT " + column_query + " FROM vwlogger_instance LEFT JOIN approval_instanceapproval app_inst ON app_inst.instance_id = vwlogger_instance.id WHERE app_inst.status = 'Submitted' and xform_id = " + str(xform.id) + str(sub_query_user) + str(sub_query_date_range) + str(sub_query_status)
 
     '''
     if state_list=="":

@@ -28,8 +28,22 @@ Date : 30 April , 2019
 3. kobocat/onadata/apps/hcmp_report/templates/hcmp_report/activity_progress_site_imporovement_edit.html
 4. kobocat/onadata/apps/hcmp_report/views.py
 
-Date : 5 May , 2019
+Date : 5 May , 2019 (Not Deployed into Client server )
 
 1. kobocat/onadata/apps/hcmp_report/templates/hcmp_report/activity_progress_edit.html
 2. kobocat/onadata/apps/hcmp_report/templates/hcmp_report/activity_progress_site_imporovement_edit.html
+
+Date : 12 May , 2019 (Not Deployed into Client Server )
+
+1. kobocat-template/static/js/instance.js
+
+2.kobocat/onadata/apps/hcmp_report/templates/hcmp_report/activity_progress_edit.html
+3.kobocat/onadata/apps/hcmp_report/templates/hcmp_report/activity_progress_site_imporovement_edit.html
+4.kobocat/onadata/apps/hcmp_report/templates/hcmp_report/activity_progress_wash_edit.html
+
+5.kobocat/onadata/apps/hcmp_report/views.py
+6.kobocat/onadata/apps/viewer/views.py
+
+
+
 

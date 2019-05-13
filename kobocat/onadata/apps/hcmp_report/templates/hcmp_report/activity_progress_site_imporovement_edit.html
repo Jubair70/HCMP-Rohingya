@@ -1557,33 +1557,33 @@
 
         $scope.$watch('vms.model.donor', function (newValues, oldValues) {
 
-            if (newValues != oldValues) {
+           // if (newValues != oldValues) {
 
                 $scope.getExternalOptions('/hcmp_report/get_opt_activity_list/' + id_string + '/' + newValues + '/', 'N/A', 'opt_activity_list');
 
 
-            }
+          //  }
 
 
         }, true);
 
         $scope.$watch('vms.model.activity', function (newValues, oldValues) {
 
-            if (newValues != oldValues) {
+          //  if (newValues != oldValues) {
 
                 var donor = vms.model.donor
 
                 $scope.getExternalOptions('/hcmp_report/get_opt_sub_activity_list/' + id_string + '/' + donor + '/' + newValues + '/', 'N/A', 'opt_sub_activity_list');
 
 
-            }
+          //  }
 
 
         }, true);
 
         $scope.$watch('vms.model.sub_activity', function (newValues, oldValues) {
 
-            if (newValues != oldValues) {
+           // if (newValues != oldValues) {
 
                 var donor = vms.model.donor
                 var activity = vms.model.activity
@@ -1591,7 +1591,7 @@
                 $scope.getExternalOptions('/hcmp_report/get_opt_project_list/' + id_string + '/' + donor + '/' + activity + '/' + newValues + '/', 'N/A', 'opt_project_list');
 
 
-            }
+          //  }
 
 
         }, true);

@@ -139,7 +139,10 @@ urlpatterns = patterns('',
                        url(r'^get_settings/$', views.get_settings, name="get_settings"),
                        url(r'^edit_sector/(?P<sector_id>\d+)/(?P<tiles_id>\d+)/$', views.edit_sector,name='edit_sector'),
                        url(r'^delete_sector/(?P<sector_id>\d+)/(?P<tiles_id>\d+)/$', views.delete_sector,name='delete_sector'),
-
+                       url(r'^wash_4W_report/$', views.wash_4W_report, name="wash_4W_report"),
+                       url(r'^get_wash_4W_report/$', views.get_wash_4W_report, name="get_wash_4W_report"),
+                       url(r'^activity_matrix_report/$', views.activity_matrix_report, name="activity_matrix_report"),
+                       url(r'^get_activity_matrix_report/$', views.get_activity_matrix_report, name="get_activity_matrix_report"),
                        # ------------------- Configuration ------------------------------------------#
                     url(r'^sector_list/$', views.sector_list, name='sector_list'),
                     url(r'^project/(?P<sector_id>\d+)/$', views.project,name='project'),

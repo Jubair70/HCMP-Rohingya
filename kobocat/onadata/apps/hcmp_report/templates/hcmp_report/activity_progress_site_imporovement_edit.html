@@ -929,6 +929,16 @@
                         </div>
                     </div>
                     <div class="row">
+
+                        <div class="col-lg-3">
+                            <div class="form-group"><label>Activity Details</label><input ng-model="vms.model.activity_details"
+                                                                                name="activity_details" type="text"
+                                                                                validation-error-to="activity_details_error"
+                                                                                validation="required" type="number"
+                                                                                class="form-control"/><span
+                                    id="activity_details_error" class="field_error"></span></div>
+                        </div>
+
                         <div class="col-lg-6">
                             <div class="form-group"><label>GPS</label><input ng-model="vms.model.gps"
                                                                                 name="gps"
@@ -1222,6 +1232,7 @@
             "district": "root",
             "camp": "root",
             "number": "root",
+            "activity_details":"root",
             "start": "root",
             "length": "root",
             "union_name": "root",

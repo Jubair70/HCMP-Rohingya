@@ -167,6 +167,10 @@
                                 <option value="">-- Select --</option>
                                 <option value="10">Regular Program</option>
                                 <option value="11">Natural Disasters-2018</option>
+                                <option value="12">Natural Disasters-2019</option>
+                                <option value="13">Natural Disasters-2020</option>
+                                <option value="14">Natural Disasters-2021</option>
+
                             </select><span id="response_error" class="field_error"></span></div>
                         </div>
                     </div>
@@ -841,6 +845,8 @@
                                                                 class="field_error"></span>
                             </div>
                         </div>
+
+
                         <div class="col-lg-3">
                             <div class="form-group"><label>Reached Individual</label><input
                                     ng-model="vms.model.act__reached_total_beneficiaries[$index]"
@@ -852,6 +858,18 @@
                                     class="form-control"/><span id="act__reached_total_beneficiaries__{$$index$}_error"
                                                                 class="field_error"></span></div>
                         </div>
+
+                        <div class="col-lg-3">
+                            <div class="form-group"><label>Activity Details</label><input
+                                    ng-model="vms.model.act__activity_details[$index]"
+                                    name="act__activity_details__{$$index$}" type="text"
+                                    id="act__activity_details__{$$index$}"
+                                    validation-error-to="act__activity_details_error" validation="required"
+                                    type="number"
+                                    class="form-control"/><span id="act__activity_details__{$$index$}_error"
+                                                                class="field_error"></span></div>
+                        </div>
+
                         <div class="col-lg-3">
                             <div class="form-group"><label>Comments</label><input
                                     ng-model="vms.model.act__remarks[$index]"
@@ -1154,6 +1172,7 @@
             "district": "root",
             "camp": "root",
             "act__reached_total_beneficiaries": "act",
+            "act__activity_details":"act",
             "act": "root",
             "act_date": "root"
         };

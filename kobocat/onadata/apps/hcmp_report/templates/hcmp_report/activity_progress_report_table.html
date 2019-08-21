@@ -10,49 +10,48 @@
         <thead>
         <tr>
             <th class="parent-header"></th>
+            <th colspan="2" class="parent-header">WHERE</th>
             <th colspan="3" class="parent-header">WHO</th>
-            <th colspan="6" class="parent-header">WHAT</th>
-            <th colspan="4" class="parent-header">WHOM</th>
-            <th colspan="6" class="parent-header">Beneficiary</th>
+            <th colspan="7" class="parent-header">WHAT</th>
+            <th colspan="3" class="parent-header">WHOM</th>
+            <th colspan="7" class="parent-header">Beneficiary</th>
             <th colspan="3" class="parent-header">WHEN</th>
-            <th colspan="6" class="parent-header">WHERE</th>
+
             <th colspan="4" class="parent-header">Reporting Focal</th>
         </tr>
 
         <tr >
-            <td class="sub-header-no">NO</td>
-            <td class="sub-header-who">Programme Partner</td>
-            <td class="sub-header-who">Implementing Partner</td>
-            <td class="sub-header-who">Donor</td>
-            <td class="sub-header-what">Response</td>
-            <td class="sub-header-what">Activity Type</td>
-            <td class="sub-header-what">Sub Activity Type</td>
-            <td class="sub-header-what">Cash/ In Hand</td>
-            <td class="sub-header-what">Activity Details</td>
-            <td class="sub-header-what">Activity Status</td>
-            <td class="sub-header-whom">Unit Per HH</td>
-            <td class="sub-header-whom">Total Planned Households</td>
-            <td class="sub-header-whom">Total Reached Households</td>
-            <td class="sub-header-whom">Total Reached Individuals</td>
-            <td class="sub-header-beneficairy">Reached Toal Male (Individuals)</td>
-            <td class="sub-header-beneficairy">Reached Toal Female (Individuals)</td>
-            <td class="sub-header-beneficairy">Total Adult Female (>18y) Beneficiaries</td>
-            <td class="sub-header-beneficairy">Total Adult Male (>18y) Beneficiaries</td>
-            <td class="sub-header-beneficairy">Total Child Female (<18y) Beneficiaries</td>
-            <td class="sub-header-beneficairy">Total Child Male (<18y) Beneficiaries</td>
-            <td class="sub-header-when">Start Date (mm-dd-yy)</td>
-            <td class="sub-header-when">End Date (mm-dd-yy)</td>
-            <td class="sub-header-when">Last Update Date (mm-dd-yy)</td>
-            <td class="sub-header-where">District</td>
-            <td class="sub-header-where">Upazila</td>
-            <td class="sub-header-where">Union</td>
-            <td class="sub-header-where">Camp</td>
-            <td class="sub-header-where">Zone/Para</td>
-            <td class="sub-header-where">Target Population</td>
-            <td class="sub-header-reporting-focal">Comments</td>
-            <td class="sub-header-reporting-focal">Contact Focal Point</td>
-            <td class="sub-header-reporting-focal">Phone Number</td>
-            <td class="sub-header-reporting-focal">Email</td>
+            <th class="sub-header-no">NO</th>
+            <th class="sub-header-where">Target Population</th>
+            <th class="sub-header-where">Location</th>
+            <th class="sub-header-who">Implementing Partner</th>
+            <th class="sub-header-who">Programme Partner</th>
+            <th class="sub-header-who">Funding Organization</th>
+            <th class="sub-header-what">Response</th>
+            <th class="sub-header-what">Assistance Type</th>
+            <th class="sub-header-what">Activity Type</th>
+            <th class="sub-header-what">Sub Activity Type</th>
+            <th class="sub-header-what">Cash/In Kind/Combination</th>
+            <th class="sub-header-what">Activity Status</th>
+            <th class="sub-header-what">Activity Details</th>
+            <th class="sub-header-whom">Unit Per HH</th>
+            <th class="sub-header-whom">Total Planned Households</th>
+            <th class="sub-header-whom">Total Reached Households</th>
+            <th class="sub-header-beneficairy">Total Reached Individuals</th>
+            <th class="sub-header-beneficairy">Reached Toal Male (Individuals)</th>
+            <th class="sub-header-beneficairy">Reached Toal Female (Individuals)</th>
+            <th class="sub-header-beneficairy">Total Adult Female (>18y) Beneficiaries</th>
+            <th class="sub-header-beneficairy">Total Adult Male (>18y) Beneficiaries</th>
+            <th class="sub-header-beneficairy">Total Child Female (<18y) Beneficiaries</th>
+            <th class="sub-header-beneficairy">Total Child Male (<18y) Beneficiaries</th>
+            <th class="sub-header-when">Start Date (mm-dd-yy)</th>
+            <th class="sub-header-when">End Date (mm-dd-yy)</th>
+            <th class="sub-header-when">Last Update Date (mm-dd-yy)</th>
+
+            <th class="sub-header-reporting-focal">Comments</th>
+            <th class="sub-header-reporting-focal">Contact Focal Point</th>
+            <th class="sub-header-reporting-focal">Phone Number</th>
+            <th class="sub-header-reporting-focal">Email</th>
 
         </tr>
         </thead>
@@ -67,16 +66,29 @@
                     {{ data.r_sl }}
                     {% endif %}
                 </td>
-                <td> {% if data.r_program_partner == None  %}
+                <td> {% if data.r_target_population == None  %}
                     -
                     {% else %}
-                    {{ data.r_program_partner }}
+                    {{ data.r_target_population }}
+                    {% endif %}
+                </td>
+
+                <td> {% if data.r_district == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_district }}
                     {% endif %}
                 </td>
                 <td> {% if data.r_implement_partner == None  %}
                     -
                     {% else %}
                     {{ data.r_implement_partner }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_program_partner == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_program_partner }}
                     {% endif %}
                 </td>
                 <td> {% if data.r_donor == None  %}
@@ -91,6 +103,14 @@
                     {{ data.r_response }}
                     {% endif %}
                 </td>
+                <td> {% if data.r_upazila == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_upazila }}
+                    {% endif %}
+                </td>
+
+
                 <td> {% if data.r_act_activity == None  %}
                     -
                     {% else %}
@@ -109,16 +129,16 @@
                     {{ data.r_act_cash_in_hand }}
                     {% endif %}
                 </td>
-                <td> {% if data.r_act_activity_details == None  %}
-                    -
-                    {% else %}
-                    {{ data.r_act_activity_details }}
-                    {% endif %}
-                </td>
                 <td> {% if data.r_activity_status == None  %}
                     -
                     {% else %}
                     {{ data.r_activity_status }}
+                    {% endif %}
+                </td>
+                <td> {% if data.r_act_activity_details == None  %}
+                    -
+                    {% else %}
+                    {{ data.r_act_activity_details }}
                     {% endif %}
                 </td>
                 <td> {% if data.r_act_unit_per_hh == None  %}
@@ -197,42 +217,6 @@
                     -
                     {% else %}
                     {{ data.r_last_update_date }}
-                    {% endif %}
-                </td>
-                <td> {% if data.r_district == None  %}
-                    -
-                    {% else %}
-                    {{ data.r_district }}
-                    {% endif %}
-                </td>
-                <td> {% if data.r_upazila == None  %}
-                    -
-                    {% else %}
-                    {{ data.r_upazila }}
-                    {% endif %}
-                </td>
-                <td> {% if data.r_union_name == None  %}
-                    -
-                    {% else %}
-                    {{ data.r_union_name }}
-                    {% endif %}
-                </td>
-                <td> {% if data.r_camp == None  %}
-                    -
-                    {% else %}
-                    {{ data.r_camp }}
-                    {% endif %}
-                </td>
-                <td> {% if data.r_zone == None  %}
-                    -
-                    {% else %}
-                    {{ data.r_zone }}
-                    {% endif %}
-                </td>
-                <td> {% if data.r_target_population == None  %}
-                    -
-                    {% else %}
-                    {{ data.r_target_population }}
                     {% endif %}
                 </td>
                 <td> {% if data.r_act_remarks == None  %}
